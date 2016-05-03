@@ -16,6 +16,8 @@
 		77298CA51CD8586F00D09005 /* ZBDiscoverViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 77298CA41CD8586F00D09005 /* ZBDiscoverViewController.m */; };
 		77298CA81CD8589000D09005 /* ZBProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 77298CA71CD8589000D09005 /* ZBProfileViewController.m */; };
 		776177731CD8C18600F5FE03 /* ZBTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 776177721CD8C18600F5FE03 /* ZBTabBarController.m */; };
+		776177C71CD8DEF600F5FE03 /* ZBTestController.m in Sources */ = {isa = PBXBuildFile; fileRef = 776177C51CD8DEF600F5FE03 /* ZBTestController.m */; };
+		776177C81CD8DEF600F5FE03 /* ZBTestController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 776177C61CD8DEF600F5FE03 /* ZBTestController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,6 +39,9 @@
 		77298CA71CD8589000D09005 /* ZBProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZBProfileViewController.m; sourceTree = "<group>"; };
 		776177711CD8C18600F5FE03 /* ZBTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBTabBarController.h; sourceTree = "<group>"; };
 		776177721CD8C18600F5FE03 /* ZBTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZBTabBarController.m; sourceTree = "<group>"; };
+		776177C41CD8DEF600F5FE03 /* ZBTestController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ZBTestController.h; path = "XLWB/Classes/Main(主要)/Controller/ZBTestController.h"; sourceTree = SOURCE_ROOT; };
+		776177C51CD8DEF600F5FE03 /* ZBTestController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ZBTestController.m; path = "XLWB/Classes/Main(主要)/Controller/ZBTestController.m"; sourceTree = SOURCE_ROOT; };
+		776177C61CD8DEF600F5FE03 /* ZBTestController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ZBTestController.xib; path = "XLWB/Classes/Main(主要)/Controller/ZBTestController.xib"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -280,6 +285,9 @@
 		77298C981CD83A5800D09005 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				776177C41CD8DEF600F5FE03 /* ZBTestController.h */,
+				776177C51CD8DEF600F5FE03 /* ZBTestController.m */,
+				776177C61CD8DEF600F5FE03 /* ZBTestController.xib */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -357,6 +365,7 @@
 			files = (
 				77298C7B1CD83A4A00D09005 /* LaunchScreen.storyboard in Resources */,
 				77298C781CD83A4A00D09005 /* Assets.xcassets in Resources */,
+				776177C81CD8DEF600F5FE03 /* ZBTestController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -367,6 +376,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				776177C71CD8DEF600F5FE03 /* ZBTestController.m in Sources */,
 				77298CA21CD8584700D09005 /* ZBMessageCenterController.m in Sources */,
 				77298C701CD83A4A00D09005 /* AppDelegate.m in Sources */,
 				77298CA81CD8589000D09005 /* ZBProfileViewController.m in Sources */,

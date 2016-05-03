@@ -76,7 +76,9 @@
     
     childVc.view.backgroundColor = bgColor;
     
-    [self addChildViewController:childVc];
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:childVc];
+    
+    [self addChildViewController:nav];
     
     
 }
