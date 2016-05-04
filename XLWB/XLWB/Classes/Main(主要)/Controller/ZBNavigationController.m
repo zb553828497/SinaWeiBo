@@ -7,7 +7,7 @@
 //
 
 #import "ZBNavigationController.h"
-
+#import "ZBItemTool.h"
 @interface ZBNavigationController ()
 
 @end
@@ -31,31 +31,15 @@
         /* 当push时，隐藏底部的tabBar */
         viewController.hidesBottomBarWhenPushed = YES;
         
+        
+        
         /* 设置导航栏的内容 */
-        UIButton *backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [backBtn addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchUpInside];
+      
+         // 一定是viewController，不是self，否则设置的按钮图片不显示。浪费了1小时
+        viewController.navigationItem.leftBarButtonItem = [ZBItemTool ItemWithTarget:self action:@selector(back) image:@"navigationbar_back" HighlightImage:@"navigationbar_back_highlighted"];
         
-        // 设置图片
-        [backBtn setBackgroundImage:[UIImage imageNamed:@"navigationbar_back"] forState:UIControlStateNormal];
-        
-        [backBtn setBackgroundImage:[UIImage imageNamed:@"navigationbar_back_highlighted"] forState:UIControlStateHighlighted];
-        
-        // 设置尺寸
-        backBtn.zb_size = backBtn.currentBackgroundImage.size;
-        // 一定是viewController，不是self，否则设置的按钮图片不显示。浪费了1小时
-        viewController.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:backBtn];
-        
-        UIButton *moreBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [moreBtn addTarget:self action:@selector(more) forControlEvents:UIControlEventTouchUpInside];
-        
-        // 设置图片
-        [moreBtn setBackgroundImage:[UIImage imageNamed:@"navigationbar_more"] forState:UIControlStateNormal];
-        [moreBtn setBackgroundImage:[UIImage imageNamed:@"navigationbar_more_highlighted"] forState:UIControlStateHighlighted];
-        
-        // 设置尺寸
-        
-        moreBtn.zb_size = moreBtn.currentBackgroundImage.size;
-        viewController.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:moreBtn];
+        viewController.navigationItem.rightBarButtonItem = [ZBItemTool ItemWithTarget:self action:@selector(more) image:@"navigationbar_more" HighlightImage:@"navigationbar_more_highlighted"];
+    
     }
     
      [super pushViewController:viewController animated:animated];
