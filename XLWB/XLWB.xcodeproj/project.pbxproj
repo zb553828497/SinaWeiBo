@@ -8,12 +8,15 @@
 
 /* Begin PBXBuildFile section */
 		772606961CD9B76E00B88239 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 772606951CD9B76E00B88239 /* main.m */; };
+		772606991CD9B7AC00B88239 /* 增加.m in Sources */ = {isa = PBXBuildFile; fileRef = 772606981CD9B7AC00B88239 /* 增加.m */; };
 		77298C6D1CD83A4A00D09005 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 77298C6C1CD83A4A00D09005 /* main.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		772606941CD9B76E00B88239 /* main.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = main.h; sourceTree = "<group>"; };
 		772606951CD9B76E00B88239 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		772606971CD9B7AC00B88239 /* 增加.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "增加.h"; sourceTree = "<group>"; };
+		772606981CD9B7AC00B88239 /* 增加.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "增加.m"; sourceTree = "<group>"; };
 		77298C681CD83A4A00D09005 /* XLWB.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = XLWB.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		77298C6C1CD83A4A00D09005 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		77298C7C1CD83A4A00D09005 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -52,6 +55,8 @@
 				77298C7C1CD83A4A00D09005 /* Info.plist */,
 				772606941CD9B76E00B88239 /* main.h */,
 				772606951CD9B76E00B88239 /* main.m */,
+				772606971CD9B7AC00B88239 /* 增加.h */,
+				772606981CD9B7AC00B88239 /* 增加.m */,
 				77298C6B1CD83A4A00D09005 /* Supporting Files */,
 			);
 			path = XLWB;
@@ -132,6 +137,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				772606991CD9B7AC00B88239 /* 增加.m in Sources */,
 				772606961CD9B76E00B88239 /* main.m in Sources */,
 				77298C6D1CD83A4A00D09005 /* main.m in Sources */,
 			);
