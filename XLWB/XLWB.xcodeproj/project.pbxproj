@@ -13,6 +13,7 @@
 		772606901CD99F4900B88239 /* ZBNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7726068F1CD99F4900B88239 /* ZBNavigationController.m */; };
 		7726069D1CD9CE1500B88239 /* ZBTest2Controller.m in Sources */ = {isa = PBXBuildFile; fileRef = 7726069B1CD9CE1500B88239 /* ZBTest2Controller.m */; };
 		7726069E1CD9CE1500B88239 /* ZBTest2Controller.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7726069C1CD9CE1500B88239 /* ZBTest2Controller.xib */; };
+		772606A11CD9F24C00B88239 /* ZBItemTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 772606A01CD9F24C00B88239 /* ZBItemTool.m */; };
 		77298C6D1CD83A4A00D09005 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 77298C6C1CD83A4A00D09005 /* main.m */; };
 		77298C701CD83A4A00D09005 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 77298C6F1CD83A4A00D09005 /* AppDelegate.m */; };
 		77298C781CD83A4A00D09005 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 77298C771CD83A4A00D09005 /* Assets.xcassets */; };
@@ -35,6 +36,8 @@
 		7726069A1CD9CE1500B88239 /* ZBTest2Controller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBTest2Controller.h; sourceTree = "<group>"; };
 		7726069B1CD9CE1500B88239 /* ZBTest2Controller.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZBTest2Controller.m; sourceTree = "<group>"; };
 		7726069C1CD9CE1500B88239 /* ZBTest2Controller.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ZBTest2Controller.xib; sourceTree = "<group>"; };
+		7726069F1CD9F24C00B88239 /* ZBItemTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBItemTool.h; sourceTree = "<group>"; };
+		772606A01CD9F24C00B88239 /* ZBItemTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZBItemTool.m; sourceTree = "<group>"; };
 		77298C681CD83A4A00D09005 /* XLWB.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = XLWB.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		77298C6C1CD83A4A00D09005 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		77298C6E1CD83A4A00D09005 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -320,6 +323,8 @@
 		77298C981CD83A5800D09005 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				7726069F1CD9F24C00B88239 /* ZBItemTool.h */,
+				772606A01CD9F24C00B88239 /* ZBItemTool.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -403,6 +408,7 @@
 				7726068C1CD991C400B88239 /* ZBTestController.m in Sources */,
 				772606901CD99F4900B88239 /* ZBNavigationController.m in Sources */,
 				77298C9F1CD8580500D09005 /* ZBHomeViewController.m in Sources */,
+				772606A11CD9F24C00B88239 /* ZBItemTool.m in Sources */,
 				77298CA51CD8586F00D09005 /* ZBDiscoverViewController.m in Sources */,
 				772606881CD98B8D00B88239 /* UIView+Frame.m in Sources */,
 				776177731CD8C18600F5FE03 /* ZBTabBarController.m in Sources */,
