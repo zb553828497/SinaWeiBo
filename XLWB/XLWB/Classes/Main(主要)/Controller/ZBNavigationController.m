@@ -14,8 +14,30 @@
 
 @implementation ZBNavigationController
 
++(void)initialize{
+
+    // 设置整个项目所有item的主题样式
+      UIBarButtonItem *item = [UIBarButtonItem appearance];
+    
+    // 设置普通状态
+    NSMutableDictionary *textAttrs = [NSMutableDictionary dictionary];
+    /*
+     因为上面拿到了整个项目的所有的样式，
+     所以无论是根控制器还是子控制器，只要在通过这种形式navigationItem.rightBarButtonItem设置右侧按钮的文字，字体大小都会变为黄色，字号为13.
+     */
+     textAttrs[NSForegroundColorAttributeName] = [UIColor orangeColor];
+//等价于textAttrs[NSForegroundColorAttributeName] = ZBColor(231, 179, 37); 修改alpha,就是修改透明度
+
+    textAttrs[NSFontAttributeName] = [UIFont systemFontOfSize:13];
+    [item setTitleTextAttributes:textAttrs forState:UIControlStateNormal];
+    
+}
+
+
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    
 }
 
 // 重写这个方法，用于拦截所有push进来的控制器
@@ -31,7 +53,7 @@
         /* 当push时，隐藏底部的tabBar */
         viewController.hidesBottomBarWhenPushed = YES;
         
-        //为UIBarButtonItem扩充分类，替换之前的ZBItemTool,为的是见名知意
+
         
         /* 设置导航栏的内容 */
       

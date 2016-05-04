@@ -33,10 +33,24 @@
     [self addChildVc:profile title:@"我" image:@"tabbar_profile" selectedImage:@"tabbar_profile_selected" bgColor:ZBRandomColor];
 
 }
-
+/**
+ *  添加一个子控制器
+ *
+ *  @param childVc       子控制器
+ *  @param title         子控制器标题
+ *  @param image         图片
+ *  @param selectedImage 选中图片
+ *  @param bgColor       背景图片
+ */
 -(void)addChildVc:(UIViewController *)childVc title:(NSString *)title image:(NSString *)image selectedImage: (NSString *)selectedImage bgColor:(UIColor *)bgColor{
+    
     // 设置子控制器的文字和图片
-    childVc.tabBarItem.title = title;
+    childVc.title = title;   // 同时设置tabbar和navigationBar的文字(底部和顶部)
+    
+    /*
+    childVc.navigationItem = title;    // 设置navigationBar的文字(底部)
+    childVc.tabBarItem.title = title; // // 设置tabbar的文字(顶部)
+     */
     childVc.tabBarItem.image = [UIImage imageNamed:image];
     childVc.tabBarItem.selectedImage = [[UIImage imageNamed:selectedImage]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     
@@ -53,7 +67,7 @@
     childVc.view.backgroundColor = bgColor;
     //导航控制器的4个根控制器会执行 pushViewController方法，但是因为不满足条件if条件,所以不会执行if的内容,，所以这4个根控制器不会有自定设定的返回按钮,更多按钮。自定义设定的返回，更多按钮就是if的代码中设定的 
     ZBNavigationController *nav = [[ZBNavigationController alloc] initWithRootViewController:childVc];
-    
+    // 添加为子控制器
     [self addChildViewController:nav];
     
     

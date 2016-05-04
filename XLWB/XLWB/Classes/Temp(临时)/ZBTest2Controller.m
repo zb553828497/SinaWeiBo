@@ -7,7 +7,7 @@
 //
 
 #import "ZBTest2Controller.h"
-
+#import "UIBarButtonItem+Extension.h"
 @interface ZBTest2Controller ()
 
 @end
@@ -16,10 +16,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
+   
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"查看" style:0 target:self action:@selector(test2)];
+}
+-(void)test2{
 
-
-
+NSLog(@"---");
 }
 
 
