@@ -1,13 +1,13 @@
 //
-//  main.m
+//  main.h
 //  XLWB
 //
 //  Created by zhangbin on 16/5/4.
 //  Copyright © 2016年 zhangbin. All rights reserved.
 //
 
-#import "main.h"
+#import <Foundation/Foundation.h>
 
-@implementation main
+@interface main : NSObject
 
 @end

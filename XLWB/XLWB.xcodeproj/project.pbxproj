@@ -7,47 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		772606881CD98B8D00B88239 /* UIView+Frame.m in Sources */ = {isa = PBXBuildFile; fileRef = 772606871CD98B8D00B88239 /* UIView+Frame.m */; };
-		7726068C1CD991C400B88239 /* ZBTestController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7726068A1CD991C400B88239 /* ZBTestController.m */; };
-		7726068D1CD991C400B88239 /* ZBTestController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7726068B1CD991C400B88239 /* ZBTestController.xib */; };
-		772606901CD99F4900B88239 /* ZBNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7726068F1CD99F4900B88239 /* ZBNavigationController.m */; };
+		772606961CD9B76E00B88239 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 772606951CD9B76E00B88239 /* main.m */; };
 		77298C6D1CD83A4A00D09005 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 77298C6C1CD83A4A00D09005 /* main.m */; };
-		77298C701CD83A4A00D09005 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 77298C6F1CD83A4A00D09005 /* AppDelegate.m */; };
-		77298C781CD83A4A00D09005 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 77298C771CD83A4A00D09005 /* Assets.xcassets */; };
-		77298C7B1CD83A4A00D09005 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 77298C791CD83A4A00D09005 /* LaunchScreen.storyboard */; };
-		77298C9F1CD8580500D09005 /* ZBHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 77298C9E1CD8580500D09005 /* ZBHomeViewController.m */; };
-		77298CA21CD8584700D09005 /* ZBMessageCenterController.m in Sources */ = {isa = PBXBuildFile; fileRef = 77298CA11CD8584700D09005 /* ZBMessageCenterController.m */; };
-		77298CA51CD8586F00D09005 /* ZBDiscoverViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 77298CA41CD8586F00D09005 /* ZBDiscoverViewController.m */; };
-		77298CA81CD8589000D09005 /* ZBProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 77298CA71CD8589000D09005 /* ZBProfileViewController.m */; };
-		776177731CD8C18600F5FE03 /* ZBTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 776177721CD8C18600F5FE03 /* ZBTabBarController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		772606861CD98B8D00B88239 /* UIView+Frame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Frame.h"; sourceTree = "<group>"; };
-		772606871CD98B8D00B88239 /* UIView+Frame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Frame.m"; sourceTree = "<group>"; };
-		772606891CD991C400B88239 /* ZBTestController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBTestController.h; sourceTree = "<group>"; };
-		7726068A1CD991C400B88239 /* ZBTestController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZBTestController.m; sourceTree = "<group>"; };
-		7726068B1CD991C400B88239 /* ZBTestController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ZBTestController.xib; sourceTree = "<group>"; };
-		7726068E1CD99F4900B88239 /* ZBNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBNavigationController.h; sourceTree = "<group>"; };
-		7726068F1CD99F4900B88239 /* ZBNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZBNavigationController.m; sourceTree = "<group>"; };
+		772606941CD9B76E00B88239 /* main.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = main.h; sourceTree = "<group>"; };
+		772606951CD9B76E00B88239 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		77298C681CD83A4A00D09005 /* XLWB.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = XLWB.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		77298C6C1CD83A4A00D09005 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		77298C6E1CD83A4A00D09005 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		77298C6F1CD83A4A00D09005 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		77298C771CD83A4A00D09005 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		77298C7A1CD83A4A00D09005 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		77298C7C1CD83A4A00D09005 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		77298C9C1CD845AB00D09005 /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
-		77298C9D1CD8580500D09005 /* ZBHomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBHomeViewController.h; sourceTree = "<group>"; };
-		77298C9E1CD8580500D09005 /* ZBHomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZBHomeViewController.m; sourceTree = "<group>"; };
-		77298CA01CD8584700D09005 /* ZBMessageCenterController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBMessageCenterController.h; sourceTree = "<group>"; };
-		77298CA11CD8584700D09005 /* ZBMessageCenterController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZBMessageCenterController.m; sourceTree = "<group>"; };
-		77298CA31CD8586F00D09005 /* ZBDiscoverViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBDiscoverViewController.h; sourceTree = "<group>"; };
-		77298CA41CD8586F00D09005 /* ZBDiscoverViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZBDiscoverViewController.m; sourceTree = "<group>"; };
-		77298CA61CD8589000D09005 /* ZBProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBProfileViewController.h; sourceTree = "<group>"; };
-		77298CA71CD8589000D09005 /* ZBProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZBProfileViewController.m; sourceTree = "<group>"; };
-		776177711CD8C18600F5FE03 /* ZBTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBTabBarController.h; sourceTree = "<group>"; };
-		776177721CD8C18600F5FE03 /* ZBTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZBTabBarController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,90 +30,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		772606751CD98B1300B88239 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
-		772606761CD98B1300B88239 /* View */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		772606771CD98B2600B88239 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
-		772606781CD98B2600B88239 /* View */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		772606791CD98B2C00B88239 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
-		7726067A1CD98B2C00B88239 /* View */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		7726067B1CD98B3300B88239 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
-		7726067C1CD98B3300B88239 /* View */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		7726067D1CD98B3B00B88239 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
-		7726067E1CD98B3B00B88239 /* View */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		7726067F1CD98B4600B88239 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
-		772606801CD98B4F00B88239 /* View */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
 		77298C5F1CD83A4A00D09005 = {
 			isa = PBXGroup;
 			children = (
@@ -164,13 +49,9 @@
 		77298C6A1CD83A4A00D09005 /* XLWB */ = {
 			isa = PBXGroup;
 			children = (
-				77298C821CD83A5800D09005 /* Classes */,
-				77298C6E1CD83A4A00D09005 /* AppDelegate.h */,
-				77298C6F1CD83A4A00D09005 /* AppDelegate.m */,
-				77298C9C1CD845AB00D09005 /* PrefixHeader.pch */,
-				77298C771CD83A4A00D09005 /* Assets.xcassets */,
-				77298C791CD83A4A00D09005 /* LaunchScreen.storyboard */,
 				77298C7C1CD83A4A00D09005 /* Info.plist */,
+				772606941CD9B76E00B88239 /* main.h */,
+				772606951CD9B76E00B88239 /* main.m */,
 				77298C6B1CD83A4A00D09005 /* Supporting Files */,
 			);
 			path = XLWB;
@@ -182,138 +63,6 @@
 				77298C6C1CD83A4A00D09005 /* main.m */,
 			);
 			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		77298C821CD83A5800D09005 /* Classes */ = {
-			isa = PBXGroup;
-			children = (
-				77298C831CD83A5800D09005 /* (MessageCenter)消息 */,
-				77298C871CD83A5800D09005 /* Discover(发现) */,
-				77298C8B1CD83A5800D09005 /* Home(首页) */,
-				77298C8F1CD83A5800D09005 /* Main(主要) */,
-				77298C931CD83A5800D09005 /* Profile(我) */,
-				77298C971CD83A5800D09005 /* Temp(临时) */,
-			);
-			path = Classes;
-			sourceTree = "<group>";
-		};
-		77298C831CD83A5800D09005 /* (MessageCenter)消息 */ = {
-			isa = PBXGroup;
-			children = (
-				77298C841CD83A5800D09005 /* Controller */,
-				772606751CD98B1300B88239 /* Model */,
-				772606761CD98B1300B88239 /* View */,
-			);
-			path = "(MessageCenter)消息";
-			sourceTree = "<group>";
-		};
-		77298C841CD83A5800D09005 /* Controller */ = {
-			isa = PBXGroup;
-			children = (
-				77298CA01CD8584700D09005 /* ZBMessageCenterController.h */,
-				77298CA11CD8584700D09005 /* ZBMessageCenterController.m */,
-			);
-			path = Controller;
-			sourceTree = "<group>";
-		};
-		77298C871CD83A5800D09005 /* Discover(发现) */ = {
-			isa = PBXGroup;
-			children = (
-				772606771CD98B2600B88239 /* Model */,
-				772606781CD98B2600B88239 /* View */,
-				77298C881CD83A5800D09005 /* Controller */,
-			);
-			path = "Discover(发现)";
-			sourceTree = "<group>";
-		};
-		77298C881CD83A5800D09005 /* Controller */ = {
-			isa = PBXGroup;
-			children = (
-				77298CA31CD8586F00D09005 /* ZBDiscoverViewController.h */,
-				77298CA41CD8586F00D09005 /* ZBDiscoverViewController.m */,
-			);
-			path = Controller;
-			sourceTree = "<group>";
-		};
-		77298C8B1CD83A5800D09005 /* Home(首页) */ = {
-			isa = PBXGroup;
-			children = (
-				772606791CD98B2C00B88239 /* Model */,
-				7726067A1CD98B2C00B88239 /* View */,
-				77298C8C1CD83A5800D09005 /* Controller */,
-			);
-			path = "Home(首页)";
-			sourceTree = "<group>";
-		};
-		77298C8C1CD83A5800D09005 /* Controller */ = {
-			isa = PBXGroup;
-			children = (
-				77298C9D1CD8580500D09005 /* ZBHomeViewController.h */,
-				77298C9E1CD8580500D09005 /* ZBHomeViewController.m */,
-			);
-			path = Controller;
-			sourceTree = "<group>";
-		};
-		77298C8F1CD83A5800D09005 /* Main(主要) */ = {
-			isa = PBXGroup;
-			children = (
-				7726067B1CD98B3300B88239 /* Model */,
-				7726067C1CD98B3300B88239 /* View */,
-				77298C901CD83A5800D09005 /* Controller */,
-			);
-			path = "Main(主要)";
-			sourceTree = "<group>";
-		};
-		77298C901CD83A5800D09005 /* Controller */ = {
-			isa = PBXGroup;
-			children = (
-				776177711CD8C18600F5FE03 /* ZBTabBarController.h */,
-				776177721CD8C18600F5FE03 /* ZBTabBarController.m */,
-				7726068E1CD99F4900B88239 /* ZBNavigationController.h */,
-				7726068F1CD99F4900B88239 /* ZBNavigationController.m */,
-			);
-			path = Controller;
-			sourceTree = "<group>";
-		};
-		77298C931CD83A5800D09005 /* Profile(我) */ = {
-			isa = PBXGroup;
-			children = (
-				7726067D1CD98B3B00B88239 /* Model */,
-				7726067E1CD98B3B00B88239 /* View */,
-				77298C941CD83A5800D09005 /* Controller */,
-			);
-			path = "Profile(我)";
-			sourceTree = "<group>";
-		};
-		77298C941CD83A5800D09005 /* Controller */ = {
-			isa = PBXGroup;
-			children = (
-				77298CA61CD8589000D09005 /* ZBProfileViewController.h */,
-				77298CA71CD8589000D09005 /* ZBProfileViewController.m */,
-			);
-			path = Controller;
-			sourceTree = "<group>";
-		};
-		77298C971CD83A5800D09005 /* Temp(临时) */ = {
-			isa = PBXGroup;
-			children = (
-				772606861CD98B8D00B88239 /* UIView+Frame.h */,
-				772606871CD98B8D00B88239 /* UIView+Frame.m */,
-				772606801CD98B4F00B88239 /* View */,
-				7726067F1CD98B4600B88239 /* Model */,
-				77298C981CD83A5800D09005 /* Controller */,
-				772606891CD991C400B88239 /* ZBTestController.h */,
-				7726068A1CD991C400B88239 /* ZBTestController.m */,
-				7726068B1CD991C400B88239 /* ZBTestController.xib */,
-			);
-			path = "Temp(临时)";
-			sourceTree = "<group>";
-		};
-		77298C981CD83A5800D09005 /* Controller */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Controller;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -373,9 +122,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				77298C7B1CD83A4A00D09005 /* LaunchScreen.storyboard in Resources */,
-				77298C781CD83A4A00D09005 /* Assets.xcassets in Resources */,
-				7726068D1CD991C400B88239 /* ZBTestController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -386,31 +132,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				77298CA21CD8584700D09005 /* ZBMessageCenterController.m in Sources */,
-				77298C701CD83A4A00D09005 /* AppDelegate.m in Sources */,
-				77298CA81CD8589000D09005 /* ZBProfileViewController.m in Sources */,
+				772606961CD9B76E00B88239 /* main.m in Sources */,
 				77298C6D1CD83A4A00D09005 /* main.m in Sources */,
-				7726068C1CD991C400B88239 /* ZBTestController.m in Sources */,
-				772606901CD99F4900B88239 /* ZBNavigationController.m in Sources */,
-				77298C9F1CD8580500D09005 /* ZBHomeViewController.m in Sources */,
-				77298CA51CD8586F00D09005 /* ZBDiscoverViewController.m in Sources */,
-				772606881CD98B8D00B88239 /* UIView+Frame.m in Sources */,
-				776177731CD8C18600F5FE03 /* ZBTabBarController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXVariantGroup section */
-		77298C791CD83A4A00D09005 /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				77298C7A1CD83A4A00D09005 /* Base */,
-			);
-			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		77298C7D1CD83A4A00D09005 /* Debug */ = {
