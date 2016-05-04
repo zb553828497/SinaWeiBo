@@ -7,10 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		7726066E1CD9843300B88239 /* ZBNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7726066D1CD9843300B88239 /* ZBNavigationController.m */; };
 		772606881CD98B8D00B88239 /* UIView+Frame.m in Sources */ = {isa = PBXBuildFile; fileRef = 772606871CD98B8D00B88239 /* UIView+Frame.m */; };
 		7726068C1CD991C400B88239 /* ZBTestController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7726068A1CD991C400B88239 /* ZBTestController.m */; };
 		7726068D1CD991C400B88239 /* ZBTestController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7726068B1CD991C400B88239 /* ZBTestController.xib */; };
+		772606901CD99F4900B88239 /* ZBNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7726068F1CD99F4900B88239 /* ZBNavigationController.m */; };
 		77298C6D1CD83A4A00D09005 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 77298C6C1CD83A4A00D09005 /* main.m */; };
 		77298C701CD83A4A00D09005 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 77298C6F1CD83A4A00D09005 /* AppDelegate.m */; };
 		77298C781CD83A4A00D09005 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 77298C771CD83A4A00D09005 /* Assets.xcassets */; };
@@ -23,13 +23,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		7726066C1CD9843300B88239 /* ZBNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBNavigationController.h; sourceTree = "<group>"; };
-		7726066D1CD9843300B88239 /* ZBNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZBNavigationController.m; sourceTree = "<group>"; };
 		772606861CD98B8D00B88239 /* UIView+Frame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Frame.h"; sourceTree = "<group>"; };
 		772606871CD98B8D00B88239 /* UIView+Frame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Frame.m"; sourceTree = "<group>"; };
 		772606891CD991C400B88239 /* ZBTestController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBTestController.h; sourceTree = "<group>"; };
 		7726068A1CD991C400B88239 /* ZBTestController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZBTestController.m; sourceTree = "<group>"; };
 		7726068B1CD991C400B88239 /* ZBTestController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ZBTestController.xib; sourceTree = "<group>"; };
+		7726068E1CD99F4900B88239 /* ZBNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBNavigationController.h; sourceTree = "<group>"; };
+		7726068F1CD99F4900B88239 /* ZBNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZBNavigationController.m; sourceTree = "<group>"; };
 		77298C681CD83A4A00D09005 /* XLWB.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = XLWB.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		77298C6C1CD83A4A00D09005 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		77298C6E1CD83A4A00D09005 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -269,8 +269,8 @@
 			children = (
 				776177711CD8C18600F5FE03 /* ZBTabBarController.h */,
 				776177721CD8C18600F5FE03 /* ZBTabBarController.m */,
-				7726066C1CD9843300B88239 /* ZBNavigationController.h */,
-				7726066D1CD9843300B88239 /* ZBNavigationController.m */,
+				7726068E1CD99F4900B88239 /* ZBNavigationController.h */,
+				7726068F1CD99F4900B88239 /* ZBNavigationController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -388,10 +388,10 @@
 			files = (
 				77298CA21CD8584700D09005 /* ZBMessageCenterController.m in Sources */,
 				77298C701CD83A4A00D09005 /* AppDelegate.m in Sources */,
-				7726066E1CD9843300B88239 /* ZBNavigationController.m in Sources */,
 				77298CA81CD8589000D09005 /* ZBProfileViewController.m in Sources */,
 				77298C6D1CD83A4A00D09005 /* main.m in Sources */,
 				7726068C1CD991C400B88239 /* ZBTestController.m in Sources */,
+				772606901CD99F4900B88239 /* ZBNavigationController.m in Sources */,
 				77298C9F1CD8580500D09005 /* ZBHomeViewController.m in Sources */,
 				77298CA51CD8586F00D09005 /* ZBDiscoverViewController.m in Sources */,
 				772606881CD98B8D00B88239 /* UIView+Frame.m in Sources */,
