@@ -8,7 +8,7 @@
 
 #import "ZBHomeViewController.h"
 #import "ZBTestController.h"
-#import "ZBItemTool.h"
+#import "UIBarButtonItem+Extension.h"
 @interface ZBHomeViewController ()
 
 @end
@@ -18,8 +18,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // 必须有self作为参数，这样ZBItemTool类才能拿到self，才能在ZBItemTool类中将self作为addTarget的参数，如果没有self作为参数，ZBItemTool类直接使用self，这个self就是ZBItemTool类的对象
-    self.navigationItem.leftBarButtonItem = [ZBItemTool ItemWithTarget:self action:@selector(friendsearch) image:@"navigationbar_friendsearch" HighlightImage:@"navigationbar_friendsearch_highlighted"];
-    self.navigationItem.rightBarButtonItem = [ZBItemTool ItemWithTarget:self action:@selector(pop) image:@"navigationbar_pop" HighlightImage:@"navigationbar_pop_highlighted"];
+    self.navigationItem.leftBarButtonItem = [UIBarButtonItem ItemWithTarget:self action:@selector(friendsearch) image:@"navigationbar_friendsearch" HighlightImage:@"navigationbar_friendsearch_highlighted"];
+    self.navigationItem.rightBarButtonItem = [UIBarButtonItem ItemWithTarget:self action:@selector(pop) image:@"navigationbar_pop" HighlightImage:@"navigationbar_pop_highlighted"];
    }
 
 

@@ -1,14 +1,14 @@
 //
-//  ZBItemTool.m
+//  UIBarButtonItem+Extension.m
 //  XLWB
 //
 //  Created by zhangbin on 16/5/4.
 //  Copyright © 2016年 zhangbin. All rights reserved.
 //
 
-#import "ZBItemTool.h"
+#import "UIBarButtonItem+Extension.h"
 
-@implementation ZBItemTool
+@implementation UIBarButtonItem (Extension)
 
 // 抽取出一个方法的原则:变化的变为参数
 // addTarget之前为self，这里就不能用self，必须改成外界传递过的参数，这样参数才为外界的self

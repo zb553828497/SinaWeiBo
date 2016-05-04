@@ -7,7 +7,7 @@
 //
 
 #import "ZBNavigationController.h"
-#import "ZBItemTool.h"
+#import "UIBarButtonItem+Extension.h"
 @interface ZBNavigationController ()
 
 @end
@@ -31,14 +31,15 @@
         /* 当push时，隐藏底部的tabBar */
         viewController.hidesBottomBarWhenPushed = YES;
         
-        
+        //为UIBarButtonItem扩充分类，替换之前的ZBItemTool,为的是见名知意
         
         /* 设置导航栏的内容 */
       
          // 一定是viewController，不是self，否则设置的按钮图片不显示。浪费了1小时
-        viewController.navigationItem.leftBarButtonItem = [ZBItemTool ItemWithTarget:self action:@selector(back) image:@"navigationbar_back" HighlightImage:@"navigationbar_back_highlighted"];
+        // 为UIBarButtonItem类扩充分类，要用UIBarButtonItem类名直接调用分类中的方法，不要用分类的名字调用哦
+        viewController.navigationItem.leftBarButtonItem = [UIBarButtonItem ItemWithTarget:self action:@selector(back) image:@"navigationbar_back" HighlightImage:@"navigationbar_back_highlighted"];
         
-        viewController.navigationItem.rightBarButtonItem = [ZBItemTool ItemWithTarget:self action:@selector(more) image:@"navigationbar_more" HighlightImage:@"navigationbar_more_highlighted"];
+        viewController.navigationItem.rightBarButtonItem = [UIBarButtonItem ItemWithTarget:self action:@selector(more) image:@"navigationbar_more" HighlightImage:@"navigationbar_more_highlighted"];
     
     }
     
