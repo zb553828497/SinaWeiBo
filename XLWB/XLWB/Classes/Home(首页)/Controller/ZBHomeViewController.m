@@ -16,7 +16,34 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.navigationItem.leftBarButtonItem = [self ItemWithaction:@selector(friendsearch) image:@"navigationbar_friendsearch" HighlightImage:@"navigationbar_friendsearch_highlighted"];
+    self.navigationItem.rightBarButtonItem = [self ItemWithaction:@selector(pop) image:@"navigationbar_pop" HighlightImage:@"navigationbar_pop__highlighted"];
    }
+
+// 抽取出一个方法的原则:变化的变为参数
+-(UIBarButtonItem *)ItemWithaction:(SEL)action image:(NSString *)image HighlightImage:(NSString *)HighlightImage{
+    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [btn addTarget:self action:action  forControlEvents:UIControlEventTouchUpInside];
+    
+    // 设置图片
+    [btn setBackgroundImage:[UIImage imageNamed:image] forState:UIControlStateNormal];
+    
+    [btn setBackgroundImage:[UIImage imageNamed:HighlightImage] forState:UIControlStateHighlighted];
+    // 设置尺寸
+    btn.zb_size = btn.currentBackgroundImage.size;
+    
+    return [[UIBarButtonItem alloc] initWithCustomView:btn];
+;
+}
+-(void)friendsearch{
+
+}
+-(void)pop{
+
+
+}
+
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     
