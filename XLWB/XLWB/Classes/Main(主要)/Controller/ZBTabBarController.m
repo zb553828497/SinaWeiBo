@@ -51,7 +51,7 @@
     [childVc.tabBarItem setTitleTextAttributes:selectTextAttrs forState:UIControlStateSelected];
     
     childVc.view.backgroundColor = bgColor;
-    
+    //导航控制器的4个根控制器会执行 pushViewController方法，但是因为不满足条件if条件,所以不会执行if的内容,，所以这4个根控制器不会有自定设定的返回按钮,更多按钮。自定义设定的返回，更多按钮就是if的代码中设定的 
     ZBNavigationController *nav = [[ZBNavigationController alloc] initWithRootViewController:childVc];
     
     [self addChildViewController:nav];

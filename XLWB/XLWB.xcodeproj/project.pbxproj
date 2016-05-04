@@ -11,6 +11,8 @@
 		7726068C1CD991C400B88239 /* ZBTestController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7726068A1CD991C400B88239 /* ZBTestController.m */; };
 		7726068D1CD991C400B88239 /* ZBTestController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7726068B1CD991C400B88239 /* ZBTestController.xib */; };
 		772606901CD99F4900B88239 /* ZBNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7726068F1CD99F4900B88239 /* ZBNavigationController.m */; };
+		7726069D1CD9CE1500B88239 /* ZBTest2Controller.m in Sources */ = {isa = PBXBuildFile; fileRef = 7726069B1CD9CE1500B88239 /* ZBTest2Controller.m */; };
+		7726069E1CD9CE1500B88239 /* ZBTest2Controller.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7726069C1CD9CE1500B88239 /* ZBTest2Controller.xib */; };
 		77298C6D1CD83A4A00D09005 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 77298C6C1CD83A4A00D09005 /* main.m */; };
 		77298C701CD83A4A00D09005 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 77298C6F1CD83A4A00D09005 /* AppDelegate.m */; };
 		77298C781CD83A4A00D09005 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 77298C771CD83A4A00D09005 /* Assets.xcassets */; };
@@ -30,6 +32,9 @@
 		7726068B1CD991C400B88239 /* ZBTestController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ZBTestController.xib; sourceTree = "<group>"; };
 		7726068E1CD99F4900B88239 /* ZBNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBNavigationController.h; sourceTree = "<group>"; };
 		7726068F1CD99F4900B88239 /* ZBNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZBNavigationController.m; sourceTree = "<group>"; };
+		7726069A1CD9CE1500B88239 /* ZBTest2Controller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBTest2Controller.h; sourceTree = "<group>"; };
+		7726069B1CD9CE1500B88239 /* ZBTest2Controller.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZBTest2Controller.m; sourceTree = "<group>"; };
+		7726069C1CD9CE1500B88239 /* ZBTest2Controller.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ZBTest2Controller.xib; sourceTree = "<group>"; };
 		77298C681CD83A4A00D09005 /* XLWB.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = XLWB.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		77298C6C1CD83A4A00D09005 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		77298C6E1CD83A4A00D09005 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -305,6 +310,9 @@
 				772606891CD991C400B88239 /* ZBTestController.h */,
 				7726068A1CD991C400B88239 /* ZBTestController.m */,
 				7726068B1CD991C400B88239 /* ZBTestController.xib */,
+				7726069A1CD9CE1500B88239 /* ZBTest2Controller.h */,
+				7726069B1CD9CE1500B88239 /* ZBTest2Controller.m */,
+				7726069C1CD9CE1500B88239 /* ZBTest2Controller.xib */,
 			);
 			path = "Temp(临时)";
 			sourceTree = "<group>";
@@ -373,6 +381,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7726069E1CD9CE1500B88239 /* ZBTest2Controller.xib in Resources */,
 				77298C7B1CD83A4A00D09005 /* LaunchScreen.storyboard in Resources */,
 				77298C781CD83A4A00D09005 /* Assets.xcassets in Resources */,
 				7726068D1CD991C400B88239 /* ZBTestController.xib in Resources */,
@@ -390,6 +399,7 @@
 				77298C701CD83A4A00D09005 /* AppDelegate.m in Sources */,
 				77298CA81CD8589000D09005 /* ZBProfileViewController.m in Sources */,
 				77298C6D1CD83A4A00D09005 /* main.m in Sources */,
+				7726069D1CD9CE1500B88239 /* ZBTest2Controller.m in Sources */,
 				7726068C1CD991C400B88239 /* ZBTestController.m in Sources */,
 				772606901CD99F4900B88239 /* ZBNavigationController.m in Sources */,
 				77298C9F1CD8580500D09005 /* ZBHomeViewController.m in Sources */,
