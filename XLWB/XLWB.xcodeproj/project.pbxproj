@@ -22,6 +22,7 @@
 		77298CA21CD8584700D09005 /* ZBMessageCenterController.m in Sources */ = {isa = PBXBuildFile; fileRef = 77298CA11CD8584700D09005 /* ZBMessageCenterController.m */; };
 		77298CA51CD8586F00D09005 /* ZBDiscoverViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 77298CA41CD8586F00D09005 /* ZBDiscoverViewController.m */; };
 		77298CA81CD8589000D09005 /* ZBProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 77298CA71CD8589000D09005 /* ZBProfileViewController.m */; };
+		7740304D1CDDC73F009CAFA6 /* ZBSearchBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 7740304C1CDDC73F009CAFA6 /* ZBSearchBar.m */; };
 		776177731CD8C18600F5FE03 /* ZBTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 776177721CD8C18600F5FE03 /* ZBTabBarController.m */; };
 /* End PBXBuildFile section */
 
@@ -54,6 +55,8 @@
 		77298CA41CD8586F00D09005 /* ZBDiscoverViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZBDiscoverViewController.m; sourceTree = "<group>"; };
 		77298CA61CD8589000D09005 /* ZBProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBProfileViewController.h; sourceTree = "<group>"; };
 		77298CA71CD8589000D09005 /* ZBProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZBProfileViewController.m; sourceTree = "<group>"; };
+		7740304B1CDDC73F009CAFA6 /* ZBSearchBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBSearchBar.h; sourceTree = "<group>"; };
+		7740304C1CDDC73F009CAFA6 /* ZBSearchBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZBSearchBar.m; sourceTree = "<group>"; };
 		776177711CD8C18600F5FE03 /* ZBTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBTabBarController.h; sourceTree = "<group>"; };
 		776177721CD8C18600F5FE03 /* ZBTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZBTabBarController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -133,20 +136,6 @@
 			sourceTree = "<group>";
 		};
 		7726067E1CD98B3B00B88239 /* View */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		7726067F1CD98B4600B88239 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
-		772606801CD98B4F00B88239 /* View */ = {
 			isa = PBXGroup;
 			children = (
 			);
@@ -317,24 +306,16 @@
 			children = (
 				772606861CD98B8D00B88239 /* UIView+Frame.h */,
 				772606871CD98B8D00B88239 /* UIView+Frame.m */,
-				772606801CD98B4F00B88239 /* View */,
-				7726067F1CD98B4600B88239 /* Model */,
-				77298C981CD83A5800D09005 /* Controller */,
 				772606891CD991C400B88239 /* ZBTestController.h */,
 				7726068A1CD991C400B88239 /* ZBTestController.m */,
 				7726068B1CD991C400B88239 /* ZBTestController.xib */,
 				7726069A1CD9CE1500B88239 /* ZBTest2Controller.h */,
 				7726069B1CD9CE1500B88239 /* ZBTest2Controller.m */,
 				7726069C1CD9CE1500B88239 /* ZBTest2Controller.xib */,
+				7740304B1CDDC73F009CAFA6 /* ZBSearchBar.h */,
+				7740304C1CDDC73F009CAFA6 /* ZBSearchBar.m */,
 			);
 			path = "Temp(临时)";
-			sourceTree = "<group>";
-		};
-		77298C981CD83A5800D09005 /* Controller */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Controller;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -411,6 +392,7 @@
 				77298CA21CD8584700D09005 /* ZBMessageCenterController.m in Sources */,
 				77298C701CD83A4A00D09005 /* AppDelegate.m in Sources */,
 				77298CA81CD8589000D09005 /* ZBProfileViewController.m in Sources */,
+				7740304D1CDDC73F009CAFA6 /* ZBSearchBar.m in Sources */,
 				77298C6D1CD83A4A00D09005 /* main.m in Sources */,
 				7726069D1CD9CE1500B88239 /* ZBTest2Controller.m in Sources */,
 				7726068C1CD991C400B88239 /* ZBTestController.m in Sources */,
