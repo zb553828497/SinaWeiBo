@@ -19,6 +19,7 @@
     [super viewDidLoad];
       self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"设置" style:0 target:self action:@selector(setting)];
     
+    ZBLog(@"ZBMessageCenterController--viewDidLoad");
    }
 
 -(void)setting{

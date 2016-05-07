@@ -25,12 +25,16 @@
      因为上面拿到了整个项目的所有的样式，
      所以无论是根控制器还是子控制器，只要在通过这种形式navigationItem.rightBarButtonItem设置右侧按钮的文字，字体大小都会变为黄色，字号为13.
      */
-     textAttrs[NSForegroundColorAttributeName] = [UIColor orangeColor];
-//等价于textAttrs[NSForegroundColorAttributeName] = ZBColor(231, 179, 37); 修改alpha,就是修改透明度
-
+    textAttrs[NSForegroundColorAttributeName] = [UIColor orangeColor];
+////等价于textAttrs[NSForegroundColorAttributeName] = ZBColor(231, 179, 37); 修改alpha,就是修改透明度
     textAttrs[NSFontAttributeName] = [UIFont systemFontOfSize:13];
     [item setTitleTextAttributes:textAttrs forState:UIControlStateNormal];
     
+    // 设置不可用状态
+    NSMutableDictionary *disableTextAttrs = [NSMutableDictionary dictionary];
+    disableTextAttrs[NSForegroundColorAttributeName] = [UIColor colorWithRed:0.6 green:0.6 blue:0.6 alpha:0.7];
+    disableTextAttrs[NSFontAttributeName] = [UIFont systemFontOfSize:13];
+    [item setTitleTextAttributes:disableTextAttrs forState:UIControlStateDisabled];
 }
 
 
@@ -46,7 +50,7 @@
    
     // 初次运行，发现各个控制器的self.viewControllers.count都为1
     // 点击首页控制器,发现self.viewControllers.count为2，
-    //    NSLog(@"%ld %@",self.childViewControllers.count,viewController);//NSLog(@"%--ld--%@--",self.viewControllers.count,viewController);
+    //    ZBLog(@"%ld %@",self.childViewControllers.count,viewController);//ZBLog(@"%--ld--%@--",self.viewControllers.count,viewController);
     
     // 非根控制器才执行{}的内容
     if(self.viewControllers.count > 0){
