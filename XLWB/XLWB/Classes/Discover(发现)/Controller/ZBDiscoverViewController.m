@@ -18,10 +18,6 @@
     [super viewDidLoad];
     
     ZBLog(@"ZBMessageCenterController--viewDidLoad");
-    // 导航栏搜索框
-    UITextField *searchBar = [ZBSearchBar searchBar];
-    searchBar.zb_width = 400;
-    searchBar.zb_height = 30;
-    self.navigationItem.titleView = searchBar;
+  
 }
 @end
