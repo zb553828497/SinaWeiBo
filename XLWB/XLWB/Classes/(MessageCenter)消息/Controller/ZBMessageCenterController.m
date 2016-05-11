@@ -20,7 +20,7 @@
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"写私信" style:UIBarButtonItemStylePlain target:self action:@selector(composeMsg)];
 
-ZBLog(@"ZBMessageCenterController--viewDidLoad");
+//ZBLog(@"ZBMessageCenterController--viewDidLoad");
   }
 //在控制器的view即将显示的时候，让导航栏右边的按钮不能点击
 -(void)viewWillAppear:(BOOL)animated{
@@ -34,6 +34,6 @@ ZBLog(@"ZBMessageCenterController--viewDidLoad");
 -(void)composeMsg{
     
     
-NSLog(@"%s",__func__);
+// NSLog(@"%s",__func__);
 }
 @end

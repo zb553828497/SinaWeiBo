@@ -126,14 +126,24 @@
     // 将转换坐标系之后，系统重新计算得到的坐标，获得按钮的最大Y值，赋值给灰色图片的y值
     self.containerView.zb_Y = CGRectGetMaxY(newFrame);
     
-
-
+    
+    // 通知外界的代理，自己显示了
+    if ([self.delegate respondsToSelector:@selector(DropDownMenuDidShow:)]) {
+        [self.delegate DropDownMenuDidShow:self];
+    }
 }
 /**
  *  销毁
  */
 -(void)dismiss{
     [self removeFromSuperview];
+    
+    // 通知代理，自己被销毁了。
+    // 目的:改变标题的图片按钮方向
+    if([self.delegate respondsToSelector:@selector(DropDownMenuDidDismiss:)]){
+        // 通过代码最后面的self 理解代理的作用   传值？？
+        [self.delegate DropDownMenuDidDismiss:self];
+    }
 }
 // 点击屏幕，移除当前的HWDropdownMenu。这样就能点击之前被HWDropdownMenu覆盖的界面了
 -(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{

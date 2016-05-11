@@ -8,7 +8,7 @@
       "resizing" : {
         "mode" : "3-part-vertical",
         "center" : {
-          "mode" : "tile",
+          "mode" : "stretch",
           "height" : 1
         },
         "cap-insets" : {

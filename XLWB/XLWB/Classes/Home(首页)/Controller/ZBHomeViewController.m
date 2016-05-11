@@ -14,8 +14,8 @@
 #import "ZBSearchBar.h"
 #import "ZBDropDownMenu.h"
 #import "ZBTitleMenuViewController.h"
-@interface ZBHomeViewController ()
-
+@interface ZBHomeViewController ()<ZBDropDownMenuDelegate>
+@property(nonatomic,weak)UIButton *titleButton;
 @end
 
 @implementation ZBHomeViewController
@@ -26,7 +26,6 @@
     self.navigationItem.leftBarButtonItem = [UIBarButtonItem ItemWithTarget:self action:@selector(friendsearch) image:@"navigationbar_friendsearch" HighlightImage:@"navigationbar_friendsearch_highlighted"];
     self.navigationItem.rightBarButtonItem = [UIBarButtonItem ItemWithTarget:self action:@selector(pop) image:@"navigationbar_pop" HighlightImage:@"navigationbar_pop_highlighted"];
     
-    ZBLog(@"ZBMessageCenterController--viewDidLoad");
     
     /** 中间的标题按钮*/
     UIButton *titleButton = [[UIButton alloc] init];
@@ -54,7 +53,7 @@
     self.navigationItem.titleView = titleButton;
     // 如果图片的某个方向上不规则，比如有突起，那么这个方向最好不要拉伸,否则凸起可能消失，或者凸起会移动位置
     // 原因: 保护凸起部位，拉伸图片之后,凸起部位会移动位置。拉伸凸起部位，拉伸图片之后凸起部位会消失
-
+    self.titleButton = titleButton;
 }
 /**
  *  标题点击
@@ -62,6 +61,8 @@
 -(void)titleClick:(UIButton *)titleButton{
     // 1.创建下拉菜单
     ZBDropDownMenu *menu = [ZBDropDownMenu menu];
+    // 设置ZBDropDownMenu的代理为当前控制器，如果不写这句，代理方法将不会执行。浪费1小时
+    menu.delegate = self;
     
     // 2.设置内容
     ZBTitleMenuViewController *VC = [[ZBTitleMenuViewController alloc] init];
@@ -73,6 +74,26 @@
     [menu Show:titleButton];
 
 }
+/**
+ *  下拉菜单被销毁了
+ *
+ *  @param menu <#menu description#>
+ */
+-(void)DropDownMenuDidDismiss:(ZBDropDownMenu *)menu{
+    NSLog(@"箭头朝下");
+    // 让箭头向下
+    [self.titleButton setImage:[UIImage imageNamed:@"navigationbar_arrow_down"] forState:UIControlStateNormal];
+}
+
+-(void)DropDownMenuDidShow:(ZBDropDownMenu *)menu{
+NSLog(@"箭头朝上");
+    // 箭头朝上
+    [self.titleButton setImage:[UIImage imageNamed:@"navigationbar_arrow_up"] forState:UIControlStateNormal];
+
+}
+
+
+
 -(void)friendsearch{
 
 }

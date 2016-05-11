@@ -7,8 +7,22 @@
 //
 
 #import <UIKit/UIKit.h>
+@class ZBDropDownMenu;
+
+@protocol ZBDropDownMenuDelegate <NSObject>
+
+@optional
+
+-(void)DropDownMenuDidShow:(ZBDropDownMenu *)menu;
+-(void)DropDownMenuDidDismiss:(ZBDropDownMenu *)menu;
+
+@end
+
+
 
 @interface ZBDropDownMenu : UIView
+
+@property(nonatomic,weak)id<ZBDropDownMenuDelegate>  delegate;
 +(instancetype)menu;
 /**
  *  UITableView的内容

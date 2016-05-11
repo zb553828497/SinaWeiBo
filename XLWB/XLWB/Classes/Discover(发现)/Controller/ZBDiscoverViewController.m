@@ -17,7 +17,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    ZBLog(@"ZBMessageCenterController--viewDidLoad");
+  
   
 }
 @end
