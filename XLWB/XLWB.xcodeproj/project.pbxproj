@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		7710612F1CE2005C0024A5EE /* ZBTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 7710612E1CE2005C0024A5EE /* ZBTabBar.m */; };
+		77145D041CE359BA009886FE /* ZBNewFeatureController.m in Sources */ = {isa = PBXBuildFile; fileRef = 77145D031CE359BA009886FE /* ZBNewFeatureController.m */; };
 		772606881CD98B8D00B88239 /* UIView+Frame.m in Sources */ = {isa = PBXBuildFile; fileRef = 772606871CD98B8D00B88239 /* UIView+Frame.m */; };
 		7726068C1CD991C400B88239 /* ZBTestController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7726068A1CD991C400B88239 /* ZBTestController.m */; };
 		7726068D1CD991C400B88239 /* ZBTestController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7726068B1CD991C400B88239 /* ZBTestController.xib */; };
@@ -32,6 +33,8 @@
 /* Begin PBXFileReference section */
 		7710612D1CE2005C0024A5EE /* ZBTabBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBTabBar.h; sourceTree = "<group>"; };
 		7710612E1CE2005C0024A5EE /* ZBTabBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZBTabBar.m; sourceTree = "<group>"; };
+		77145D021CE359BA009886FE /* ZBNewFeatureController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBNewFeatureController.h; sourceTree = "<group>"; };
+		77145D031CE359BA009886FE /* ZBNewFeatureController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZBNewFeatureController.m; sourceTree = "<group>"; };
 		772606861CD98B8D00B88239 /* UIView+Frame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Frame.h"; sourceTree = "<group>"; };
 		772606871CD98B8D00B88239 /* UIView+Frame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Frame.m"; sourceTree = "<group>"; };
 		772606891CD991C400B88239 /* ZBTestController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBTestController.h; sourceTree = "<group>"; };
@@ -81,6 +84,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		77145D001CE35981009886FE /* NewFeature(新特性) */ = {
+			isa = PBXGroup;
+			children = (
+				77145D011CE35981009886FE /* Controller */,
+			);
+			path = "NewFeature(新特性)";
+			sourceTree = "<group>";
+		};
+		77145D011CE35981009886FE /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				77145D021CE359BA009886FE /* ZBNewFeatureController.h */,
+				77145D031CE359BA009886FE /* ZBNewFeatureController.m */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
 		772606751CD98B1300B88239 /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -206,6 +226,7 @@
 		77298C821CD83A5800D09005 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				77145D001CE35981009886FE /* NewFeature(新特性) */,
 				77298C831CD83A5800D09005 /* (MessageCenter)消息 */,
 				77298C871CD83A5800D09005 /* Discover(发现) */,
 				77298C8B1CD83A5800D09005 /* Home(首页) */,
@@ -404,6 +425,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				77145D041CE359BA009886FE /* ZBNewFeatureController.m in Sources */,
 				77298CA21CD8584700D09005 /* ZBMessageCenterController.m in Sources */,
 				77298C701CD83A4A00D09005 /* AppDelegate.m in Sources */,
 				77298CA81CD8589000D09005 /* ZBProfileViewController.m in Sources */,
