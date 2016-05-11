@@ -12,7 +12,8 @@
 #import "ZBMessageCenterController.h"
 #import "ZBProfileViewController.h"
 #import "ZBNavigationController.h"
-@interface ZBTabBarController ()
+#import "ZBTabBar.h"
+@interface ZBTabBarController ()<ZBTabBarDelegate>
 
 @end
 
@@ -20,7 +21,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // 3.设置子控制器
+    // 1.设置子控制器
     ZBHomeViewController *home = [[ZBHomeViewController alloc] init];
     [self addChildVc:home title:@"首页" image:@"tabbar_home" selectedImage:@"tabbar_home_selected" bgColor:ZBRandomColor];
 
@@ -31,7 +32,13 @@
     [self addChildVc:discover title:@"发现" image:@"tabbar_discover" selectedImage:@"tabbar_discover_selected" bgColor:ZBRandomColor];
      ZBProfileViewController *profile = [[ZBProfileViewController alloc] init];
     [self addChildVc:profile title:@"我" image:@"tabbar_profile" selectedImage:@"tabbar_profile_selected" bgColor:ZBRandomColor];
+    
+    // 2.更换系统自带的TabBar
+    ZBTabBar *tabBar = [[ZBTabBar alloc] init ];
+    tabBar.delegate = self;
+    [self setValue:tabBar forKeyPath:@"tabBar"];
 
+    
 }
 /**
  *  添加一个子控制器
@@ -95,5 +102,15 @@
     [self addChildViewController:nav];
     
     
+}
+
+#pragma mark - ZBTabBarDelegate代理方法
+-(void)tabBarDidClickPlusButton:(ZBTabBar *)tabBar{
+    
+    UIViewController *vc = [[UIViewController alloc] init];
+    vc.view.backgroundColor = [UIColor redColor];
+    // presentViewController是控制器的方法，只有控制器才能调用这个方法.因为self对象是控制器,所以可以modal  vc控制器
+    // 如果self不是控制器对象，则不能modal。
+    [self presentViewController:vc animated:YES completion:nil];
 }
 @end
