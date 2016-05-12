@@ -8,6 +8,7 @@
 
 #import "ZBNewFeatureController.h"
 #import "ZBTabBarController.h"
+#import "ZBNavigationController.h"
 
 #define ZBNewFeatureImageCount 4
 @interface ZBNewFeatureController ()<UIScrollViewDelegate>
@@ -44,6 +45,9 @@
             [self setupLastImageView:imageView];
         }
     }
+    
+#warning 默认情况下，scrollView一创建出来，它里面可能就存在一些子控件了
+#warning 就算不主动添加子控件到scrollView中，scrollView内部还是可能会有一些子控件
     
     // 3. 设置scrollView的其他属性
     
@@ -103,7 +107,30 @@
     [shareBtn addTarget:self action:@selector(shareClick:) forControlEvents:UIControlEventTouchUpInside];
     [imageView addSubview:shareBtn];
     
-    //？？？？？？ titleEdgeInsets:只影响按钮内部的titleLabel
+    // 按钮的背景颜色
+    shareBtn.backgroundColor = [UIColor clearColor];
+    // 按钮中的imageView控件的背景颜色
+    shareBtn.imageView.backgroundColor = [UIColor clearColor];
+    // 按钮中的titleLabel控件的背景颜色
+    shareBtn.titleLabel.backgroundColor = [UIColor clearColor];
+
+    /*
+     contentEdgeInsets:会影响按钮内部的所有内容（里面的imageView和titleLabel)
+     按钮中的imageView和titleLabel的位置之前已经确定了。
+     imageView和titleLabel作为一个整体在之前位置的机上距父控件顶部10像素，距左侧100像素
+    
+     shareBtn.contentEdgeInsets = UIEdgeInsetsMake(10, 100, 0, 0);
+     */
+    
+    /*
+     imageEdgeInsets:只影响按钮内部的imageView.
+     按钮中的imageView的位置之前已经确定了。
+     在这里设置Insets，就会在之前位置的基础上距顶部20像素，距左侧60像素距右侧50像素
+     
+     shareBtn.imageEdgeInsets = UIEdgeInsetsMake(20, 60, 0, 50);
+    */
+    
+    // titleEdgeInsets:只影响按钮内部的titleLabel. titleLabel会在之前位置的基础上距左侧10像素
     shareBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 0);
     
     // 2.开始微博
@@ -123,9 +150,56 @@
     shareBtn.selected = !shareBtn.isSelected;
 }
 -(void)startClick{
-    // 切换到ZBTabBarController
+    /*
+     切换到ZBTabBarController控制器的三种方式:
+     1.push：依赖于UINavigationController，控制器的切换是可逆的，比如A切换到B，B又可以回到A
+     2.modal：控制器的切换是可逆的，比如A切换到B，B又可以回到A
+     3.切换window的rootViewController
+     */
+    /********************************方式1:push***********************************************/
+    /*
+     方式1: push.   ZBNewFeatureController必须被导航控制器包装。做法:在AppDelegate类中加上a处的代码
+     ZBTabBarController *VC2 = [[ZBTabBarController alloc] init];
+     [self.navigationController pushViewController:VC2 animated:YES];
+    */
+    
+     /*  // a
+     ZBNewFeatureController *VC = [[ZBNewFeatureController alloc] init];
+     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:VC];
+     self.window.rootViewController = nav;
+
+     */
+    
+ /********************************方式2:modal***********************************************/
+    /* 方式2: modal    ZBNewFeatureController不需要被导航控制器包装
+    ZBTabBarController *VC1 = [[ZBTabBarController alloc] init];
+    [self presentViewController:VC1 animated:YES completion:nil];
+    */
+    
+   
+/********************************方式3:window.rootViewController****************************/
+    
+    // 方式3: 利用window.rootViewController实现跳转到tabVc所在的控制器
     UIWindow  *window = [[UIApplication sharedApplication].windows lastObject];
-    window.rootViewController = [[ZBTabBarController alloc ] init];
+    // window强指针强引用tabVc
+    ZBTabBarController *tabVc = [[ZBTabBarController alloc] init];
+    // window这个强指针指向了tabVc，跳转至tabVc所在的控制器
+    window.rootViewController = tabVc;
+    
+    
+
+}
+
+-(void)dealloc{
+/*
+    之所以新特性界面会被销毁，原因是:
+    window这个强指针之前指向了新特性界面ZBNewFeatureController，现在window强指针指向了ZBTabBarController
+    所以ZBNewFeatureController现在没有指针强引用着它，
+    因此当点击"开始微博"按钮跳转至ZBTabBarController时,就会执行dealloc方法，销毁新特性控制器
+ */
+    ZBLog(@"ZBNewFeatureController-dealloc");
+    
+
 
 }
 @end

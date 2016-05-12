@@ -32,9 +32,14 @@
     NSString *currentVersion = [NSBundle mainBundle].infoDictionary[key];
     // 版本号相同：这次打开和上次打开的是同一个版本
     if ([currentVersion isEqualToString:lastVersion]) {
-        self.window.rootViewController = [[ZBTabBarController alloc] init];
+        ZBNewFeatureController * VC = [[ZBNewFeatureController alloc] init];
+        self.window.rootViewController = VC;
+        
     }else{// 这次打开的版本和上一次不一样，显示新特性
-        self.window.rootViewController = [[ZBNewFeatureController alloc] init];
+        
+        ZBNewFeatureController * VC2 = [[ZBNewFeatureController alloc] init];
+        self.window.rootViewController = VC2;
+        
         // 将当前的版本号存进沙盒
         [[NSUserDefaults standardUserDefaults] setObject:currentVersion forKey:key];
         [[NSUserDefaults standardUserDefaults] synchronize];

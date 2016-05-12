@@ -34,9 +34,11 @@
     [self addChildVc:profile title:@"我" image:@"tabbar_profile" selectedImage:@"tabbar_profile_selected" bgColor:ZBRandomColor];
     
     // 2.更换系统自带的TabBar
-    ZBTabBar *tabBar = [[ZBTabBar alloc] init ];
-    tabBar.delegate = self;
-    [self setValue:tabBar forKeyPath:@"tabBar"];
+    ZBTabBar *tabBar1 = [[ZBTabBar alloc] init ];
+    
+    tabBar1.delegate = self;
+    // 修改系统的tabBar属性时，你要确保之前已经设置好了所有和tabBar相关的数据(例如上面设置的代理)，否则，你在这句代码后面设置和tabBar相关的数据，就会提示错误
+    [self setValue:tabBar1 forKeyPath:@"tabBar"];
 
     
 }
