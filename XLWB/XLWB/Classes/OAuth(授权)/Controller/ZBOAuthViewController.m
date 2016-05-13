@@ -8,6 +8,10 @@
 
 #import "ZBOAuthViewController.h"
 #import <AFNetworking/AFNetworking.h>
+#import "ZBTabBarController.h"
+#import "ZBNewFeatureController.h"
+#import <SVProgressHUD/SVProgressHUD.h>
+#import "ZBAccount.h"
 
 @interface ZBOAuthViewController ()<UIWebViewDelegate>
 
@@ -66,15 +70,30 @@
 
 #pragma mark - UIWebViewDelegate代理
 
+// 登陆界面加载成功,2秒后弹框消失
 -(void)webViewDidFinishLoad:(UIWebView *)webView{
-
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+          [SVProgressHUD dismiss];
+    });
+  
 }
+// 加载登陆界面时，弹框提示
 -(void)webViewDidStartLoad:(UIWebView *)webView
 {
-
-
+    [SVProgressHUD showWithStatus:@"正在加载登陆界面🐷"];
+}
+// 加载网页失败，弹框提示
+-(void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error{
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [SVProgressHUD dismiss];
+    });
+    
 }
 
+// 程序初始运行时,会提前执行一次，因为这时候还没有输入账号和密码，所以不执行if (range.length != 0) {}的内容
+// 当你输入用户名和密码，然后点击登录按钮(请求加载数据)时，也会调用，这次range有值,所以会执行{}的内容,在{}又会调用accessTokenWithCode方法。
 -(BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType{
     // 拦截URL
     
@@ -91,15 +110,19 @@
         
         // 利用code换取一个accessToken
         [self accessTokenWithCode:code];
- 
+        
+        // 禁止加载回调地址
+        return  YES;
     }
     
     
    // ZBLog(@"shouldStartLoadWithRequest--%@",request.URL.absoluteString);
+    
         return  YES;
 }
 
 /**
+ *  点击登录按钮时，才调用这个方法.因为这个方法是在shouldStartLoadWithRequest方法中
  *  利用code(授权成功后的request token) 换取一个accessToken
  */
 -(void)accessTokenWithCode:(NSString *)code{
@@ -149,10 +172,77 @@
     params[@"grant_type"] = @"authorization_code";// 固定。官方文档让写这个
     params[@"code"] = code;
     params[@"redirect_uri"] = @"http://www.baidu.com";
-    
-    [mgr POST:@"https://api.weibo.com/oauth2/access_token" parameters:params success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        ZBLog(@"请求成功-%@",responseObject);
+    // 发送POST请求
+    [mgr POST:@"https://api.weibo.com/oauth2/access_token" parameters:params success:^(NSURLSessionDataTask * _Nonnull task, NSDictionary *responseObject) {
+        //ZBLog(@"请求成功-%@",responseObject);
         
+        
+        // 沙盒路径
+        NSString *doc = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
+        NSString *path = [doc stringByAppendingPathComponent:@"account.archive"];
+        ZBLog(@"%@",path);
+        // 字典转模型,存进沙盒
+        ZBAccount *account = [ZBAccount accountWithDict:responseObject];
+        /*
+         系统的字典，数组，字符串这些类，可以使用对象调用writeToFile方法，将对象中的数据写入沙盒中。
+         自定义的类，不能使用对象调用writeToFile方法，所以就不能将对象中的数据存入沙盒
+         
+         那么如何将自定义的类ZBAccount如何使用它的对象将数据存入沙盒中呢？
+         答:利用NSKeyedArchiver,可以将对象中包含的数据存入沙盒.
+         最重要的三点:
+         1.ZBAccount必须遵守<NSCoding>协议，
+         2.ZBAccount.m要实现encodeWithCoder方法.
+         3.ZBAccount.m要实现initWithCoder方法.
+         设置全局断点检测错误时,如果不实现2方法，就会报如下错误
+         -[ZBAccount encodeWithCoder:]: unrecognized selector sent to instance 0x7fd0d9c29e50
+         设置全局断点检测错误时,如果不实现3方法，就会报如下错误
+         -[ZBAccount initWithCoder:]: unrecognized selector sent to instance 0x7f9399609b60
+         */
+        [NSKeyedArchiver archiveRootObject:account toFile:path];
+        
+        
+        // 沙盒路径
+//        NSString *doc = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
+//        NSString *path = [doc stringByAppendingPathComponent:@"account.plist"];
+//        ZBLog(@"%@",path);
+        // 将返回的账号数据，存进沙盒
+//        [responseObject writeToFile:path atomically:YES];
+        
+        // 切换至窗口的控制器
+        NSString *key = @"CFBundleVersion";
+        // 上一次的使用版本(存储在沙盒中的版本号)
+        NSString *lastVersion = [[NSUserDefaults standardUserDefaults] objectForKey:key];
+        // 当前软件的版本号(从Info.plist中获得)
+        NSString *currentVersion = [NSBundle mainBundle].infoDictionary[key];
+        
+        
+        /*
+        不能使用这句代码，因为这句代码获得的窗口不是ZBOauthViewController，而是显示在最外面的键盘窗口.
+         通过打印window可知，获得的窗口是UITextEffectsWindow，就是键盘的窗口。所以window此时是键盘。
+         要实现vc1是当前窗口的根控制器，窗口必须是控制器。因为键盘不是控制器，所以会提示错误。
+         
+         所以应该通过.keyWindow的形式获得当前窗口.这个窗口不一定是显示在最外面的窗口，这个窗口是由你决定的.
+         通过window.rootViewController = vc1;的形式，获得的窗口就是ZBTabBarController
+         通过window.rootViewController = vc2;的形式，获得的窗口就是ZBNewFeatureController
+         
+         UIWindow *window = [[UIApplication sharedApplication].windows lastObject];
+        NSLog(@"%@",window);
+         // 打印的内容
+        <UITextEffectsWindow: 0x7f89ba4afd80; frame = (0 0; 414 736); opaque = NO; autoresize = W+H; layer = <UIWindowLayer: 0x7f89ba491640>>
+         */
+        
+        UIWindow *window = [UIApplication sharedApplication].keyWindow;
+       // 这次打开和上次打开的是同一个版本，就显示ZBTabBarController
+        if([currentVersion isEqualToString:lastVersion]){
+            ZBTabBarController *vc1= [[ZBTabBarController alloc]init];
+            window.rootViewController = vc1;
+        }else{//这次打开的版本和上一次不一样，显示新特性
+            ZBNewFeatureController *vc2 = [[ZBNewFeatureController alloc] init];
+            window.rootViewController = vc2;
+            [[NSUserDefaults standardUserDefaults ] setObject:currentVersion forKey:key];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+        }
+
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
 //        ZBLog(@"请求失败-%@",error);
     }];

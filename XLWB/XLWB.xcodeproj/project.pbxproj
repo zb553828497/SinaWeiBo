@@ -27,6 +27,7 @@
 		7740304D1CDDC73F009CAFA6 /* ZBSearchBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 7740304C1CDDC73F009CAFA6 /* ZBSearchBar.m */; };
 		776177731CD8C18600F5FE03 /* ZBTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 776177721CD8C18600F5FE03 /* ZBTabBarController.m */; };
 		7770F8171CE4B0C8000CE679 /* ZBOAuthViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7770F8161CE4B0C8000CE679 /* ZBOAuthViewController.m */; };
+		77C13EA71CE5834B00DA7563 /* ZBAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = 77C13EA61CE5834B00DA7563 /* ZBAccount.m */; };
 		77D503A11CE0CE0600463B29 /* ZBTitleMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 77D503A01CE0CE0600463B29 /* ZBTitleMenuViewController.m */; };
 		77F219A51CDDF2F3008778B0 /* ZBDropDownMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 77F219A41CDDF2F3008778B0 /* ZBDropDownMenu.m */; };
 		BD0D0872BEA94928327B5036 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C62DDD9483736069B0445C6 /* libPods.a */; };
@@ -73,6 +74,8 @@
 		776177721CD8C18600F5FE03 /* ZBTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZBTabBarController.m; sourceTree = "<group>"; };
 		7770F8151CE4B0C8000CE679 /* ZBOAuthViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBOAuthViewController.h; sourceTree = "<group>"; };
 		7770F8161CE4B0C8000CE679 /* ZBOAuthViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZBOAuthViewController.m; sourceTree = "<group>"; };
+		77C13EA51CE5834B00DA7563 /* ZBAccount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBAccount.h; sourceTree = "<group>"; };
+		77C13EA61CE5834B00DA7563 /* ZBAccount.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZBAccount.m; sourceTree = "<group>"; };
 		77D5039F1CE0CE0600463B29 /* ZBTitleMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBTitleMenuViewController.h; sourceTree = "<group>"; };
 		77D503A01CE0CE0600463B29 /* ZBTitleMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZBTitleMenuViewController.m; sourceTree = "<group>"; };
 		77F219A31CDDF2F3008778B0 /* ZBDropDownMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBDropDownMenu.h; sourceTree = "<group>"; };
@@ -368,6 +371,7 @@
 		7770F8131CE4B09B000CE679 /* OAuth(授权) */ = {
 			isa = PBXGroup;
 			children = (
+				77C13EA41CE5832B00DA7563 /* Model */,
 				7770F8141CE4B09B000CE679 /* Controller */,
 			);
 			path = "OAuth(授权)";
@@ -380,6 +384,15 @@
 				7770F8161CE4B0C8000CE679 /* ZBOAuthViewController.m */,
 			);
 			path = Controller;
+			sourceTree = "<group>";
+		};
+		77C13EA41CE5832B00DA7563 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				77C13EA51CE5834B00DA7563 /* ZBAccount.h */,
+				77C13EA61CE5834B00DA7563 /* ZBAccount.m */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		CBBF6F96D65FBECD30A8F560 /* Frameworks */ = {
@@ -538,6 +551,7 @@
 				77F219A51CDDF2F3008778B0 /* ZBDropDownMenu.m in Sources */,
 				7710612F1CE2005C0024A5EE /* ZBTabBar.m in Sources */,
 				772606881CD98B8D00B88239 /* UIView+Frame.m in Sources */,
+				77C13EA71CE5834B00DA7563 /* ZBAccount.m in Sources */,
 				776177731CD8C18600F5FE03 /* ZBTabBarController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

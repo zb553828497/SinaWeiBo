@@ -180,7 +180,7 @@
 /********************************方式3:window.rootViewController****************************/
     
     // 方式3: 利用window.rootViewController实现跳转到tabVc所在的控制器
-    UIWindow  *window = [[UIApplication sharedApplication].windows lastObject];
+    UIWindow  *window = [UIApplication sharedApplication].keyWindow;
     // window强指针强引用tabVc
     ZBTabBarController *tabVc = [[ZBTabBarController alloc] init];
     // window这个强指针指向了tabVc，跳转至tabVc所在的控制器

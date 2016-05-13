@@ -11,6 +11,7 @@
 #import "ZBTabBarController.h"
 #import "ZBNewFeatureController.h"
 #import "ZBOAuthViewController.h"
+#import "ZBAccount.h"
 
 @interface AppDelegate ()
 
@@ -24,10 +25,44 @@
     // 1.创建窗口
     self.window = [[UIWindow alloc] init];
     self.window.frame = [UIScreen mainScreen].bounds;
+
     
-    ZBOAuthViewController *OAuth = [[ZBOAuthViewController alloc]init];
+    // 沙盒路径
+    NSString *doc = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
+    NSString *path = [doc stringByAppendingPathComponent:@"account.archive"];
+    NSLog(@"%@",path);
+    ZBAccount *account = [NSKeyedUnarchiver unarchiveObjectWithFile:path];
     
-    self.window.rootViewController = OAuth;
+    
+    // 判断沙盒中有没有account.plist
+    if(account) {
+            NSString *key = @"CFBundleVersion";
+            // 上一次的使用版本(存储在沙盒中的版本号)
+            NSString *lastVersion = [[NSUserDefaults standardUserDefaults] objectForKey:key];
+            // 当前软件的版本号(从Info.plist中获得)
+            NSString *currentVersion = [NSBundle mainBundle].infoDictionary[key];
+            // 沙盒中有account.plist文件，且这次打开和上次打开的是同一个版本，就显示ZBTabBarController
+            if ([currentVersion isEqualToString:lastVersion]) {
+                ZBTabBarController * VC = [[ZBTabBarController alloc] init];
+                self.window.rootViewController = VC;
+        
+            }else{//沙盒中有account.plist文件，但是这次打开的版本和上一次不一样，仍然显示新特性
+        
+                ZBNewFeatureController * VC2 = [[ZBNewFeatureController alloc] init];
+                self.window.rootViewController = VC2;
+        
+                // 将当前的版本号存进沙盒
+                [[NSUserDefaults standardUserDefaults] setObject:currentVersion forKey:key];
+                [[NSUserDefaults standardUserDefaults] synchronize];
+            }
+    
+    }else{//如果沙盒中没有account.plist，前面的if else都不会执行，只会执行如下代码,重新在授权页面进行登录
+    
+        ZBOAuthViewController *VC3 = [[ZBOAuthViewController alloc] init];
+        self.window.rootViewController = VC3;
+    
+    }
+    
     
     // 2.设置根控制器
 //    NSString *key = @"CFBundleVersion";
