@@ -12,7 +12,7 @@
 #import "ZBNewFeatureController.h"
 #import <SVProgressHUD/SVProgressHUD.h>
 #import "ZBAccount.h"
-
+#import "ZBAccountTool.h"
 @interface ZBOAuthViewController ()<UIWebViewDelegate>
 
 @end
@@ -176,13 +176,11 @@
     [mgr POST:@"https://api.weibo.com/oauth2/access_token" parameters:params success:^(NSURLSessionDataTask * _Nonnull task, NSDictionary *responseObject) {
         //ZBLog(@"请求成功-%@",responseObject);
         
-        
-        // 沙盒路径
-        NSString *doc = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
-        NSString *path = [doc stringByAppendingPathComponent:@"account.archive"];
-        ZBLog(@"%@",path);
         // 字典转模型,存进沙盒
         ZBAccount *account = [ZBAccount accountWithDict:responseObject];
+        // 存储账号信息
+        [ZBAccountTool saveAccount:account];
+        
         /*
          系统的字典，数组，字符串这些类，可以使用对象调用writeToFile方法，将对象中的数据写入沙盒中。
          自定义的类，不能使用对象调用writeToFile方法，所以就不能将对象中的数据存入沙盒
@@ -198,8 +196,6 @@
          设置全局断点检测错误时,如果不实现3方法，就会报如下错误
          -[ZBAccount initWithCoder:]: unrecognized selector sent to instance 0x7f9399609b60
          */
-        [NSKeyedArchiver archiveRootObject:account toFile:path];
-        
         
         // 沙盒路径
 //        NSString *doc = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];

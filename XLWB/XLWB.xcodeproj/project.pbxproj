@@ -30,6 +30,7 @@
 		77C13EA71CE5834B00DA7563 /* ZBAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = 77C13EA61CE5834B00DA7563 /* ZBAccount.m */; };
 		77D503A11CE0CE0600463B29 /* ZBTitleMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 77D503A01CE0CE0600463B29 /* ZBTitleMenuViewController.m */; };
 		77F219A51CDDF2F3008778B0 /* ZBDropDownMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 77F219A41CDDF2F3008778B0 /* ZBDropDownMenu.m */; };
+		77F33A531CE5F8EA00EB75F4 /* ZBAccountTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 77F33A521CE5F8EA00EB75F4 /* ZBAccountTool.m */; };
 		BD0D0872BEA94928327B5036 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C62DDD9483736069B0445C6 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -80,6 +81,8 @@
 		77D503A01CE0CE0600463B29 /* ZBTitleMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZBTitleMenuViewController.m; sourceTree = "<group>"; };
 		77F219A31CDDF2F3008778B0 /* ZBDropDownMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBDropDownMenu.h; sourceTree = "<group>"; };
 		77F219A41CDDF2F3008778B0 /* ZBDropDownMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZBDropDownMenu.m; sourceTree = "<group>"; };
+		77F33A511CE5F8EA00EB75F4 /* ZBAccountTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBAccountTool.h; sourceTree = "<group>"; };
+		77F33A521CE5F8EA00EB75F4 /* ZBAccountTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZBAccountTool.m; sourceTree = "<group>"; };
 		BBFD18DD2D68B80DA60677B9 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -371,6 +374,7 @@
 		7770F8131CE4B09B000CE679 /* OAuth(授权) */ = {
 			isa = PBXGroup;
 			children = (
+				77F33A501CE5F8C100EB75F4 /* Tool */,
 				77C13EA41CE5832B00DA7563 /* Model */,
 				7770F8141CE4B09B000CE679 /* Controller */,
 			);
@@ -393,6 +397,15 @@
 				77C13EA61CE5834B00DA7563 /* ZBAccount.m */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		77F33A501CE5F8C100EB75F4 /* Tool */ = {
+			isa = PBXGroup;
+			children = (
+				77F33A511CE5F8EA00EB75F4 /* ZBAccountTool.h */,
+				77F33A521CE5F8EA00EB75F4 /* ZBAccountTool.m */,
+			);
+			path = Tool;
 			sourceTree = "<group>";
 		};
 		CBBF6F96D65FBECD30A8F560 /* Frameworks */ = {
@@ -539,6 +552,7 @@
 				77298C701CD83A4A00D09005 /* AppDelegate.m in Sources */,
 				77298CA81CD8589000D09005 /* ZBProfileViewController.m in Sources */,
 				7740304D1CDDC73F009CAFA6 /* ZBSearchBar.m in Sources */,
+				77F33A531CE5F8EA00EB75F4 /* ZBAccountTool.m in Sources */,
 				77298C6D1CD83A4A00D09005 /* main.m in Sources */,
 				7726069D1CD9CE1500B88239 /* ZBTest2Controller.m in Sources */,
 				7726068C1CD991C400B88239 /* ZBTestController.m in Sources */,

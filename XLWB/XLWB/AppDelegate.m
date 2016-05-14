@@ -12,6 +12,7 @@
 #import "ZBNewFeatureController.h"
 #import "ZBOAuthViewController.h"
 #import "ZBAccount.h"
+#import "ZBAccountTool.h"
 
 @interface AppDelegate ()
 
@@ -28,10 +29,7 @@
 
     
     // 沙盒路径
-    NSString *doc = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
-    NSString *path = [doc stringByAppendingPathComponent:@"account.archive"];
-    NSLog(@"%@",path);
-    ZBAccount *account = [NSKeyedUnarchiver unarchiveObjectWithFile:path];
+    ZBAccount *account = [ZBAccountTool account];
     
     
     // 判断沙盒中有没有account.plist

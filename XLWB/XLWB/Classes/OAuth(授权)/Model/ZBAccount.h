@@ -17,12 +17,15 @@
  */
 
 
-/**　string	用于调用access_token，接口获取授权后的access token。*/
+/**　string	用于调用access_token，接口获取授权后的access_token。*/
 @property(nonatomic,copy)NSString *access_token;
 /** access_token的生命周期，单位是秒数。*/
 @property(nonatomic,copy)NSNumber *expires_in;
 /**　string	当前授权用户的UID。*/
 @property(nonatomic,copy)NSString *uid;
+
+/** access_token（账号）的创建时间*/
+@property(nonatomic,strong)NSDate *createdTime;// 自己额外增加的一个属性。
 
 +(instancetype)accountWithDict:(NSDictionary *)dict;
 @end
