@@ -48,7 +48,7 @@
     if( result == NSOrderedSame || result == NSOrderedAscending     ){//过期
         result ;//不往下执行
     }
-    ZBLog(@"过期时间--%@,当前时间%@",expiresTime,nowDate);
+    ZBLog(@"过期时间--%@,当前时间--`%@",expiresTime,nowDate);
     
     return account;
 }

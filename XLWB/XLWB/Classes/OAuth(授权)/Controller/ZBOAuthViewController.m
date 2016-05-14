@@ -8,8 +8,7 @@
 
 #import "ZBOAuthViewController.h"
 #import <AFNetworking/AFNetworking.h>
-#import "ZBTabBarController.h"
-#import "ZBNewFeatureController.h"
+#import "UIWindow+SwitchRootVC.h""
 #import <SVProgressHUD/SVProgressHUD.h>
 #import "ZBAccount.h"
 #import "ZBAccountTool.h"
@@ -203,13 +202,7 @@
 //        ZBLog(@"%@",path);
         // 将返回的账号数据，存进沙盒
 //        [responseObject writeToFile:path atomically:YES];
-        
-        // 切换至窗口的控制器
-        NSString *key = @"CFBundleVersion";
-        // 上一次的使用版本(存储在沙盒中的版本号)
-        NSString *lastVersion = [[NSUserDefaults standardUserDefaults] objectForKey:key];
-        // 当前软件的版本号(从Info.plist中获得)
-        NSString *currentVersion = [NSBundle mainBundle].infoDictionary[key];
+       
         
         
         /*
@@ -228,17 +221,10 @@
          */
         
         UIWindow *window = [UIApplication sharedApplication].keyWindow;
-       // 这次打开和上次打开的是同一个版本，就显示ZBTabBarController
-        if([currentVersion isEqualToString:lastVersion]){
-            ZBTabBarController *vc1= [[ZBTabBarController alloc]init];
-            window.rootViewController = vc1;
-        }else{//这次打开的版本和上一次不一样，显示新特性
-            ZBNewFeatureController *vc2 = [[ZBNewFeatureController alloc] init];
-            window.rootViewController = vc2;
-            [[NSUserDefaults standardUserDefaults ] setObject:currentVersion forKey:key];
-            [[NSUserDefaults standardUserDefaults] synchronize];
-        }
-
+      
+        [window switchRootViewController];
+        
+        
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
 //        ZBLog(@"请求失败-%@",error);
     }];
