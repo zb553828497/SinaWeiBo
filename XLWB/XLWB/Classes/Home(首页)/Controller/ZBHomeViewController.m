@@ -13,6 +13,8 @@
 #import "ZBDropDownMenu.h"
 #import "ZBTitleMenuViewController.h"
 #import "ZBAccountTool.h"
+#import "ZBTitleButton.h"
+
 
 #import <AFNetworking/AFNetworking.h>
 
@@ -93,33 +95,16 @@
     
     
     /** 中间的标题按钮*/
-    UIButton *titleButton = [[UIButton alloc] init];
-    titleButton.zb_width = 150;
-    titleButton.zb_height = 30;
-    
-    // 方法1:设置按钮:文字在左，图片在右。默认文字在右，图片在左边
-    
-    //方法2:设置按钮:文字在左,图片在右边
+    ZBTitleButton *titleButton = [[ZBTitleButton alloc] init];
+//    titleButton.zb_width = 150;
+//    titleButton.zb_height = 30;
     
     // [ZBAccountTool account]的作用:从沙盒中解档用户信息，得到的返回值是account.account里面有用户信息
     // [ZBAccountTool account].name 其实就是account.name，作用:从用户信息中取出用户的昵称
     NSString *name = [ZBAccountTool account].name;
-    //昵称name如果有值，打印用户的昵称name·，没有值打印"首页"
+    // 昵称name如果有值，打印用户的昵称name·，没有值打印"首页"
+    // 调用重写的setTitle方法，在里面执行[self sizeToFit]
     [titleButton setTitle:name?name:@"首页" forState:UIControlStateNormal];
-    [titleButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    titleButton.titleLabel.font = [UIFont boldSystemFontOfSize:17];
-    [titleButton setImage:[UIImage imageNamed:@"navigationbar_arrow_down"] forState:UIControlStateNormal];
-    /*
-    //2 设置图片和文字的内边距，最终的效果:图片距离左边越来越远，文字距离右边原来越远，所以最终效果,文字在左,图片在右
-    // 2.1 图片的内边距，70是距离左边的间距，值越大，距离左边的距离越远，最终图片向右移动
-    titleButton.imageEdgeInsets = UIEdgeInsetsMake(0, 70, 0, 0);
-    // 2.2 文字的内边距，40是距离右边的间距，值越大，距离右边的距离越远，最终文字向左移动
-    titleButton.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 40);
-    
-     */
-    
-    
-    
     // 监听标题点击
     [titleButton addTarget:self action:@selector(titleClick:) forControlEvents:UIControlEventTouchUpInside];
     
@@ -128,6 +113,15 @@
     // 如果图片的某个方向上不规则，比如有突起，那么这个方向最好不要拉伸,否则凸起可能消失，或者凸起会移动位置
     // 原因: 保护凸起部位，拉伸图片之后,凸起部位会移动位置。拉伸凸起部位，拉伸图片之后凸起部位会消失
     self.titleButton = titleButton;
+
+    /*
+     //2 设置图片和文字的内边距，最终的效果:图片距离左边越来越远，文字距离右边原来越远，所以最终效果,文字在左,图片在右
+     // 2.1 图片的内边距，70是距离左边的间距，值越大，距离左边的距离越远，最终图片向右移动
+     titleButton.imageEdgeInsets = UIEdgeInsetsMake(0, 70, 0, 0);
+     // 2.2 文字的内边距，40是距离右边的间距，值越大，距离右边的距离越远，最终文字向左移动
+     titleButton.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 40);
+     
+     */
 
 }
 
