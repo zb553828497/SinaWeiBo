@@ -32,6 +32,7 @@
 		77F219A51CDDF2F3008778B0 /* ZBDropDownMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 77F219A41CDDF2F3008778B0 /* ZBDropDownMenu.m */; };
 		77F33A531CE5F8EA00EB75F4 /* ZBAccountTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 77F33A521CE5F8EA00EB75F4 /* ZBAccountTool.m */; };
 		77F33A561CE784C800EB75F4 /* UIWindow+SwitchRootVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 77F33A551CE784C800EB75F4 /* UIWindow+SwitchRootVC.m */; };
+		77F33A581CE7A3AB00EB75F4 /* Foundation+Log.m in Sources */ = {isa = PBXBuildFile; fileRef = 77F33A571CE7A3AB00EB75F4 /* Foundation+Log.m */; };
 		BD0D0872BEA94928327B5036 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C62DDD9483736069B0445C6 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -86,6 +87,7 @@
 		77F33A521CE5F8EA00EB75F4 /* ZBAccountTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZBAccountTool.m; sourceTree = "<group>"; };
 		77F33A541CE784C800EB75F4 /* UIWindow+SwitchRootVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIWindow+SwitchRootVC.h"; sourceTree = "<group>"; };
 		77F33A551CE784C800EB75F4 /* UIWindow+SwitchRootVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIWindow+SwitchRootVC.m"; sourceTree = "<group>"; };
+		77F33A571CE7A3AB00EB75F4 /* Foundation+Log.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Foundation+Log.m"; sourceTree = "<group>"; };
 		BBFD18DD2D68B80DA60677B9 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -195,6 +197,7 @@
 		772606A21CD9FB0500B88239 /* Catgory */ = {
 			isa = PBXGroup;
 			children = (
+				77F33A571CE7A3AB00EB75F4 /* Foundation+Log.m */,
 				772606A31CD9FB4300B88239 /* UIBarButtonItem+Extension.h */,
 				772606A41CD9FB4300B88239 /* UIBarButtonItem+Extension.m */,
 				77F33A541CE784C800EB75F4 /* UIWindow+SwitchRootVC.h */,
@@ -557,6 +560,7 @@
 				77F33A561CE784C800EB75F4 /* UIWindow+SwitchRootVC.m in Sources */,
 				77298C701CD83A4A00D09005 /* AppDelegate.m in Sources */,
 				77298CA81CD8589000D09005 /* ZBProfileViewController.m in Sources */,
+				77F33A581CE7A3AB00EB75F4 /* Foundation+Log.m in Sources */,
 				7740304D1CDDC73F009CAFA6 /* ZBSearchBar.m in Sources */,
 				77F33A531CE5F8EA00EB75F4 /* ZBAccountTool.m in Sources */,
 				77298C6D1CD83A4A00D09005 /* main.m in Sources */,

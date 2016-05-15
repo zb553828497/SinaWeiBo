@@ -8,9 +8,9 @@
 
 #import "ZBOAuthViewController.h"
 #import <AFNetworking/AFNetworking.h>
-#import "UIWindow+SwitchRootVC.h""
+#import "UIWindow+SwitchRootVC.h"
 #import <SVProgressHUD/SVProgressHUD.h>
-#import "ZBAccount.h"
+
 #import "ZBAccountTool.h"
 @interface ZBOAuthViewController ()<UIWebViewDelegate>
 
@@ -166,7 +166,9 @@
     
     // 2.拼接请求参数
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
-    params[@"client_id"] = @"2862394703";
+    params[@"client_id"] = @"2862394703";// 简写形式
+    //全写形式:  [params setObject:@"2862394703" forKey:@"client_id"];
+   
     params[@"client_secret"] = @"c3e8864d690cfa5759798295a2f2c424";
     params[@"grant_type"] = @"authorization_code";// 固定。官方文档让写这个
     params[@"code"] = code;
@@ -175,9 +177,9 @@
     [mgr POST:@"https://api.weibo.com/oauth2/access_token" parameters:params success:^(NSURLSessionDataTask * _Nonnull task, NSDictionary *responseObject) {
         //ZBLog(@"请求成功-%@",responseObject);
         
-        // 字典转模型,存进沙盒
+        // 字典转模型
         ZBAccount *account = [ZBAccount accountWithDict:responseObject];
-        // 存储账号信息
+        // 存储账号信息，存进沙盒
         [ZBAccountTool saveAccount:account];
         
         /*

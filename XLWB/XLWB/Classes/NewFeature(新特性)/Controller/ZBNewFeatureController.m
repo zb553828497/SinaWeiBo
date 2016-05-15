@@ -197,7 +197,7 @@
     所以ZBNewFeatureController现在没有指针强引用着它，
     因此当点击"开始微博"按钮跳转至ZBTabBarController时,就会执行dealloc方法，销毁新特性控制器
  */
-    ZBLog(@"ZBNewFeatureController-dealloc");
+//    ZBLog(@"ZBNewFeatureController-dealloc");
     
 
 

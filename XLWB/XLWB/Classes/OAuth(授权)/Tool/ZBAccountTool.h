@@ -7,8 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
+// 只要导入了ZBAccountTool类的头文件就相当于也导入了ZBAccount类的头文件
+#import "ZBAccount.h"
 
-@class ZBAccount;
 @interface ZBAccountTool : NSObject
 // 处理账号相关的所有操作：存储账号、取出账号、验证账号
 

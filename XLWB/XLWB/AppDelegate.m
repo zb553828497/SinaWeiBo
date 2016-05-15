@@ -8,7 +8,7 @@
 
 #import "AppDelegate.h"
 #import "ZBOAuthViewController.h"
-#import "ZBAccount.h"
+
 #import "ZBAccountTool.h"
 #import "UIWindow+SwitchRootVC.h"
 

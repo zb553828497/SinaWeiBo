@@ -25,7 +25,10 @@
 @property(nonatomic,copy)NSString *uid;
 
 /** access_token（账号）的创建时间*/
-@property(nonatomic,strong)NSDate *createdTime;// 自己额外增加的一个属性。
+@property(nonatomic,strong)NSDate *createdTime;// 自己额外增加的一个createdTime属性。
+
+/** 用户的昵称*/
+@property(nonatomic,copy)NSString *name; // 自己额外增加的一个name属性
 
 +(instancetype)accountWithDict:(NSDictionary *)dict;
 @end
