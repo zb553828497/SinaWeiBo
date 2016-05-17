@@ -27,6 +27,8 @@
 		7740304D1CDDC73F009CAFA6 /* ZBSearchBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 7740304C1CDDC73F009CAFA6 /* ZBSearchBar.m */; };
 		776177731CD8C18600F5FE03 /* ZBTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 776177721CD8C18600F5FE03 /* ZBTabBarController.m */; };
 		7770F8171CE4B0C8000CE679 /* ZBOAuthViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7770F8161CE4B0C8000CE679 /* ZBOAuthViewController.m */; };
+		77B4E4481CEAD30C005DC1B5 /* ZBUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 77B4E4471CEAD30C005DC1B5 /* ZBUser.m */; };
+		77B4E44B1CEAD31C005DC1B5 /* ZBStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = 77B4E44A1CEAD31C005DC1B5 /* ZBStatus.m */; };
 		77C13EA71CE5834B00DA7563 /* ZBAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = 77C13EA61CE5834B00DA7563 /* ZBAccount.m */; };
 		77D503A11CE0CE0600463B29 /* ZBTitleMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 77D503A01CE0CE0600463B29 /* ZBTitleMenuViewController.m */; };
 		77F219A51CDDF2F3008778B0 /* ZBDropDownMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 77F219A41CDDF2F3008778B0 /* ZBDropDownMenu.m */; };
@@ -78,6 +80,10 @@
 		776177721CD8C18600F5FE03 /* ZBTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZBTabBarController.m; sourceTree = "<group>"; };
 		7770F8151CE4B0C8000CE679 /* ZBOAuthViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBOAuthViewController.h; sourceTree = "<group>"; };
 		7770F8161CE4B0C8000CE679 /* ZBOAuthViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZBOAuthViewController.m; sourceTree = "<group>"; };
+		77B4E4461CEAD30C005DC1B5 /* ZBUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBUser.h; sourceTree = "<group>"; };
+		77B4E4471CEAD30C005DC1B5 /* ZBUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZBUser.m; sourceTree = "<group>"; };
+		77B4E4491CEAD31C005DC1B5 /* ZBStatus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBStatus.h; sourceTree = "<group>"; };
+		77B4E44A1CEAD31C005DC1B5 /* ZBStatus.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZBStatus.m; sourceTree = "<group>"; };
 		77C13EA51CE5834B00DA7563 /* ZBAccount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBAccount.h; sourceTree = "<group>"; };
 		77C13EA61CE5834B00DA7563 /* ZBAccount.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZBAccount.m; sourceTree = "<group>"; };
 		77D5039F1CE0CE0600463B29 /* ZBTitleMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBTitleMenuViewController.h; sourceTree = "<group>"; };
@@ -154,6 +160,10 @@
 		772606791CD98B2C00B88239 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				77B4E4461CEAD30C005DC1B5 /* ZBUser.h */,
+				77B4E4471CEAD30C005DC1B5 /* ZBUser.m */,
+				77B4E4491CEAD31C005DC1B5 /* ZBStatus.h */,
+				77B4E44A1CEAD31C005DC1B5 /* ZBStatus.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -570,6 +580,7 @@
 				77F33A531CE5F8EA00EB75F4 /* ZBAccountTool.m in Sources */,
 				77F33A5B1CE8CA3200EB75F4 /* ZBTitleButton.m in Sources */,
 				77298C6D1CD83A4A00D09005 /* main.m in Sources */,
+				77B4E44B1CEAD31C005DC1B5 /* ZBStatus.m in Sources */,
 				7726069D1CD9CE1500B88239 /* ZBTest2Controller.m in Sources */,
 				7726068C1CD991C400B88239 /* ZBTestController.m in Sources */,
 				772606901CD99F4900B88239 /* ZBNavigationController.m in Sources */,
@@ -582,6 +593,7 @@
 				7710612F1CE2005C0024A5EE /* ZBTabBar.m in Sources */,
 				772606881CD98B8D00B88239 /* UIView+Frame.m in Sources */,
 				77C13EA71CE5834B00DA7563 /* ZBAccount.m in Sources */,
+				77B4E4481CEAD30C005DC1B5 /* ZBUser.m in Sources */,
 				776177731CD8C18600F5FE03 /* ZBTabBarController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

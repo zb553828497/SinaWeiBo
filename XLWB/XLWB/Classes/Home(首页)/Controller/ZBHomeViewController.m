@@ -14,16 +14,36 @@
 #import "ZBTitleMenuViewController.h"
 #import "ZBAccountTool.h"
 #import "ZBTitleButton.h"
+#import <MJExtension/MJExtension.h>
+#import "ZBUser.h"
+#import "ZBStatus.h"
+#import <UIImageView+WebCache.h>// 下载图片
 
 
-#import <AFNetworking/AFNetworking.h>
+#import <AFNetworking/AFNetworking.h>// 向服务器请求数据
 
 
 @interface ZBHomeViewController ()<ZBDropDownMenuDelegate>
 @property(nonatomic,weak)UIButton *titleButton;
+/**
+ *  微博数组（里面放的都是HWStatus模型，一个HWStatus对象就代表一条微博）
+ */
+@property(nonatomic,strong)NSMutableArray *statuses;
+
 @end
 
 @implementation ZBHomeViewController
+
+-(NSArray *)statuses{
+    
+    if (_statuses == nil) {
+        self.statuses = [NSMutableArray array];
+        
+    }
+    return _statuses;
+
+
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -34,8 +54,57 @@
     
     // 获取用户信息(昵称)
     [self setupUserInfo];
+    
+    // 加载最新的微博数据
+    [self loadNewStatus];
 }
 
+
+-(void)loadNewStatus{
+    /*
+     URL:
+     https://api.weibo.com/2/statuses/friends_timeline.json
+     
+     请求参数:
+     
+     
+     */
+    
+    
+    // 1.请求管理者
+    AFHTTPSessionManager *mgr = [AFHTTPSessionManager manager];
+    
+    // 2.拼接请求参数
+    ZBAccount *account = [ZBAccountTool account];
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    params[@"access_token"] = account.access_token;
+    params[@"count"] = @20;
+    
+    // 3.发送请求
+    [mgr GET:@"https://api.weibo.com/2/statuses/friends_timeline.json" parameters:params success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        NSLog(@"请求成功-%@",responseObject);
+       
+        // 取得 “微博字典”数组
+    // statuses 是服务器返回的responseObject(响应体)中的key，这个key可不能随便写，否则找不到value哦
+    // responseObject[@"statuses"]的整体含义:根据key得到的value
+
+        NSArray *dictArray = responseObject[@"statuses"];
+        
+        // 将字典数组转为模型数组
+        for (NSDictionary *dict in dictArray) {
+            ZBStatus *status = [ZBStatus objectWithKeyValues:dict];
+            [self.statuses addObject:status];
+                  }
+       // 刷新表格
+        [self.tableView reloadData];
+        
+        
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        NSLog(@"请求失败-%@",error);
+    }];
+    
+    
+}
 /**
  *  获取用户信息(昵称)
  */
@@ -67,7 +136,7 @@
     
     // 3.发送请求
     [mgr GET:@"https://api.weibo.com/2/users/show.json" parameters:params success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        NSLog(@"请求成功%@",responseObject);
+       // NSLog(@"请求成功%@",responseObject);
         
         NSString *name = responseObject[@"name"];
         // 将导航栏中间的titleView强转成按钮，这样就能修改按钮中的文字还有图片了
@@ -92,7 +161,7 @@
     // 必须有self作为参数，这样ZBItemTool类才能拿到self，才能在ZBItemTool类中将self作为addTarget的参数，如果没有self作为参数，ZBItemTool类直接使用self，这个self就是ZBItemTool类的对象
     self.navigationItem.leftBarButtonItem = [UIBarButtonItem ItemWithTarget:self action:@selector(friendsearch) image:@"navigationbar_friendsearch" HighlightImage:@"navigationbar_friendsearch_highlighted"];
     self.navigationItem.rightBarButtonItem = [UIBarButtonItem ItemWithTarget:self action:@selector(pop) image:@"navigationbar_pop" HighlightImage:@"navigationbar_pop_highlighted"];
-    
+   
     
     /** 中间的标题按钮*/
     ZBTitleButton *titleButton = [[ZBTitleButton alloc] init];
@@ -174,7 +243,7 @@ NSLog(@"箭头朝上");
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     
-    return 20;
+    return self.statuses.count;
     
 }
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -184,9 +253,20 @@ NSLog(@"箭头朝上");
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:ID];
     }
+    // 取出这行对应的字典
+    ZBStatus *status = self.statuses[indexPath.row];
     
-    cell.textLabel.text = [NSString stringWithFormat:@"测试数据----%ld",indexPath.row
-                           ];
+    // 取出这条微博的作者
+   ZBUser *user =  status.user;
+    cell.textLabel.text = user.name;
+    
+    // 设置微博的文字
+    cell.detailTextLabel.text = status.text;
+    
+    // 设置头像
+    UIImage *placeHD = [UIImage imageNamed:@"avatar_default_small"];
+    [cell.imageView sd_setImageWithURL:[NSURL URLWithString:user.profile_image_url] placeholderImage:placeHD];
+    
     return cell;
 }
 
