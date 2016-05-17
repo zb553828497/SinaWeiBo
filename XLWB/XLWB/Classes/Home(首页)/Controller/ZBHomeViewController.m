@@ -56,9 +56,69 @@
     [self setupUserInfo];
     
     // 加载最新的微博数据
-    [self loadNewStatus];
+  //  [self loadNewStatus];
+    // 集成刷新控件
+    [self setupRefresh];
 }
 
+-(void)setupRefresh{
+    UIRefreshControl *Ref = [[UIRefreshControl alloc]init];
+    [Ref addTarget:self action:@selector(StateChange:) forControlEvents:UIControlEventValueChanged];
+    [self.tableView addSubview:Ref] ;
+    
+
+}
+/**
+ *  UIRefreshControl进入刷新状态：加载最新的数据
+ *
+ *  @param control 用于结束刷新
+ */
+-(void)StateChange:(UIRefreshControl *)control{
+    
+    
+    // 1.请求管理者
+    AFHTTPSessionManager *mgr = [AFHTTPSessionManager manager];
+    
+    // 2.拼接请求参数
+    ZBAccount *account = [ZBAccountTool account];
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    params[@"access_token"] = account.access_token;
+    
+    // 取出最前面(时间最新，ID最大)的微博
+    ZBStatus *firstStatus = [self.statuses firstObject];
+    
+//判断firstStatus是否有数据,必须得判断,因为如果没有数据,firstStatus.idstr就为空,给since_id赋空值,程序被崩掉
+// 如果判断不满足，则向下执行，把responseObject中的数据显示在cell上。如果满足,则把最新的微博插入到最前面
+    if (firstStatus != nil) {
+ // 若指定此参数(since_id)，则只返回ID比since_id大的微博（即比since_id时间晚的微博），默认为0.
+// 因为上面的代码中,firstStatus是ID最大的微博，又把firstStatus.idstr赋值给了since_id，又因为指定了since_id，则只返回ID比since_id大的微博，所以就保证了不会把之前显示的微博内容再次返回给用户(之前显示的微博内容对应的ID肯定比firstStatus小，因为最前面的微博,ID就是最大的)。这个就是since_id的作用，我们不需要问为什么,底层开发人员就是这么设计的
+        params[@"since_id"] = firstStatus.idstr;
+    }
+    
+    // 3.发送请求
+    [mgr GET:@"https://api.weibo.com/2/statuses/friends_timeline.json" parameters:params success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        NSArray *dictArray = responseObject[@"statuses"];
+        // 将字典数组转为模型数组
+        NSArray *newStatuses = [ZBStatus mj_objectArrayWithKeyValuesArray:dictArray];
+        
+        
+        // 将最新的微博数据，添加到总数组的最前面
+        // NSMakeRange的第一个参数:将最新返回的newStatuses插入到大数组的第0个元素的位置，就是最前面的位置
+        // NSMakeRange的第二个参数:最新返回的newStatuses中的元素的个数.如果最新返回的数据有3个,则newStatuses.count为3
+        NSRange range = NSMakeRange(0, newStatuses.count);
+        NSIndexSet *set = [NSIndexSet indexSetWithIndexesInRange:range];
+        [self.statuses insertObjects:newStatuses atIndexes:set];
+        
+        // 刷新表格
+        [self.tableView reloadData];
+        
+        // 结束刷新
+        [control endRefreshing];
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        [control endRefreshing];
+    }];
+
+}
 
 -(void)loadNewStatus{
     /*
@@ -82,7 +142,7 @@
     
     // 3.发送请求
     [mgr GET:@"https://api.weibo.com/2/statuses/friends_timeline.json" parameters:params success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        NSLog(@"请求成功-%@",responseObject);
+       // NSLog(@"请求成功-%@",responseObject);
        
         // 取得 “微博字典”数组
     // statuses 是服务器返回的responseObject(响应体)中的key，这个key可不能随便写，否则找不到value哦
