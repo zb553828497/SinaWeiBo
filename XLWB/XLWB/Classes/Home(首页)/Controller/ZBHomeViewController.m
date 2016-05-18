@@ -18,6 +18,7 @@
 #import "ZBUser.h"
 #import "ZBStatus.h"
 #import <UIImageView+WebCache.h>// 下载图片
+#import "ZBLoadMoreFooter.h"
 
 
 #import <AFNetworking/AFNetworking.h>// 向服务器请求数据
@@ -47,7 +48,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+
     
     // 设置导航栏内容
     [self setupNav];
@@ -57,11 +58,61 @@
     
     // 加载最新的微博数据
     //  [self loadNewStatus];
-    // 集成刷新控件
-    [self setupRefresh];
+    
+    // 集成下拉刷新控件
+    [self setupDownRefresh];
+    
+    // 集成上拉刷新控件
+    [self setupUpRefresh];
+    
 }
+-(void)setupUpRefresh{
+    
+    ZBLoadMoreFooter *footer = [ZBLoadMoreFooter footer];
+    // 程序初始运行,就会显示xib中的内容，所以为了不让它显示，先隐藏起来，实际上是存在的
+    footer.hidden = YES;
+    self.tableView.tableFooterView = footer;
+}
+
+-(void)loadMoreStatus{
+
+    // 1.请求管理者
+    AFHTTPSessionManager *mgr = [AFHTTPSessionManager manager];
+    
+    // 2.拼接请求参数
+    ZBAccount *account = [ZBAccountTool account];
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    params[@"access_token"] = account.access_token;
+    
+    // 取出最后面的微博.这个微博相对于下面的微博，当然是最新的微博，ID最大的微博
+    ZBStatus *lastStatus = [self.statuses lastObject];
+    if (lastStatus != nil) {
+        // 若指定此参数，则返回ID小于或等于max_id的微博，默认为0。
+        // id这种数据一般都是比较大的，一般转成整数的话，最好是long long类型
+        long long maxId = lastStatus.idstr.longLongValue - 1;
+        params[@"max_id"] = @(maxId);
+    }
+    // 3.发送请求
+    [mgr GET:@"https://api.weibo.com/2/statuses/friends_timeline.json" parameters:params success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+            // 将字典数组转为模型数组
+        NSArray *newStatuses = [ZBStatus mj_objectArrayWithKeyValuesArray:responseObject[@"statuses"]];
+        // 将更多的微博数据，添加到总数组的最后面
+        [self.statuses addObjectsFromArray:newStatuses];
+        // 刷新表格
+        [self.tableView reloadData];
+        
+        // 结束刷新(隐藏tabBar)
+        self.tableView.tableFooterView.hidden = YES;
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        // 结束刷新
+        self.tableView.tableFooterView.hidden = YES;
+    }];
+
+}
+
+
 // 只会调用1次。因为setupRefresh是viewDidLoad中的方法，viewDidLoad方法只会调用1次，所以他里面的方法也只会调用一次
--(void)setupRefresh{
+-(void)setupDownRefresh{
     // 1.添加刷新控件
     UIRefreshControl *Ref = [[UIRefreshControl alloc]init];
     // 只有用户通过手动下拉刷新(注意)，才会触发UIControlEventValueChanged事件,否则不执行StateChange:
@@ -130,7 +181,11 @@
     }];
     
 }
-
+/**
+ *  显示最新微博的数量
+ *
+ *  @param count 最新微博的数量
+ */
 -(void)showNewStatusCount:(int)count{
     
     // 1.创建label
@@ -179,6 +234,7 @@
       // 总结:如果某个动画执行完毕后，又要回到动画执行前的状态，建议使用transform来做动画
     
 }
+
 -(void)loadNewStatus{
     /*
      URL:
@@ -396,6 +452,23 @@
     
     test.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:test animated:YES];
+    
+}
+// 不用设置代理，直接就可以打出来这个方法。
+// scrollView只要滚动就会调用
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView{
+    if (self.statuses.count == 0 || self.tableView.tableFooterView.isHidden == NO) {
+        return;
+    }
+    CGFloat offsetY = scrollView.contentOffset.y;
+
+    CGFloat judgeOffsetY = scrollView.contentSize.height  - scrollView.zb_height;
+    NSLog(@"%lf",scrollView.contentInset.bottom);
+    if (offsetY >= judgeOffsetY) {
+        self.tableView.tableFooterView.hidden = NO;
+        // 加载更多微博数据
+        [self loadMoreStatus];
+    }
     
 }
 

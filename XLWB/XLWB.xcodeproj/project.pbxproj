@@ -29,6 +29,8 @@
 		7770F8171CE4B0C8000CE679 /* ZBOAuthViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7770F8161CE4B0C8000CE679 /* ZBOAuthViewController.m */; };
 		77B4E4481CEAD30C005DC1B5 /* ZBUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 77B4E4471CEAD30C005DC1B5 /* ZBUser.m */; };
 		77B4E44B1CEAD31C005DC1B5 /* ZBStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = 77B4E44A1CEAD31C005DC1B5 /* ZBStatus.m */; };
+		77B4E44E1CEC2378005DC1B5 /* ZBLoadMoreFooter.m in Sources */ = {isa = PBXBuildFile; fileRef = 77B4E44D1CEC2378005DC1B5 /* ZBLoadMoreFooter.m */; };
+		77B4E4501CEC23E5005DC1B5 /* ZBLoadMoreFooter.xib in Resources */ = {isa = PBXBuildFile; fileRef = 77B4E44F1CEC23E5005DC1B5 /* ZBLoadMoreFooter.xib */; };
 		77C13EA71CE5834B00DA7563 /* ZBAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = 77C13EA61CE5834B00DA7563 /* ZBAccount.m */; };
 		77D503A11CE0CE0600463B29 /* ZBTitleMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 77D503A01CE0CE0600463B29 /* ZBTitleMenuViewController.m */; };
 		77F219A51CDDF2F3008778B0 /* ZBDropDownMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 77F219A41CDDF2F3008778B0 /* ZBDropDownMenu.m */; };
@@ -84,6 +86,9 @@
 		77B4E4471CEAD30C005DC1B5 /* ZBUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZBUser.m; sourceTree = "<group>"; };
 		77B4E4491CEAD31C005DC1B5 /* ZBStatus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBStatus.h; sourceTree = "<group>"; };
 		77B4E44A1CEAD31C005DC1B5 /* ZBStatus.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZBStatus.m; sourceTree = "<group>"; };
+		77B4E44C1CEC2378005DC1B5 /* ZBLoadMoreFooter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBLoadMoreFooter.h; sourceTree = "<group>"; };
+		77B4E44D1CEC2378005DC1B5 /* ZBLoadMoreFooter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZBLoadMoreFooter.m; sourceTree = "<group>"; };
+		77B4E44F1CEC23E5005DC1B5 /* ZBLoadMoreFooter.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ZBLoadMoreFooter.xib; sourceTree = "<group>"; };
 		77C13EA51CE5834B00DA7563 /* ZBAccount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBAccount.h; sourceTree = "<group>"; };
 		77C13EA61CE5834B00DA7563 /* ZBAccount.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZBAccount.m; sourceTree = "<group>"; };
 		77D5039F1CE0CE0600463B29 /* ZBTitleMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBTitleMenuViewController.h; sourceTree = "<group>"; };
@@ -175,6 +180,9 @@
 				77D503A01CE0CE0600463B29 /* ZBTitleMenuViewController.m */,
 				77F33A591CE8CA3200EB75F4 /* ZBTitleButton.h */,
 				77F33A5A1CE8CA3200EB75F4 /* ZBTitleButton.m */,
+				77B4E44C1CEC2378005DC1B5 /* ZBLoadMoreFooter.h */,
+				77B4E44D1CEC2378005DC1B5 /* ZBLoadMoreFooter.m */,
+				77B4E44F1CEC23E5005DC1B5 /* ZBLoadMoreFooter.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -512,6 +520,7 @@
 				77298C7B1CD83A4A00D09005 /* LaunchScreen.storyboard in Resources */,
 				77298C781CD83A4A00D09005 /* Assets.xcassets in Resources */,
 				7726068D1CD991C400B88239 /* ZBTestController.xib in Resources */,
+				77B4E4501CEC23E5005DC1B5 /* ZBLoadMoreFooter.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -587,6 +596,7 @@
 				77298C9F1CD8580500D09005 /* ZBHomeViewController.m in Sources */,
 				77298CA51CD8586F00D09005 /* ZBDiscoverViewController.m in Sources */,
 				772606A51CD9FB4300B88239 /* UIBarButtonItem+Extension.m in Sources */,
+				77B4E44E1CEC2378005DC1B5 /* ZBLoadMoreFooter.m in Sources */,
 				7770F8171CE4B0C8000CE679 /* ZBOAuthViewController.m in Sources */,
 				77D503A11CE0CE0600463B29 /* ZBTitleMenuViewController.m in Sources */,
 				77F219A51CDDF2F3008778B0 /* ZBDropDownMenu.m in Sources */,
