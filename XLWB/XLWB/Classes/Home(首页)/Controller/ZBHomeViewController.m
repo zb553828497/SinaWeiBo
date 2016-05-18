@@ -65,7 +65,97 @@
     // 集成上拉刷新控件
     [self setupUpRefresh];
     
+    // 获得未读数(每隔5秒钟调用setupUnreadCount方法,也就是每隔60秒钟给新浪服务器发送一个请求,这个请求就是获取某个用户的各种消息未读数)
+    NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:60 target:self selector:@selector(UnReadCount) userInfo:nil repeats:YES];
+    
+    // 写上这句代码,主线程也会执行NSTimer当中的任务（不管主线程是否正在其他事件）.
+    // 如果没有这句代码，当主线程正在处理其他事件时(例如滚动UITableView时，调用scrollViewDidScroll方法),就不会执行NSTimer的setupUnreadCount方法。
+    // 因为正常情况下,主线程是串行执行任务的。如果正在处理A任务，只有当A任务处理完，才会处理B任务
+    [[NSRunLoop mainRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];
 }
+
+-(void)UnReadCount{
+    /*
+     
+     URL: https://rm.api.weibo.com/2/remind/unread_count.json
+     
+     返回字段说明:
+     status         int     新微博未读数
+     follower       int     新粉丝数
+     cmt            int     新评论数
+     dm             int     新私信数
+     mention_status	int     新提及我的微博数
+     mention_cmt	int     新提及我的评论数
+     group          int     微群消息未读数
+     private_group	int     私有微群消息未读数
+     notice         int     新通知未读数
+     invite         int     新邀请未读数
+     badge          int     新勋章数
+     photo          int     相册消息未读数
+     msgbox         int     {{{3}}}
+     
+     */
+    
+    
+    // 1.请求管理者
+    AFHTTPSessionManager *mgr = [AFHTTPSessionManager manager];
+    
+    // 2.拼接请求参数
+    ZBAccount *account = [ZBAccountTool account];
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    params[@"access_token"] = account.access_token;
+    params[@"uid"] = account.uid;
+    
+    // 3.发送网络请求
+    [mgr GET:@"https://rm.api.weibo.com/2/remind/unread_count.json" parameters:params success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        
+        
+        /* 面向字典开发
+         
+         // 微博的未读数。对象转成整形。对象就是responseObject[@"status"],从返回的结果可以看出来，也就是NSNumber.  整形就是intValue。  所以这行句代码也就等价于 NSNumber转成整形
+         int status = [responseObject[@"status"] intValue];
+         
+         // 设置提醒数字(将未读数赋给badgeValue，就能在tabBar上显示数字了)
+         self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d", status];
+         
+         */
+        
+        
+        //设置提醒数字(微博的未读数)
+        // status这个key的作用:新微博未读的数量
+        //因为responseObject[@"status"]这个对象里面装的是NSNumber,所以这行代码就是NSNumber转成NSString。
+        // 以后NSNumber转NSString，直接调用description方法即可。
+        NSString *status = [responseObject[@"status"] description];
+        if ([status isEqualToString:@"0"]) {
+            // 清空tabBar图标当中的提醒数字
+            self.tabBarItem.badgeValue = nil;
+            // 清空app应用图标当中的提醒数字
+            [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
+        }else{
+            // 把提醒数字显示到tabBar的图标上
+            self.tabBarItem.badgeValue = status;
+       
+            
+            
+            // 把提醒数字显示到app的应用图标上
+            //因为applicationIconBadgeNumber是NSInteger类型，所以必须把字符串类型的status转成整形,调用intValue的getter方法
+            UIApplication *app = [UIApplication sharedApplication];
+            
+            // iOS 8 系统要求设置通知的时候必须经过用户许可。
+            UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeBadge categories:nil];
+            
+            [app registerUserNotificationSettings:settings];
+            // 把status代表的微博未读数赋值给应用程序右上角的"通知图标"Badge
+            app.applicationIconBadgeNumber = status.intValue;
+        }
+        
+        
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        
+    }];
+
+}
+
 -(void)setupUpRefresh{
     
     ZBLoadMoreFooter *footer = [ZBLoadMoreFooter footer];
@@ -133,7 +223,39 @@
  *  @param control 用于结束刷新
  */
 -(void)StateChange:(UIRefreshControl *)control{
-    
+    /*
+         URL:   https://api.weibo.com/2/statuses/friends_timeline.json
+     
+     返回字段:
+     
+     created_at	string	微博创建时间
+     id                         int64                微博ID
+     mid                        int64                微博MID
+     idstr                      string               字符串型的微博ID
+     text                       string               微博信息内容
+     source                     string               微博来源
+     favorited                  boolean              是否已收藏，true：是，false：否
+     truncated                  boolean              是否被截断，true：是，false：否
+     in_reply_to_status_id      string              （暂未支持）回复ID
+     in_reply_to_user_id        string              （暂未支持）回复人UID
+     in_reply_to_screen_name	string              （暂未支持）回复人昵称
+     thumbnail_pic              string               缩略图片地址，没有时不返回此字段
+     bmiddle_pic                string               中等尺寸图片地址，没有时不返回此字段
+     original_pic               string               原始图片地址，没有时不返回此字段
+     geo                        object               地理信息字段 详细
+     user                       object               微博作者的用户信息字段 详细
+     retweeted_status           object               被转发的原微博信息字段，当该微博为转发微博时返回 详细
+     reposts_count              int                  转发数
+     comments_count             int                  评论数
+     attitudes_count            int                  表态数
+     mlevel                     int                  暂未支持
+     visible                    object               微博的可见性及指定可见分组信息。该object中type取值，0：普通微博，1：私密微博，3：指定分组微博，4：密友微博；list_id为分组的组号
+     
+     pic_ids                    object               微博配图ID。多图时返回多图ID，用来拼接图片url。用返回字段thumbnail_pic的地址配上该返回字段的图片ID，即可得到多个图片url。
+     
+     ad                         object array         微博流内的推广微博ID
+     
+     */
     
     // 1.请求管理者
     AFHTTPSessionManager *mgr = [AFHTTPSessionManager manager];
@@ -188,6 +310,11 @@
  */
 -(void)showNewStatusCount:(int)count{
     
+    // 刷新成功,则清空tabBar图标当中的提醒数字
+    self.tabBarItem.badgeValue = nil;
+    // 刷新成功，则清空app应用图标当中的提醒数字
+    [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
+    
     // 1.创建label
     UILabel *label = [[UILabel alloc] init];
     label.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"timeline_new_status_background"]];
@@ -240,7 +367,7 @@
      URL:
      https://api.weibo.com/2/statuses/friends_timeline.json
      
-     请求参数:
+     返回字段:同StateChange方法里面的内容
      
      
      */
@@ -463,7 +590,7 @@
     CGFloat offsetY = scrollView.contentOffset.y;
 
     CGFloat judgeOffsetY = scrollView.contentSize.height  - scrollView.zb_height;
-    NSLog(@"%lf",scrollView.contentInset.bottom);
+    //NSLog(@"%lf",scrollView.contentInset.bottom);
     if (offsetY >= judgeOffsetY) {
         self.tableView.tableFooterView.hidden = NO;
         // 加载更多微博数据

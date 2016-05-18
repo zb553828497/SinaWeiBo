@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		770EB9AC1CEC9FCB00C66CFA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 770EB9AB1CEC9FCB00C66CFA /* Assets.xcassets */; };
 		7710612F1CE2005C0024A5EE /* ZBTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 7710612E1CE2005C0024A5EE /* ZBTabBar.m */; };
 		77145D041CE359BA009886FE /* ZBNewFeatureController.m in Sources */ = {isa = PBXBuildFile; fileRef = 77145D031CE359BA009886FE /* ZBNewFeatureController.m */; };
 		772606881CD98B8D00B88239 /* UIView+Frame.m in Sources */ = {isa = PBXBuildFile; fileRef = 772606871CD98B8D00B88239 /* UIView+Frame.m */; };
@@ -18,7 +19,6 @@
 		772606A51CD9FB4300B88239 /* UIBarButtonItem+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 772606A41CD9FB4300B88239 /* UIBarButtonItem+Extension.m */; };
 		77298C6D1CD83A4A00D09005 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 77298C6C1CD83A4A00D09005 /* main.m */; };
 		77298C701CD83A4A00D09005 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 77298C6F1CD83A4A00D09005 /* AppDelegate.m */; };
-		77298C781CD83A4A00D09005 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 77298C771CD83A4A00D09005 /* Assets.xcassets */; };
 		77298C7B1CD83A4A00D09005 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 77298C791CD83A4A00D09005 /* LaunchScreen.storyboard */; };
 		77298C9F1CD8580500D09005 /* ZBHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 77298C9E1CD8580500D09005 /* ZBHomeViewController.m */; };
 		77298CA21CD8584700D09005 /* ZBMessageCenterController.m in Sources */ = {isa = PBXBuildFile; fileRef = 77298CA11CD8584700D09005 /* ZBMessageCenterController.m */; };
@@ -44,6 +44,7 @@
 /* Begin PBXFileReference section */
 		0E993E7186A06FE82F15FC3D /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		6C62DDD9483736069B0445C6 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		770EB9AB1CEC9FCB00C66CFA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7710612D1CE2005C0024A5EE /* ZBTabBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBTabBar.h; sourceTree = "<group>"; };
 		7710612E1CE2005C0024A5EE /* ZBTabBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZBTabBar.m; sourceTree = "<group>"; };
 		77145D021CE359BA009886FE /* ZBNewFeatureController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBNewFeatureController.h; sourceTree = "<group>"; };
@@ -64,7 +65,6 @@
 		77298C6C1CD83A4A00D09005 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		77298C6E1CD83A4A00D09005 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		77298C6F1CD83A4A00D09005 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		77298C771CD83A4A00D09005 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		77298C7A1CD83A4A00D09005 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		77298C7C1CD83A4A00D09005 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		77298C9C1CD845AB00D09005 /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
@@ -254,9 +254,9 @@
 				77298C6E1CD83A4A00D09005 /* AppDelegate.h */,
 				77298C6F1CD83A4A00D09005 /* AppDelegate.m */,
 				77298C9C1CD845AB00D09005 /* PrefixHeader.pch */,
-				77298C771CD83A4A00D09005 /* Assets.xcassets */,
 				77298C791CD83A4A00D09005 /* LaunchScreen.storyboard */,
 				77298C7C1CD83A4A00D09005 /* Info.plist */,
+				770EB9AB1CEC9FCB00C66CFA /* Assets.xcassets */,
 				77298C6B1CD83A4A00D09005 /* Supporting Files */,
 			);
 			path = XLWB;
@@ -518,9 +518,9 @@
 			files = (
 				7726069E1CD9CE1500B88239 /* ZBTest2Controller.xib in Resources */,
 				77298C7B1CD83A4A00D09005 /* LaunchScreen.storyboard in Resources */,
-				77298C781CD83A4A00D09005 /* Assets.xcassets in Resources */,
 				7726068D1CD991C400B88239 /* ZBTestController.xib in Resources */,
 				77B4E4501CEC23E5005DC1B5 /* ZBLoadMoreFooter.xib in Resources */,
+				770EB9AC1CEC9FCB00C66CFA /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -708,6 +708,8 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = BBFD18DD2D68B80DA60677B9 /* Pods.debug.xcconfig */;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-2";
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Brand Assets";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = XLWB/PrefixHeader.pch;
 				INFOPLIST_FILE = XLWB/Info.plist;
@@ -722,6 +724,8 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 0E993E7186A06FE82F15FC3D /* Pods.release.xcconfig */;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-2";
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Brand Assets";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = XLWB/PrefixHeader.pch;
 				INFOPLIST_FILE = XLWB/Info.plist;
