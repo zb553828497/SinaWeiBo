@@ -56,7 +56,7 @@
     // 获取用户信息(昵称)
     [self setupUserInfo];
     
-    // 加载最新的微博数据
+    // 加载最新的微博数据。 不需要了。因为下面的setupDownRefresh方法也实现了这个功能
     //  [self loadNewStatus];
     
     // 集成下拉刷新控件
@@ -214,9 +214,8 @@
     // 3.程序运行自动调用StateChange方法加载最新数据。
     // 只会调用1次，以后不会再调用.因为本质上这些方法是在viewDidLoad中调用的。又因为整个过程只会执行一次viewDidLoad方法，所以StateChange:方法从始至终只会调用一次
     [self StateChange:Ref];
-    
-    
 }
+
 /**
  *  UIRefreshControl进入刷新状态：加载最新的数据
  *
@@ -291,6 +290,7 @@
         [self.statuses insertObjects:newStatuses atIndexes:set];
         
         // 刷新表格
+        // 刷新表格(内部调用数据源方法numberOfRowsInSection、cellForRowAtIndexPath等,把内容显示在cell上)
         [self.tableView reloadData];
         
         // 结束刷新
@@ -394,10 +394,10 @@
         
         // 将字典数组转为模型数组
         for (NSDictionary *dict in dictArray) {
-            ZBStatus *status = [ZBStatus objectWithKeyValues:dict];
+            ZBStatus *status = [ZBStatus mj_objectWithKeyValues:dict];
             [self.statuses addObject:status];
         }
-        // 刷新表格
+        // 刷新表格(内部调用数据源方法numberOfRowsInSection、cellForRowAtIndexPath等,把内容显示在cell上)
         [self.tableView reloadData];
         
         
@@ -559,10 +559,13 @@
     ZBStatus *status = self.statuses[indexPath.row];
     
     // 取出这条微博的作者
+    // 精华:模型中又有模型，即ZBStatus模型中又有ZBUser模型，可以通过status.user的形式得到ZBUser模型(定理),也就是用ZBStatus模型的对象去访问ZBUser模型的对象。
     ZBUser *user =  status.user;
+    // 模型中的属性(里面存储着数据哦)，赋值给系统的属性，就能把微博的作者显示在当前cell上(indexPath标识某一行)
     cell.textLabel.text = user.name;
     
-    // 设置微博的文字
+    // 设置微博的内容
+    // 同上.模型中的属性赋值给系统的属性,就能把微博的内容显示在当前cell上
     cell.detailTextLabel.text = status.text;
     
     // 设置头像

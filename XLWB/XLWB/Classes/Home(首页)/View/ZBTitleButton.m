@@ -14,7 +14,7 @@
     
     self = [super initWithFrame:frame];
     if (self) {
-        
+        //self.backgroundColor = [UIColor redColor]; 导航栏标题TitleView的按钮的背景颜色
         [self setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         self.titleLabel.font = [UIFont boldSystemFontOfSize:17];
          // 调用重写的setImage方法，在里面执行[self sizeToFit]
@@ -23,6 +23,19 @@
     }
     return self;
 }
+
+
+/**
+ *  想要在系统计算和设置完按钮的尺寸之后,再修改以下尺寸,可以用setFrame:方法
+ *  重写setFrame:方法的目的:拦截设置按钮尺寸的过程(只要我们设置或者修改按钮的frame,一定会调用重写的setFrame方法)
+ *  如果想在系统设置完控件的尺寸后，再做修改，而且要保证修改成功，一般都是在setFrame:中设置
+ */
+-(void)setFrame:(CGRect)frame{
+    
+    //frame.size.width += 30;// 设置按钮整体宽度增加30
+    [super setFrame:frame];
+}
+
 
 // 重写 按钮中设置文字的方法
 -(void)setTitle:(NSString *)title forState:(UIControlState)state{
@@ -49,7 +62,7 @@
     self.titleLabel.zb_X = self.imageView.zb_X;// 图片的x赋值给文字的x
     
     // 2.计算imageView的frame
-    self.imageView.zb_X = CGRectGetMaxX(self.titleLabel.frame);// 文字最大的x值赋值给图片的x
+    self.imageView.zb_X = CGRectGetMaxX(self.titleLabel.frame)  ;// 文字最大的x值赋值给图片的x
     
 }
 @end
