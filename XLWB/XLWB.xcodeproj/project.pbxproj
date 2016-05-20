@@ -32,6 +32,8 @@
 		77B4E44E1CEC2378005DC1B5 /* ZBLoadMoreFooter.m in Sources */ = {isa = PBXBuildFile; fileRef = 77B4E44D1CEC2378005DC1B5 /* ZBLoadMoreFooter.m */; };
 		77B4E4501CEC23E5005DC1B5 /* ZBLoadMoreFooter.xib in Resources */ = {isa = PBXBuildFile; fileRef = 77B4E44F1CEC23E5005DC1B5 /* ZBLoadMoreFooter.xib */; };
 		77C13EA71CE5834B00DA7563 /* ZBAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = 77C13EA61CE5834B00DA7563 /* ZBAccount.m */; };
+		77C57D921CEDC91B00092174 /* ZBStatusFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = 77C57D911CEDC91B00092174 /* ZBStatusFrame.m */; };
+		77C57D951CEDC95A00092174 /* ZBStatusCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 77C57D941CEDC95A00092174 /* ZBStatusCell.m */; };
 		77D503A11CE0CE0600463B29 /* ZBTitleMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 77D503A01CE0CE0600463B29 /* ZBTitleMenuViewController.m */; };
 		77F219A51CDDF2F3008778B0 /* ZBDropDownMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 77F219A41CDDF2F3008778B0 /* ZBDropDownMenu.m */; };
 		77F33A531CE5F8EA00EB75F4 /* ZBAccountTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 77F33A521CE5F8EA00EB75F4 /* ZBAccountTool.m */; };
@@ -91,6 +93,10 @@
 		77B4E44F1CEC23E5005DC1B5 /* ZBLoadMoreFooter.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ZBLoadMoreFooter.xib; sourceTree = "<group>"; };
 		77C13EA51CE5834B00DA7563 /* ZBAccount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBAccount.h; sourceTree = "<group>"; };
 		77C13EA61CE5834B00DA7563 /* ZBAccount.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZBAccount.m; sourceTree = "<group>"; };
+		77C57D901CEDC91B00092174 /* ZBStatusFrame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBStatusFrame.h; sourceTree = "<group>"; };
+		77C57D911CEDC91B00092174 /* ZBStatusFrame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZBStatusFrame.m; sourceTree = "<group>"; };
+		77C57D931CEDC95A00092174 /* ZBStatusCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBStatusCell.h; sourceTree = "<group>"; };
+		77C57D941CEDC95A00092174 /* ZBStatusCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZBStatusCell.m; sourceTree = "<group>"; };
 		77D5039F1CE0CE0600463B29 /* ZBTitleMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBTitleMenuViewController.h; sourceTree = "<group>"; };
 		77D503A01CE0CE0600463B29 /* ZBTitleMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZBTitleMenuViewController.m; sourceTree = "<group>"; };
 		77F219A31CDDF2F3008778B0 /* ZBDropDownMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBDropDownMenu.h; sourceTree = "<group>"; };
@@ -169,6 +175,8 @@
 				77B4E4471CEAD30C005DC1B5 /* ZBUser.m */,
 				77B4E4491CEAD31C005DC1B5 /* ZBStatus.h */,
 				77B4E44A1CEAD31C005DC1B5 /* ZBStatus.m */,
+				77C57D901CEDC91B00092174 /* ZBStatusFrame.h */,
+				77C57D911CEDC91B00092174 /* ZBStatusFrame.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -183,6 +191,8 @@
 				77B4E44C1CEC2378005DC1B5 /* ZBLoadMoreFooter.h */,
 				77B4E44D1CEC2378005DC1B5 /* ZBLoadMoreFooter.m */,
 				77B4E44F1CEC23E5005DC1B5 /* ZBLoadMoreFooter.xib */,
+				77C57D931CEDC95A00092174 /* ZBStatusCell.h */,
+				77C57D941CEDC95A00092174 /* ZBStatusCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -588,6 +598,7 @@
 				7740304D1CDDC73F009CAFA6 /* ZBSearchBar.m in Sources */,
 				77F33A531CE5F8EA00EB75F4 /* ZBAccountTool.m in Sources */,
 				77F33A5B1CE8CA3200EB75F4 /* ZBTitleButton.m in Sources */,
+				77C57D921CEDC91B00092174 /* ZBStatusFrame.m in Sources */,
 				77298C6D1CD83A4A00D09005 /* main.m in Sources */,
 				77B4E44B1CEAD31C005DC1B5 /* ZBStatus.m in Sources */,
 				7726069D1CD9CE1500B88239 /* ZBTest2Controller.m in Sources */,
@@ -603,6 +614,7 @@
 				7710612F1CE2005C0024A5EE /* ZBTabBar.m in Sources */,
 				772606881CD98B8D00B88239 /* UIView+Frame.m in Sources */,
 				77C13EA71CE5834B00DA7563 /* ZBAccount.m in Sources */,
+				77C57D951CEDC95A00092174 /* ZBStatusCell.m in Sources */,
 				77B4E4481CEAD30C005DC1B5 /* ZBUser.m in Sources */,
 				776177731CD8C18600F5FE03 /* ZBTabBarController.m in Sources */,
 			);

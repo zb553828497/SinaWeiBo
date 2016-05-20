@@ -19,7 +19,8 @@
 #import "ZBStatus.h"
 #import <UIImageView+WebCache.h>// 下载图片
 #import "ZBLoadMoreFooter.h"
-
+#import "ZBStatusCell.h"
+#import "ZBStatusFrame.h"
 
 #import <AFNetworking/AFNetworking.h>// 向服务器请求数据
 
@@ -27,24 +28,66 @@
 @interface ZBHomeViewController ()<ZBDropDownMenuDelegate>
 @property(nonatomic,weak)UIButton *titleButton;
 /**
- *  微博数组（里面放的都是HWStatus模型，一个HWStatus对象就代表一条微博）
+ *  微博数组（里面放的都是ZBStatusFrame模型，一个ZBStatusFrame对象就代表一条微博）
  */
-@property(nonatomic,strong)NSMutableArray *statuses;
+@property(nonatomic,strong)NSMutableArray *statusesFrames;
 
 @end
 
 @implementation ZBHomeViewController
 
--(NSArray *)statuses{
+-(NSArray *)statusesFrames{
     
-    if (_statuses == nil) {
-        self.statuses = [NSMutableArray array];
+    if (_statusesFrames == nil) {
+        self.statusesFrames = [NSMutableArray array];
         
     }
-    return _statuses;
-    
-    
+    return _statusesFrames;
 }
+
+/**
+ *  将ZBStatus模型转为ZBStatusFrame模型
+ */
+/*
+ Q:为什么将ZBStatus模型转为ZBStatusFrame模型?
+ 
+ A1:因为一个ZBStatusFrame模型里面声明了很多属性(详细看ZBStatusFrame.h文件)。这些属性的整体作用(1,2,3):
+ 1.存放着一个cell内部所有子控件的frame数据
+ 2.存放一个cell的高度
+ 3.存放着一个数据模型ZBStatus
+ 
+ A2:ZBStatusFrame模型包括ZBStatus模型.
+ 因为ZBStatusFrame模型类中声明了ZBStatus类型的一个属性，那么就拿到了ZBStatus类，也就拥有了ZBStatus的所有属性和方法
+ 也就是说ZBStatus模型中有的属性,ZBStatusFrame中有,ZBStatus没有的属性,ZBStatusFrame也有.
+ 
+ A3:ZBStatusFrame的很多属性的综合作用，具备了能将从新浪服务器请求来的数据精确的显示到cell的指定位置(因为.h文件中有设置frame的属性、有设置cell的高度的属性)
+ ZBStatus中的属性只能将从新浪服务器请求来的数据显示到cell上，但是位置无法确定(因为.h文件没有设置frame的属性)
+ 
+ A4:这是模型开发,我们是从模型中的属性中拿到数据，然后显示到cell上
+ ZBStatus中有5个属性，我们只能在cell上显示五个内容
+ ZBStatusFrame中有10多个属性，我们可以在cell上显示10多个内容
+ 
+ A5:总结:
+    转成ZBStatusFrame模型,我们既能将从服务器请求来的数据显示到cell上，也能将数据放到cell的指定位置，更能指定每个cell的高度。外界不需要设置位置和cell的高度
+    转成ZBStatus模型模型，我们只能将从服务器请求来的数据放到cell上，但是位置不确定,cell的高度也不确定.只能通过外界来设置位置和cell的高度。
+ 
+ */
+
+// 抽取一个stausFramesWithStatuses类,将具体实现的代码写在外面,简化代码。你写在里面也行,不过乱罢了.
+-(NSArray *)statusFrameWithStatuses:(NSArray *)statuses{
+    NSMutableArray *frames = [NSMutableArray array];
+    // 遍历 statuses中的每一个元素，放到ZBStatus类型的status中,遍历一次，就调用f的set方法,也就是setStatus:方法，就将status作为方法的参数传递进去,这样参数也是ZBStatus类型的
+    for (ZBStatus *sta in statuses) {
+        ZBStatusFrame *statusFrame = [[ZBStatusFrame alloc] init];
+        //调用statusFrame对象的set方法，也就是setStatus:,
+        // 在setStatus:方法中,计算frame，将来用于给系统的frame赋值
+        statusFrame.status =sta;
+        // 此时的statusFrame对象里面已经计算好了要显示的控件的frame，并将对象添加到frames中
+        [frames addObject:statusFrame];
+    }
+    return frames;
+}
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -73,6 +116,191 @@
     // 因为正常情况下,主线程是串行执行任务的。如果正在处理A任务，只有当A任务处理完，才会处理B任务
     [[NSRunLoop mainRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];
 }
+
+
+/**
+ *  下拉刷新
+ */
+// 只会调用1次。因为setupRefresh是viewDidLoad中的方法，viewDidLoad方法只会调用1次，所以他里面的方法也只会调用一次
+-(void)setupDownRefresh{
+    // 1.添加刷新控件
+    UIRefreshControl *Ref = [[UIRefreshControl alloc]init];
+    // 只有用户通过手动下拉刷新(注意)，才会触发UIControlEventValueChanged事件,否则不执行loadNewStatus:
+    [Ref addTarget:self action:@selector(loadNewStatus:) forControlEvents:UIControlEventValueChanged];
+    [self.tableView addSubview:Ref] ;
+    // 2.程序运行,自动进入刷新状态(仅仅是显示刷新状态,并不会触发UIControlEventValueChanged事件)
+    // 只会调用1次
+    [Ref beginRefreshing];
+    // 3.程序运行自动调用loadNewStatus方法加载最新数据。
+    // 只会调用1次，以后不会再调用.因为本质上这些方法是在viewDidLoad中调用的。又因为整个过程只会执行一次viewDidLoad方法，所以loadNewStatus:方法从始至终只会调用一次
+    [self loadNewStatus:Ref];
+}
+
+
+/**
+ *  UIRefreshControl进入刷新状态：加载最新的数据
+ *
+ *  @param control 用于结束刷新
+ */
+-(void)loadNewStatus:(UIRefreshControl *)control{
+    /*
+     URL:   https://api.weibo.com/2/statuses/friends_timeline.json
+     
+     返回字段:
+     
+     created_at	string	微博创建时间
+     id                         int64                微博ID
+     mid                        int64                微博MID
+     idstr                      string               字符串型的微博ID
+     text                       string               微博信息内容
+     source                     string               微博来源
+     favorited                  boolean              是否已收藏，true：是，false：否
+     truncated                  boolean              是否被截断，true：是，false：否
+     in_reply_to_status_id      string              （暂未支持）回复ID
+     in_reply_to_user_id        string              （暂未支持）回复人UID
+     in_reply_to_screen_name	string              （暂未支持）回复人昵称
+     thumbnail_pic              string               缩略图片地址，没有时不返回此字段
+     bmiddle_pic                string               中等尺寸图片地址，没有时不返回此字段
+     original_pic               string               原始图片地址，没有时不返回此字段
+     geo                        object               地理信息字段 详细
+     user                       object               微博作者的用户信息字段 详细
+     retweeted_status           object               被转发的原微博信息字段，当该微博为转发微博时返回 详细
+     reposts_count              int                  转发数
+     comments_count             int                  评论数
+     attitudes_count            int                  表态数
+     mlevel                     int                  暂未支持
+     visible                    object               微博的可见性及指定可见分组信息。该object中type取值，0：普通微博，1：私密微博，3：指定分组微博，4：密友微博；list_id为分组的组号
+     
+     pic_ids                    object               微博配图ID。多图时返回多图ID，用来拼接图片url。用返回字段thumbnail_pic的地址配上该返回字段的图片ID，即可得到多个图片url。
+     
+     ad                         object array         微博流内的推广微博ID
+     
+     */
+    
+    // 1.请求管理者
+    AFHTTPSessionManager *mgr = [AFHTTPSessionManager manager];
+    
+    // 2.拼接请求参数
+    ZBAccount *account = [ZBAccountTool account];
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    params[@"access_token"] = account.access_token;
+    
+    // 取出最前面(时间最新，ID最大)的微博
+    ZBStatusFrame *firstStatus = [self.statusesFrames firstObject];// 注意
+    
+    //判断firstStatus是否有数据,必须得判断,因为如果没有数据,firstStatus.idstr就为空,给since_id赋空值,程序被崩掉
+    // 如果判断不满足，则向下执行，把responseObject中的数据显示在cell上。如果满足,则把最新的微博插入到最前面
+    if (firstStatus != nil) {
+        // 若指定此参数(since_id)，则只返回ID比since_id大的微博（即比since_id时间晚的微博），默认为0.
+        // 因为上面的代码中,firstStatus是ID最大的微博，又把firstStatus.idstr赋值给了since_id，又因为指定了since_id，则只返回ID比since_id大的微博，所以就保证了不会把之前显示的微博内容再次返回给用户(之前显示的微博内容对应的ID肯定比firstStatus小，因为最前面的微博,ID就是最大的)。这个就是since_id的作用，我们不需要问为什么,底层开发人员就是这么设计的
+        params[@"since_id"] = firstStatus.status.idstr;
+    }
+    
+    // 3.发送请求
+    [mgr GET:@"https://api.weibo.com/2/statuses/friends_timeline.json" parameters:params success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        // 取得 “微博字典”数组
+        // statuses 是服务器返回的responseObject(响应体)中的key，这个key可不能随便写，否则找不到value哦
+        // responseObject[@"statuses"]的整体含义:根据key得到的value
+        NSArray *dictArray = responseObject[@"statuses"];
+        
+        // 将字典数组转为模型数组
+        // 这句代码之后，新浪微博服务器返回的数据存到了ZBStatus模型类的对应的各个属性中
+        NSArray *newStatuses = [ZBStatus mj_objectArrayWithKeyValuesArray:dictArray];
+        
+        // newFrames数组拿到等号右侧返回过来的newStatuses数组。
+        // 抽出来stausFramesWithStatuses，具体怎么执行，在stausFramesWithStatuses方法中
+        
+       // 等号右边返回过来的已经计算好控件的frames 赋值给等号左边的newFrames,然后添加到statusesFrames数组的里面
+   
+    /*
+    newFrames里面既有数据，又有frame(位置+尺寸)。
+    1.newStatuses的数据是把新浪服务器的数据利用MJ字典转模型得到的,赋值给newFrames,所以newFrames里面也有数据
+    2.newStatuses作为statusFrameWithStatuses方法的参数，在方法里面计算数据的frame(尺寸+位置)，然后赋值给newFrames,所以newFrames里面有数据的frame(尺寸和位置）
+    */
+         NSArray *newFrames = [self statusFrameWithStatuses:newStatuses];
+        
+        // 将最新的微博数据，添加到总数组的最前面
+        // NSMakeRange的第一个参数:将最新返回的newStatuses插入到大数组的第0个元素的位置，就是最前面的位置
+        // NSMakeRange的第二个参数:最新返回的newStatuses中的元素的个数.如果最新返回的数据有3个,则newStatuses.count为3
+        NSRange range = NSMakeRange(0, newStatuses.count);
+        NSIndexSet *set = [NSIndexSet indexSetWithIndexesInRange:range];
+        // 将具有数据和frame的newFrames对象添加到statusesFrames数组中的第0个位置
+        [self.statusesFrames insertObjects:newFrames atIndexes:set];
+        
+        // 刷新表格
+        // 刷新表格(内部调用数据源方法numberOfRowsInSection、cellForRowAtIndexPath等,把内容显示在cell上)
+        [self.tableView reloadData];
+        
+        // 结束刷新
+        [control endRefreshing];
+        
+        // 显示最新微博的数量
+        [self showNewStatusCount:newStatuses.count];
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        [control endRefreshing];
+    }];
+    
+}
+
+
+/**
+ *  上拉刷新
+ */
+
+-(void)setupUpRefresh{
+    
+    ZBLoadMoreFooter *footer = [ZBLoadMoreFooter footer];
+    // 程序初始运行,就会显示xib中的内容，所以为了不让它显示，先隐藏起来，实际上是存在的
+    footer.hidden = YES;
+    self.tableView.tableFooterView = footer;
+}
+
+/**
+ *  上拉加载更多数据
+ */
+-(void)loadMoreStatus{
+
+    // 1.请求管理者
+    AFHTTPSessionManager *mgr = [AFHTTPSessionManager manager];
+    
+    // 2.拼接请求参数
+    ZBAccount *account = [ZBAccountTool account];
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    params[@"access_token"] = account.access_token;
+    
+    // 取出最后面的微博.这个微博相对于下面的微博，当然是最新的微博，ID最大的微博
+    ZBStatusFrame *lastStatusFrame = [self.statusesFrames lastObject];
+    if (lastStatusFrame != nil) {
+        // 若指定此参数，则返回ID小于或等于max_id的微博，默认为0。
+        // id这种数据一般都是比较大的，一般转成整数的话，最好是long long类型
+        long long maxId = lastStatusFrame.status.idstr.longLongValue - 1;
+        params[@"max_id"] = @(maxId);
+    }
+    // 3.发送请求
+    [mgr GET:@"https://api.weibo.com/2/statuses/friends_timeline.json" parameters:params success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+            // 将字典数组转为模型数组
+        NSArray *newStatuses = [ZBStatus mj_objectArrayWithKeyValuesArray:responseObject[@"statuses"]];
+        
+        NSArray *newFrames = [self statusFrameWithStatuses:newStatuses];
+        
+        // 将更多的微博数据，添加到总数组的最后面
+        [self.statusesFrames addObjectsFromArray:newFrames];
+        
+        // 刷新表格
+        [self.tableView reloadData];
+        
+        // 结束刷新(隐藏tabBar)
+        self.tableView.tableFooterView.hidden = YES;
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        // 结束刷新
+        self.tableView.tableFooterView.hidden = YES;
+    }];
+
+}
+
+/**
+ *  微博的未读数
+ */
 
 -(void)UnReadCount{
     /*
@@ -134,7 +362,7 @@
         }else{
             // 把提醒数字显示到tabBar的图标上
             self.tabBarItem.badgeValue = status;
-       
+            
             
             
             // 把提醒数字显示到app的应用图标上
@@ -153,156 +381,10 @@
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         
     }];
-
-}
-
--(void)setupUpRefresh{
-    
-    ZBLoadMoreFooter *footer = [ZBLoadMoreFooter footer];
-    // 程序初始运行,就会显示xib中的内容，所以为了不让它显示，先隐藏起来，实际上是存在的
-    footer.hidden = YES;
-    self.tableView.tableFooterView = footer;
-}
-
--(void)loadMoreStatus{
-
-    // 1.请求管理者
-    AFHTTPSessionManager *mgr = [AFHTTPSessionManager manager];
-    
-    // 2.拼接请求参数
-    ZBAccount *account = [ZBAccountTool account];
-    NSMutableDictionary *params = [NSMutableDictionary dictionary];
-    params[@"access_token"] = account.access_token;
-    
-    // 取出最后面的微博.这个微博相对于下面的微博，当然是最新的微博，ID最大的微博
-    ZBStatus *lastStatus = [self.statuses lastObject];
-    if (lastStatus != nil) {
-        // 若指定此参数，则返回ID小于或等于max_id的微博，默认为0。
-        // id这种数据一般都是比较大的，一般转成整数的话，最好是long long类型
-        long long maxId = lastStatus.idstr.longLongValue - 1;
-        params[@"max_id"] = @(maxId);
-    }
-    // 3.发送请求
-    [mgr GET:@"https://api.weibo.com/2/statuses/friends_timeline.json" parameters:params success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-            // 将字典数组转为模型数组
-        NSArray *newStatuses = [ZBStatus mj_objectArrayWithKeyValuesArray:responseObject[@"statuses"]];
-        // 将更多的微博数据，添加到总数组的最后面
-        [self.statuses addObjectsFromArray:newStatuses];
-        // 刷新表格
-        [self.tableView reloadData];
-        
-        // 结束刷新(隐藏tabBar)
-        self.tableView.tableFooterView.hidden = YES;
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        // 结束刷新
-        self.tableView.tableFooterView.hidden = YES;
-    }];
-
-}
-
-
-// 只会调用1次。因为setupRefresh是viewDidLoad中的方法，viewDidLoad方法只会调用1次，所以他里面的方法也只会调用一次
--(void)setupDownRefresh{
-    // 1.添加刷新控件
-    UIRefreshControl *Ref = [[UIRefreshControl alloc]init];
-    // 只有用户通过手动下拉刷新(注意)，才会触发UIControlEventValueChanged事件,否则不执行StateChange:
-    [Ref addTarget:self action:@selector(StateChange:) forControlEvents:UIControlEventValueChanged];
-    [self.tableView addSubview:Ref] ;
-    // 2.程序运行,自动进入刷新状态(仅仅是显示刷新状态,并不会触发UIControlEventValueChanged事件)
-    // 只会调用1次
-    [Ref beginRefreshing];
-    // 3.程序运行自动调用StateChange方法加载最新数据。
-    // 只会调用1次，以后不会再调用.因为本质上这些方法是在viewDidLoad中调用的。又因为整个过程只会执行一次viewDidLoad方法，所以StateChange:方法从始至终只会调用一次
-    [self StateChange:Ref];
-}
-
-/**
- *  UIRefreshControl进入刷新状态：加载最新的数据
- *
- *  @param control 用于结束刷新
- */
--(void)StateChange:(UIRefreshControl *)control{
-    /*
-         URL:   https://api.weibo.com/2/statuses/friends_timeline.json
-     
-     返回字段:
-     
-     created_at	string	微博创建时间
-     id                         int64                微博ID
-     mid                        int64                微博MID
-     idstr                      string               字符串型的微博ID
-     text                       string               微博信息内容
-     source                     string               微博来源
-     favorited                  boolean              是否已收藏，true：是，false：否
-     truncated                  boolean              是否被截断，true：是，false：否
-     in_reply_to_status_id      string              （暂未支持）回复ID
-     in_reply_to_user_id        string              （暂未支持）回复人UID
-     in_reply_to_screen_name	string              （暂未支持）回复人昵称
-     thumbnail_pic              string               缩略图片地址，没有时不返回此字段
-     bmiddle_pic                string               中等尺寸图片地址，没有时不返回此字段
-     original_pic               string               原始图片地址，没有时不返回此字段
-     geo                        object               地理信息字段 详细
-     user                       object               微博作者的用户信息字段 详细
-     retweeted_status           object               被转发的原微博信息字段，当该微博为转发微博时返回 详细
-     reposts_count              int                  转发数
-     comments_count             int                  评论数
-     attitudes_count            int                  表态数
-     mlevel                     int                  暂未支持
-     visible                    object               微博的可见性及指定可见分组信息。该object中type取值，0：普通微博，1：私密微博，3：指定分组微博，4：密友微博；list_id为分组的组号
-     
-     pic_ids                    object               微博配图ID。多图时返回多图ID，用来拼接图片url。用返回字段thumbnail_pic的地址配上该返回字段的图片ID，即可得到多个图片url。
-     
-     ad                         object array         微博流内的推广微博ID
-     
-     */
-    
-    // 1.请求管理者
-    AFHTTPSessionManager *mgr = [AFHTTPSessionManager manager];
-    
-    // 2.拼接请求参数
-    ZBAccount *account = [ZBAccountTool account];
-    NSMutableDictionary *params = [NSMutableDictionary dictionary];
-    params[@"access_token"] = account.access_token;
-    
-    // 取出最前面(时间最新，ID最大)的微博
-    ZBStatus *firstStatus = [self.statuses firstObject];
-    
-    //判断firstStatus是否有数据,必须得判断,因为如果没有数据,firstStatus.idstr就为空,给since_id赋空值,程序被崩掉
-    // 如果判断不满足，则向下执行，把responseObject中的数据显示在cell上。如果满足,则把最新的微博插入到最前面
-    if (firstStatus != nil) {
-        // 若指定此参数(since_id)，则只返回ID比since_id大的微博（即比since_id时间晚的微博），默认为0.
-        // 因为上面的代码中,firstStatus是ID最大的微博，又把firstStatus.idstr赋值给了since_id，又因为指定了since_id，则只返回ID比since_id大的微博，所以就保证了不会把之前显示的微博内容再次返回给用户(之前显示的微博内容对应的ID肯定比firstStatus小，因为最前面的微博,ID就是最大的)。这个就是since_id的作用，我们不需要问为什么,底层开发人员就是这么设计的
-        params[@"since_id"] = firstStatus.idstr;
-    }
-    
-    // 3.发送请求
-    [mgr GET:@"https://api.weibo.com/2/statuses/friends_timeline.json" parameters:params success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        NSArray *dictArray = responseObject[@"statuses"];
-        // 将字典数组转为模型数组
-        NSArray *newStatuses = [ZBStatus mj_objectArrayWithKeyValuesArray:dictArray];
-        
-        
-        // 将最新的微博数据，添加到总数组的最前面
-        // NSMakeRange的第一个参数:将最新返回的newStatuses插入到大数组的第0个元素的位置，就是最前面的位置
-        // NSMakeRange的第二个参数:最新返回的newStatuses中的元素的个数.如果最新返回的数据有3个,则newStatuses.count为3
-        NSRange range = NSMakeRange(0, newStatuses.count);
-        NSIndexSet *set = [NSIndexSet indexSetWithIndexesInRange:range];
-        [self.statuses insertObjects:newStatuses atIndexes:set];
-        
-        // 刷新表格
-        // 刷新表格(内部调用数据源方法numberOfRowsInSection、cellForRowAtIndexPath等,把内容显示在cell上)
-        [self.tableView reloadData];
-        
-        // 结束刷新
-        [control endRefreshing];
-        
-        // 显示最新微博的数量
-        [self showNewStatusCount:newStatuses.count];
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        [control endRefreshing];
-    }];
     
 }
+
+
 /**
  *  显示最新微博的数量
  *
@@ -362,51 +444,7 @@
     
 }
 
--(void)loadNewStatus{
-    /*
-     URL:
-     https://api.weibo.com/2/statuses/friends_timeline.json
-     
-     返回字段:同StateChange方法里面的内容
-     
-     
-     */
-    
-    
-    // 1.请求管理者
-    AFHTTPSessionManager *mgr = [AFHTTPSessionManager manager];
-    
-    // 2.拼接请求参数
-    ZBAccount *account = [ZBAccountTool account];
-    NSMutableDictionary *params = [NSMutableDictionary dictionary];
-    params[@"access_token"] = account.access_token;
-    params[@"count"] = @20;
-    
-    // 3.发送请求
-    [mgr GET:@"https://api.weibo.com/2/statuses/friends_timeline.json" parameters:params success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        // NSLog(@"请求成功-%@",responseObject);
-        
-        // 取得 “微博字典”数组
-        // statuses 是服务器返回的responseObject(响应体)中的key，这个key可不能随便写，否则找不到value哦
-        // responseObject[@"statuses"]的整体含义:根据key得到的value
-        
-        NSArray *dictArray = responseObject[@"statuses"];
-        
-        // 将字典数组转为模型数组
-        for (NSDictionary *dict in dictArray) {
-            ZBStatus *status = [ZBStatus mj_objectWithKeyValues:dict];
-            [self.statuses addObject:status];
-        }
-        // 刷新表格(内部调用数据源方法numberOfRowsInSection、cellForRowAtIndexPath等,把内容显示在cell上)
-        [self.tableView reloadData];
-        
-        
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        NSLog(@"请求失败-%@",error);
-    }];
-    
-    
-}
+
 /**
  *  获取用户信息(昵称)
  */
@@ -533,7 +571,6 @@
 }
 
 
-
 -(void)friendsearch{
     
 }
@@ -543,34 +580,36 @@
 }
 
 
+// 不用设置代理，直接就可以打出来这个方法。
+// scrollView只要滚动就会调用
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView{
+    if (self.statusesFrames.count == 0 || self.tableView.tableFooterView.isHidden == NO) {
+        return;
+    }
+    CGFloat offsetY = scrollView.contentOffset.y;
+    
+    CGFloat judgeOffsetY = scrollView.contentSize.height  - scrollView.zb_height;
+    //NSLog(@"%lf",scrollView.contentInset.bottom);
+    if (offsetY >= judgeOffsetY) {
+        self.tableView.tableFooterView.hidden = NO;
+        // 加载更多微博数据
+        [self loadMoreStatus];
+    }
+    
+}
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     
-    return self.statuses.count;
+    return self.statusesFrames.count;
     
 }
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
     static NSString *ID = @"cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
-    if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:ID];
-    }
-    // 取出这行对应的字典
-    ZBStatus *status = self.statuses[indexPath.row];
+    // 获得cell
+    ZBStatusCell *cell = [ZBStatusCell cellWithTableView:tableView];
     
-    // 取出这条微博的作者
-    // 精华:模型中又有模型，即ZBStatus模型中又有ZBUser模型，可以通过status.user的形式得到ZBUser模型(定理),也就是用ZBStatus模型的对象去访问ZBUser模型的对象。
-    ZBUser *user =  status.user;
-    // 模型中的属性(里面存储着数据哦)，赋值给系统的属性，就能把微博的作者显示在当前cell上(indexPath标识某一行)
-    cell.textLabel.text = user.name;
-    
-    // 设置微博的内容
-    // 同上.模型中的属性赋值给系统的属性,就能把微博的内容显示在当前cell上
-    cell.detailTextLabel.text = status.text;
-    
-    // 设置头像
-    UIImage *placeHD = [UIImage imageNamed:@"avatar_default_small"];
-    [cell.imageView sd_setImageWithURL:[NSURL URLWithString:user.profile_image_url] placeholderImage:placeHD];
+    // 给cell传递模型数据
+    cell.statusFrame= self.statusesFrames[indexPath.row];
     
     return cell;
 }
@@ -584,22 +623,11 @@
     [self.navigationController pushViewController:test animated:YES];
     
 }
-// 不用设置代理，直接就可以打出来这个方法。
-// scrollView只要滚动就会调用
--(void)scrollViewDidScroll:(UIScrollView *)scrollView{
-    if (self.statuses.count == 0 || self.tableView.tableFooterView.isHidden == NO) {
-        return;
-    }
-    CGFloat offsetY = scrollView.contentOffset.y;
 
-    CGFloat judgeOffsetY = scrollView.contentSize.height  - scrollView.zb_height;
-    //NSLog(@"%lf",scrollView.contentInset.bottom);
-    if (offsetY >= judgeOffsetY) {
-        self.tableView.tableFooterView.hidden = NO;
-        // 加载更多微博数据
-        [self loadMoreStatus];
-    }
-    
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    ZBStatusFrame *fram = self.statusesFrames[indexPath.row];
+    return fram.cellHeight;
 }
 
 @end

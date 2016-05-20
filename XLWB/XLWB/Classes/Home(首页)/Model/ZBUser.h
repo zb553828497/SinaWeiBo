@@ -19,4 +19,10 @@
 /** ￼ 用户头像地址(中图),50×50像素*/
 @property(nonatomic,copy)NSString *profile_image_url;
 
+/** 会员类型 > 2代表是会员  不用为为什么,底层就是这么规定的，我们拿来用就是了*/
+@property(nonatomic,assign)int mbtype;
+/** 会员等级*/
+@property(nonatomic,assign)int mbrank;
+
+@property(nonatomic,assign,getter=isVip)BOOL vip;
 @end
