@@ -148,7 +148,7 @@
      
      返回字段:
      
-     created_at	string	微博创建时间
+     created_at                 string               微博创建时间
      id                         int64                微博ID
      mid                        int64                微博MID
      idstr                      string               字符串型的微博ID
@@ -171,7 +171,7 @@
      mlevel                     int                  暂未支持
      visible                    object               微博的可见性及指定可见分组信息。该object中type取值，0：普通微博，1：私密微博，3：指定分组微博，4：密友微博；list_id为分组的组号
      
-     pic_ids                    object               微博配图ID。多图时返回多图ID，用来拼接图片url。用返回字段thumbnail_pic的地址配上该返回字段的图片ID，即可得到多个图片url。
+     pic_ids(改为pic_urls)       object               微博配图ID。多图时返回多图ID，用来拼接图片url。用返回字段thumbnail_pic的地址配上该返回字段的图片ID，即可得到多个图片url。
      
      ad                         object array         微博流内的推广微博ID
      
@@ -202,7 +202,7 @@
         // statuses 是服务器返回的responseObject(响应体)中的key，这个key可不能随便写，否则找不到value哦
         // responseObject[@"statuses"]的整体含义:根据key得到的value
         NSArray *dictArray = responseObject[@"statuses"];
-        
+        ZBLog(@"%@",responseObject);
         // 将字典数组转为模型数组
         // 这句代码之后，新浪微博服务器返回的数据存到了ZBStatus模型类的对应的各个属性中
         NSArray *newStatuses = [ZBStatus mj_objectArrayWithKeyValuesArray:dictArray];

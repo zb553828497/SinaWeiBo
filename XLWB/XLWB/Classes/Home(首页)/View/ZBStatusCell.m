@@ -11,6 +11,7 @@
 #import "ZBStatus.h"
 #import "ZBUser.h"
 #import <UIImageView+WebCache.h>
+#import "ZBPhoto.h"
 
 @interface ZBStatusCell()
 //原创微博
@@ -23,7 +24,7 @@
 /** 会员图标*/
 @property(nonatomic,weak)UIImageView *vipView;
 /** 配图*/
-@property(nonatomic,weak)UIImageView *phothView;
+@property(nonatomic,weak)UIImageView *photoView;
 /** 昵称*/
 @property(nonatomic,weak)UILabel *nameLabel;
 /** 发微博的时间*/
@@ -77,7 +78,7 @@
         /** 配图*/
         UIImageView *photoView = [[UIImageView alloc] init];
         [self.contentView addSubview:photoView];
-        self.phothView = photoView;
+        self.photoView = photoView;
         
         /** 昵称*/
         UILabel *nameLabel = [[UILabel alloc] init];
@@ -139,9 +140,19 @@
         self.vipView.hidden = YES;
     }
     /** 配图*/
-    self.phothView.frame = statusFrame.photoViewFrame;// 设置frame
-    self.phothView.backgroundColor = [UIColor redColor];
+    if (status.pic_urls.count) {
+        self.photoView.frame = statusFrame.photoViewFrame;// 设置frame
+        #warning 不太懂
+        ZBPhoto *photo = [status.pic_urls firstObject];
+        [self.photoView sd_setImageWithURL:[NSURL URLWithString:photo.thumbnail_pic] placeholderImage:[UIImage imageNamed:@"timeline_image_placeholder"]];// 显示配图
+        // 循环利用一定要有 xxxx.hidden = NO； xxxx.hidden = YES;否则数据会错乱
+        self.photoView.hidden = NO;
+    }else {
+        
+        self.photoView.hidden = YES;
     
+    }
+
     /** 昵称*/
     self.nameLabel.frame = statusFrame.nameLabelFrame;// 设置frame
     // 模型中的属性(里面存储着数据哦)，赋值给系统的属性，就能把微博的作者显示在当前cell上

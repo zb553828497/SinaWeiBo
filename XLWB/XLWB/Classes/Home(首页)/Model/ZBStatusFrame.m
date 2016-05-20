@@ -91,6 +91,18 @@
     self.contentLableFrame = (CGRect){{contentX,contentY},contentSize};
     
     /** 配图*/
+    CGFloat originalH = 0;
+    if (status.pic_urls.count) {// 有配图
+        CGFloat PhotoX = contentX;
+        CGFloat PhotoY = CGRectGetMaxY(self.contentLableFrame) + ZBStatusCellBorderW;
+        CGFloat photoWH = 100;
+        self.photoViewFrame = CGRectMake(PhotoX, PhotoY, photoWH, photoWH);
+        // 原创微博的高度 = 配图最大的Y值 + 10
+        originalH  = CGRectGetMaxY(self.photoViewFrame) + ZBStatusCellBorderW;
+    }else{// 没配图
+        // 原创微博的高度  = 正文的最大Y值 + 10
+        originalH = CGRectGetMaxY(self.contentLableFrame) + ZBStatusCellBorderW;
+    }
     
     
     /** 原创微博整体*/
@@ -98,10 +110,9 @@
     CGFloat originalY = 0;
     // 原创微博的整体的宽度 = cell的宽度
     CGFloat originalW = cellW;
-    // 原创微博整体的高度 = 正文的最大Y值 + 10
-    CGFloat originalH = CGRectGetMaxY(self.contentLableFrame) + ZBStatusCellBorderW;
-    self.originalViewFrame = CGRectMake(originalX, originalY, originalW, originalH);
     
+    // originalH是上面计算好的 原创微博的高度
+    self.originalViewFrame = CGRectMake(originalX, originalY, originalW, originalH);
     // 原创微博整体的cell的高度
     self.cellHeight = CGRectGetMaxY(self.originalViewFrame);
 
