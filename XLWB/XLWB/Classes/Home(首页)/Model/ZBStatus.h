@@ -32,4 +32,9 @@
 /** 微博配图地址。多图时返回多图链接。无配图返回“[]” */
 @property(nonatomic,strong)NSArray *pic_urls;
 
+
+/** 被转发的原微博信息字段，当该微博为转发微博时返回 */
+// 为什么是ZBStatus类型？因为从responseObject返回的内容看retweeted_status也是一个微博，只不过不是原创的微博，而是转发的微博，但是转发的微博也有ID,内容，配图等等，所以转发的微博也是一个模型，并且是ZBStatus模型，因为ZBStatus中的属性包含转发微博中的所有属性。所以为ZBStatus，一点都没有问题。
+@property(nonatomic,strong)ZBStatus *retweeted_status;
+
 @end

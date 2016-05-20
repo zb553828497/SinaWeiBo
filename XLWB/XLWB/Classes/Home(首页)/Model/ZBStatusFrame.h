@@ -16,6 +16,9 @@
 /** 正文字体*/
 #define ZBStatusCellContentFont [UIFont systemFontOfSize:14]
 
+/** 被转发微博的正文字体*/
+#define ZBStatusCellRetweetContentFont [UIFont systemFontOfSize:13]
+
 @class ZBStatus;
 @interface ZBStatusFrame : NSObject
 //  一个HWStatusFrame模型里面包含的信息
@@ -46,6 +49,14 @@
 @property(nonatomic,assign)CGRect sourceLabelFrame;
 /** 正文*/
 @property(nonatomic,assign)CGRect contentLableFrame;
+
+/** 转发微博的整体*/
+@property(nonatomic,assign)CGRect retweetViewFrame;
+/** 转发微博的正文+昵称*/
+@property(nonatomic,assign)CGRect retweetContentAndNameFrame;
+/** 转发微博的配图*/
+@property(nonatomic,assign)CGRect retweetPhotoViewFrame;
+
 /** Cell的高度*/
 @property(nonatomic,assign)CGFloat cellHeight;
 @end

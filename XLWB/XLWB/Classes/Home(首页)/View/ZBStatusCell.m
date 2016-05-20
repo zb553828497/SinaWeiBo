@@ -34,6 +34,14 @@
 /** 正文*/
 @property(nonatomic,weak)UILabel *contentLabel;
 
+//转发微博
+/** 转发微博的整体*/
+@property(nonatomic,weak)UIView *retweetedView;
+/** 转发微博的正文+昵称*/
+@property(nonatomic,weak)UILabel *retweetedContentAndName;
+/** 转发微博的配图*/
+@property(nonatomic,weak)UIImageView *retweetedPhotoView;
+
 @end
 
 @implementation ZBStatusCell
@@ -60,64 +68,103 @@
 -(instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier{
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self != nil) {
-        /** 原创微博整体*/
-        UIView *originalView = [[UIView alloc] init];
-        [self.contentView addSubview:originalView];
-        self.originalView = originalView;
+        // 初始化原始微博
+        [self setupOriginal];
         
-        /** 头像*/
-        UIImageView *iconView = [[UIImageView alloc] init];
-        [self.contentView addSubview:iconView];
-        self.iconView = iconView;
+        // 初始化转发微博
+        [self setupRetweeted];
         
-        /** 会员图标*/
-        UIImageView *vipView = [[UIImageView alloc] init];
-        [self.contentView addSubview:vipView];
-        self.vipView = vipView;
-        
-        /** 配图*/
-        UIImageView *photoView = [[UIImageView alloc] init];
-        [self.contentView addSubview:photoView];
-        self.photoView = photoView;
-        
-        /** 昵称*/
-        UILabel *nameLabel = [[UILabel alloc] init];
-        [self.contentView addSubview:nameLabel];
-        self.nameLabel = nameLabel;
-        
-        /** 发微博的时间*/
-        UILabel *timeLabel = [[UILabel alloc] init];
-        [self.contentView addSubview:timeLabel];
-        self.timeLabel = timeLabel;
-        
-        /** 来源*/
-        UILabel *sourceLabel = [[UILabel alloc] init];
-        [self.contentView addSubview:sourceLabel];
-        self.sourceLabel = sourceLabel;
-        
-        /** 正文*/
-        UILabel *contentLabel = [[UILabel alloc] init];
-        contentLabel.font = ZBStatusCellContentFont;
-        // 自动换行
-        contentLabel.numberOfLines = 0;
-        [self.contentView addSubview:contentLabel];
-        self.contentLabel = contentLabel;
- 
     }
     return self;
 }
+/**
+ *  初始化转发微博
+ */
+-(void)setupRetweeted{
+    /** 转发微博的整体*/
+    UIView *All = [[UIView alloc] init];
+    All.backgroundColor = ZBColor(240, 240, 240);
+    // 转发微博的整体 添加到当前的cell的contentView中
+    [self.contentView addSubview:All];
+    self.retweetedView = All;
+    
+    /** 转发微博的正文+昵称*/
+    UILabel *CN = [[UILabel alloc] init];
+    CN.numberOfLines = 0;
+    CN.font = ZBStatusCellRetweetContentFont;
+    // 转发微博正文 + 昵称添加到转发微博整体中。所以父控件不是cell的contentView，而是UIView类型的All
+    [All addSubview:CN];
+    self.retweetedContentAndName = CN;
+    
+    /** 转发微博配图*/
+    UIImageView *PV = [[UIImageView alloc]init];
+    
+    [All addSubview:PV];
+    self.retweetedPhotoView = PV;
+}
+
+/**
+ *  初始化原创微博
+ */
+-(void)setupOriginal{
+    /** 原创微博整体*/
+    UIView *originalView = [[UIView alloc] init];
+    [self.contentView addSubview:originalView];
+    self.originalView = originalView;
+    
+    /** 头像*/
+    UIImageView *iconView = [[UIImageView alloc] init];
+    [self.contentView addSubview:iconView];
+    self.iconView = iconView;
+    
+    /** 会员图标*/
+    UIImageView *vipView = [[UIImageView alloc] init];
+    [self.contentView addSubview:vipView];
+    self.vipView = vipView;
+    
+    /** 配图*/
+    UIImageView *photoView = [[UIImageView alloc] init];
+    [self.contentView addSubview:photoView];
+    self.photoView = photoView;
+    
+    /** 昵称*/
+    UILabel *nameLabel = [[UILabel alloc] init];
+    [self.contentView addSubview:nameLabel];
+    self.nameLabel = nameLabel;
+    
+    /** 发微博的时间*/
+    UILabel *timeLabel = [[UILabel alloc] init];
+    [self.contentView addSubview:timeLabel];
+    self.timeLabel = timeLabel;
+    
+    /** 来源*/
+    UILabel *sourceLabel = [[UILabel alloc] init];
+    [self.contentView addSubview:sourceLabel];
+    self.sourceLabel = sourceLabel;
+    
+    /** 正文*/
+    UILabel *contentLabel = [[UILabel alloc] init];
+    contentLabel.font = ZBStatusCellContentFont;
+    // 自动换行
+    contentLabel.numberOfLines = 0;
+    [self.contentView addSubview:contentLabel];
+    self.contentLabel = contentLabel;
+
+}
+
 
 // 给子控件的frame赋值+设置数据并显示
 // 注意： 模型中的属性赋值给系统的属性,就能把微博的内容显示在当前cell上
 -(void)setStatusFrame:(ZBStatusFrame *)statusFrame{
     
     _statusFrame =statusFrame;
+    
     ZBStatus *status = statusFrame.status;
     
     // 精华:模型中又有模型，即ZBStatus模型中又有ZBUser模型，可以通过status.user的形式得到ZBUser模型(即:用ZBStatus模型的对象去访问ZBUser模型的对象)
 
     ZBUser *Oneuser = status.user;
-
+    
     /** 原创微博整体*/
     self.originalView.frame = statusFrame.originalViewFrame;
     
@@ -169,6 +216,45 @@
     /** 正文*/
     self.contentLabel.frame = statusFrame.contentLableFrame;// 设置frame
     self.contentLabel.text = status.text;// 显示正文
+    
+    
+    /** 被转发的微博*/
+    if (status.retweeted_status != nil) {// 有值,说明该用转发了微博
+        ZBStatus *retweet_status = status.retweeted_status;
+         // 拿到转发微博模型中的ZBUser模型
+         ZBUser *retweet_status_user = retweet_status.user;
+        // 因为是TableView，所以有循环机制，必须得设置YES还有NO,否则数据会错乱
+        self.retweetedView.hidden = NO;
+        
+        /** 被转发微博的整体*/
+         // 设置转发微博的昵称和正文的frame .模型中的属性赋值给系统的属性
+        self.retweetedView.frame = statusFrame.retweetViewFrame;
+        
+        
+        /** 被转发微博的正文*/
+        // 模型中的属性赋值给系统的属性
+        self.retweetedContentAndName.frame = statusFrame.retweetContentAndNameFrame;
+         // 两个参数分别为转发微博模块中用户的昵称和内容(昵称在ZBUser模型中,内容在ZBStatus中)
+        NSString *retweetContent = [NSString stringWithFormat:@"@%@ : %@",retweet_status_user.name,retweet_status.text];
+        //将转发微博中用户的昵称和正文赋值给系统的text属性
+        self.retweetedContentAndName.text = retweetContent;
+        
+        
+        /** 被转发的微博配图*/
+        if (retweet_status.pic_urls.count) {
+            self.retweetedPhotoView.frame = statusFrame.retweetPhotoViewFrame;
+            ZBPhoto *retweetPhoto = [retweet_status.pic_urls firstObject];
+            [self.retweetedPhotoView sd_setImageWithURL:[NSURL URLWithString:retweetPhoto.thumbnail_pic] placeholderImage:[UIImage imageNamed:@"timeline_image_placeholder"]];
+            self.retweetedPhotoView.hidden = NO;
+        }else{
+            self.retweetedPhotoView.hidden = YES;
+        }
+    }else{
+    
+        self.retweetedView.hidden = YES;
+    
+    }
+    
 }
 
 @end

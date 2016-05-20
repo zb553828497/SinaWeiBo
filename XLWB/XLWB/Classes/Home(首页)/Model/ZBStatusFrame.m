@@ -113,10 +113,49 @@
     
     // originalH是上面计算好的 原创微博的高度
     self.originalViewFrame = CGRectMake(originalX, originalY, originalW, originalH);
-    // 原创微博整体的cell的高度
-    self.cellHeight = CGRectGetMaxY(self.originalViewFrame);
-
     
+
+    /** 被转发的微博*/
+    if(status.retweeted_status != nil){
+        
+        ZBStatus *retweet_status = status.retweeted_status;
+        ZBUser *retweet_status_user = retweet_status.user;
+        
+    /** 被转发的微博正文*/
+    // 被转发微博正文的X值为10
+    CGFloat retweetContentX = ZBStatusCellBorderW;
+        // 因为被转发文博整体 的Y值为原创微博的最大Y值，所以被转发文博整体的位置已经确定了
+        // 因为所以被转发微博正文的父控件是被转发文博整体，所以被转发微博正文的Y值也就确定了
+    CGFloat retweetContentY = ZBStatusCellBorderW;
+        // 拿到被转发微博的内容，用于下面计算被转发微博的尺寸
+        NSString *retweetContent = [NSString stringWithFormat:@"@%@ : %@",retweet_status_user.name,retweet_status.text];
+        // 根据被转发微博的正文内容来计算转发微博正文的尺寸
+        CGSize retweetContentSize = [self sizeWithText:retweetContent font:ZBStatusCellRetweetContentFont maxW:maxW];
+    
+        self.retweetContentAndNameFrame = (CGRect){{retweetContentX,retweetContentY},retweetContentSize};
+        
+        /** 被转发微博配图*/
+        CGFloat retweetH = 0;// 声明一个变量，初始化为0，为的只是将来拿到retweetH使用
+        if (retweet_status.pic_urls.count ) {// 转发微博有配图
+            CGFloat retweetPhotoX = retweetContentX;
+            CGFloat retweetPhotoY = CGRectGetMaxY(self.retweetContentAndNameFrame) + ZBStatusCellBorderW;
+            CGFloat retweetPhotoWH = 100;
+            self.retweetPhotoViewFrame = CGRectMake(retweetPhotoX, retweetPhotoY, retweetPhotoWH, retweetPhotoWH);
+            retweetH = CGRectGetMaxY(self.retweetPhotoViewFrame) + ZBStatusCellBorderW;
+        }else{// 转发微博没有配图
+            retweetH = CGRectGetMaxY(self.retweetContentAndNameFrame) + ZBStatusCellBorderW;
+        
+        }
+        /** 被转发的微博的整体*/
+        CGFloat retweetX = 0;
+        // 被转发微博整体 的Y值为原创微博的最大Y值
+        CGFloat retweetY = CGRectGetMaxY(self.originalViewFrame);
+        CGFloat retweetW = cellW;
+        self.retweetViewFrame = CGRectMake(retweetX, retweetY, retweetW, retweetH);
+        self.cellHeight = CGRectGetMaxY(self.retweetViewFrame);
+    }else{
+        self.cellHeight = CGRectGetMaxY(self.originalViewFrame);
+    }
 }
 
 
