@@ -87,12 +87,15 @@
     }
     return frames;
 }
-
+// 想让TableView的背景颜色变为灰色时,发现ZBTabBarController.m文件中的 childVc.view.backgroundColor = bgColor;会覆盖掉灰色，所以就注释掉了那句代码，但是就出现了导航栏中间的标题不居中的bug。解决办法:将TableView设置灰色的代码放在viewWillApper中
+-(void)viewWillAppear:(BOOL)animated{
+self.tableView.backgroundColor = ZBColor(211, 211, 211);
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.tableView.backgroundColor = ZBColor(211, 211, 211);
     
+    self.tableView.contentInset = UIEdgeInsetsMake(ZBCellMargin, 0,0, 0);
     // 设置导航栏内容
     [self setupNav];
     
@@ -616,12 +619,12 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    ZBTestController *test = [[ZBTestController alloc] init];
-    test.title = @"我是测试控制器1";
-    
-    test.hidesBottomBarWhenPushed = YES;
-    [self.navigationController pushViewController:test animated:YES];
-    
+//    ZBTestController *test = [[ZBTestController alloc] init];
+//    test.title = @"我是测试控制器1";
+//    
+//    test.hidesBottomBarWhenPushed = YES;
+//    [self.navigationController pushViewController:test animated:YES];
+//    
 }
 
 

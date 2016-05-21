@@ -12,6 +12,7 @@
 #import "ZBUser.h"
 #import <UIImageView+WebCache.h>
 #import "ZBPhoto.h"
+#import "ZBStatusToolbar.h"
 
 @interface ZBStatusCell()
 //原创微博
@@ -44,7 +45,7 @@
 
 
 /** 工具条*/
-@property(nonatomic,weak)UIView *toolBar;
+@property(nonatomic,weak)ZBStatusToolbar *toolBar;// 注意是ZBStatusToolbar类型
 
 @end
 
@@ -64,6 +65,11 @@
     return cell;
 }
 
+//-(void)setFrame:(CGRect)frame{
+//    frame.origin.y += ZBCellMargin;
+//       [super setFrame:frame];
+//}
+
 /**
  *  cell的初始化方法，一个cell只会调用一次
  *  一般在这里添加所有可能显示的子控件，以及子控件的一次性设置
@@ -72,8 +78,17 @@
 -(instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier{
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self != nil) {
-        //让cell的背景颜色变为透明色
+        // 让cell的背景颜色变为透明色
         self.backgroundColor = [UIColor clearColor];
+        // 点击cell时,cell不会变色,因为设置样式为None。如果没有这句代码,点击cell,cell默认为灰色gray
+        self.selectionStyle = UITableViewCellSelectionStyleNone;
+        
+        // 点击cell时，cell的背景颜色为紫色
+//        UIView *bg = [[UIView alloc] init];
+//        bg.backgroundColor = [UIColor purpleColor];
+//        self.selectedBackgroundView = bg;
+       
+        
         // 初始化原始微博
         [self setupOriginal];
         
@@ -89,9 +104,9 @@
  *  初始化工具条
  */
 -(void)setupToolBar{
-    
-    UIView *toolb = [[UIView alloc] init];
-    toolb.backgroundColor = [UIColor redColor];
+    // 调用toolbar类方法
+    ZBStatusToolbar *toolb = [ZBStatusToolbar toolbar];
+   // toolb.backgroundColor = [UIColor redColor];
     [self.contentView addSubview:toolb];
     self.toolBar = toolb;
 
@@ -280,6 +295,8 @@
     
     /** 工具条*/
     self.toolBar.frame = statusFrame.toolBarFrame;
+    // 设置数据(将等号右侧的ZBStatus类型的status对象作为参数传递给左侧setStatus1方法)。
+     self.toolBar.status1= status;
 }
 
 @end

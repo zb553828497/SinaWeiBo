@@ -170,7 +170,7 @@
     
     /** cell的高度*/
     // ZBCellMargin作用:让cell和cell之间有间距
-    self.cellHeight = CGRectGetMaxY(self.toolBarFrame) + ZBCellMargin;
+    self.cellHeight = CGRectGetMaxY(self.toolBarFrame) +ZBCellMargin;
 }
 
 

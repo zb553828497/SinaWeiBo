@@ -37,4 +37,11 @@
 // 为什么是ZBStatus类型？因为从responseObject返回的内容看retweeted_status也是一个微博，只不过不是原创的微博，而是转发的微博，但是转发的微博也有ID,内容，配图等等，所以转发的微博也是一个模型，并且是ZBStatus模型，因为ZBStatus中的属性包含转发微博中的所有属性。所以为ZBStatus，一点都没有问题。
 @property(nonatomic,strong)ZBStatus *retweeted_status;
 
+/** int 转发数*/
+@property(nonatomic,assign)int reposts_count;
+/** int 评论数*/
+@property(nonatomic,assign)int comments_count;
+/** int 表态数*/
+@property(nonatomic,assign)int attitudes_count;
+
 @end
