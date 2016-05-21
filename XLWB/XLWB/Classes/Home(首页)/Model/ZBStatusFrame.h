@@ -57,6 +57,9 @@
 /** 转发微博的配图*/
 @property(nonatomic,assign)CGRect retweetPhotoViewFrame;
 
+/** 底部工具条*/
+@property(nonatomic,assign)CGRect toolBarFrame;
+
 /** Cell的高度*/
 @property(nonatomic,assign)CGFloat cellHeight;
 @end

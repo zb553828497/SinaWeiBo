@@ -42,6 +42,10 @@
 /** 转发微博的配图*/
 @property(nonatomic,weak)UIImageView *retweetedPhotoView;
 
+
+/** 工具条*/
+@property(nonatomic,weak)UIView *toolBar;
+
 @end
 
 @implementation ZBStatusCell
@@ -74,16 +78,31 @@
         // 初始化转发微博
         [self setupRetweeted];
         
+        // 初始化工具条
+        [self setupToolBar];
     }
     return self;
 }
+/**
+ *  初始化工具条
+ */
+-(void)setupToolBar{
+    
+    UIView *toolb = [[UIView alloc] init];
+    toolb.backgroundColor = [UIColor redColor];
+    [self.contentView addSubview:toolb];
+    self.toolBar = toolb;
+
+}
+
 /**
  *  初始化转发微博
  */
 -(void)setupRetweeted{
     /** 转发微博的整体*/
     UIView *All = [[UIView alloc] init];
-    All.backgroundColor = ZBColor(240, 240, 240);
+    All.backgroundColor = ZBColor(247, 247, 247
+                                  );
     // 转发微博的整体 添加到当前的cell的contentView中
     [self.contentView addSubview:All];
     self.retweetedView = All;
@@ -255,6 +274,8 @@
     
     }
     
+    /** 工具条*/
+    self.toolBar.frame = statusFrame.toolBarFrame;
 }
 
 @end

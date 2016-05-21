@@ -114,6 +114,8 @@
     // originalH是上面计算好的 原创微博的高度
     self.originalViewFrame = CGRectMake(originalX, originalY, originalW, originalH);
     
+    // 初始化tooBarY为0，将来要计算toolBarY
+    CGFloat toolBarY = 0;
 
     /** 被转发的微博*/
     if(status.retweeted_status != nil){
@@ -152,10 +154,22 @@
         CGFloat retweetY = CGRectGetMaxY(self.originalViewFrame);
         CGFloat retweetW = cellW;
         self.retweetViewFrame = CGRectMake(retweetX, retweetY, retweetW, retweetH);
-        self.cellHeight = CGRectGetMaxY(self.retweetViewFrame);
+        // 转发微博时，工具条的Y值就是转发微博的最大Y值
+        toolBarY = CGRectGetMaxY(self.retweetViewFrame);
     }else{
-        self.cellHeight = CGRectGetMaxY(self.originalViewFrame);
+        
+        // 没有转发微博时,工具条的Y值就是原始微博的最大Y值
+        toolBarY = CGRectGetMaxY(self.originalViewFrame);
     }
+    
+    /** 工具条*/
+    CGFloat toolBarX = 0;
+    CGFloat toolBarW = cellW;
+    CGFloat toolBarH = 35;
+    self.toolBarFrame = CGRectMake(toolBarX, toolBarY, toolBarW, toolBarH);
+    
+    /** cell的高度*/
+    self.cellHeight = CGRectGetMaxY(self.toolBarFrame);
 }
 
 
