@@ -19,6 +19,8 @@
 /** 被转发微博的正文字体*/
 #define ZBStatusCellRetweetContentFont [UIFont systemFontOfSize:13]
 
+/** cell之间的间距*/
+#define ZBCellMargin 15
 @class ZBStatus;
 @interface ZBStatusFrame : NSObject
 //  一个HWStatusFrame模型里面包含的信息

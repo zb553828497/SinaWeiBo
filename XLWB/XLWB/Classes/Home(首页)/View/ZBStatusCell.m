@@ -72,6 +72,8 @@
 -(instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier{
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self != nil) {
+        //让cell的背景颜色变为透明色
+        self.backgroundColor = [UIColor clearColor];
         // 初始化原始微博
         [self setupOriginal];
         
@@ -128,6 +130,8 @@
 -(void)setupOriginal{
     /** 原创微博整体*/
     UIView *originalView = [[UIView alloc] init];
+    // 原创微博的背景颜色为白色
+    originalView.backgroundColor = [UIColor whiteColor];
     [self.contentView addSubview:originalView];
     self.originalView = originalView;
     

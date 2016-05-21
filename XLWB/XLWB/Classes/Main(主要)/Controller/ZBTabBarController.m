@@ -84,7 +84,7 @@
      A控制器的view设置完了按钮状态之后，就无法设置A的按钮样式了
      */
    
-    childVc.view.backgroundColor = bgColor;// 1
+   // childVc.view.backgroundColor = bgColor;// 1
     
     /*
      
