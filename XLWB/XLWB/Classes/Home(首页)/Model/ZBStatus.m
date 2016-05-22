@@ -24,7 +24,7 @@
 }
 
 
-// 日期转换写在get方法中.当下拉刷新时，可以更新微博的发布时间(发布时间也实现了日期转换)
+// 日期转换写在get方法中.(不执行上拉刷新或下拉刷新,只是滚动最初的20cell,那么cell的时间会实时更新)
 // 重写ZBStatus模型created_at属性的get方法
 -(NSString *)created_at{
     
@@ -87,7 +87,7 @@
     }
 }
 
-// 日期转换写在set方法中,当下拉刷新时，能更新微博的发布时间(发布时间也实现了日期转换)
+// 日期转换写在set方法中(不执行上拉刷新或者下拉刷新操作，cell的时间永远不会更新)
 /*
 -(void)setCreated_at:(NSString *)created_at{
     _created_at = created_at;
@@ -138,4 +138,5 @@ format.dateFormat = @"EEE MMM dd HH:mm:ss Z yyyy";
 }
 
 */
+
 @end
