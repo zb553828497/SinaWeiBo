@@ -27,8 +27,7 @@
 // 日期转换写在get方法中.(不执行上拉刷新或下拉刷新,只是滚动最初的20cell,那么cell的时间会实时更新)
 // 重写ZBStatus模型created_at属性的get方法
 -(NSString *)created_at{
-    
-    NSDateFormatter *format= [[NSDateFormatter alloc] init];
+       NSDateFormatter *format= [[NSDateFormatter alloc] init];
     // 如果是真机调试，转换这种欧美时间，需要设置locale
     // format.locale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US"];
     
@@ -138,5 +137,26 @@ format.dateFormat = @"EEE MMM dd HH:mm:ss Z yyyy";
 }
 
 */
+
+
+
+// 不需要重写get方法，因为微博的来源是固定的，不需要滚动cell时候调用重写Source的getter方法(时时刻刻的刷新微博的来源)，只需要重写setter方法，这样滚动cell时，微博的来源始终是不变的
+// source = <a href="http://weibo.com/" rel="nofollow">微博 weibo.com</a>
+
+// 目的:截取微博来源的关键字，显示在cell上
+-(void)setSource:(NSString *)source{
+    NSRange range;// 声明结构体类型的变量
+    // 从左向右检索包含>的字符串，并获取到>的位置，然后+1
+    range.location = [source rangeOfString:@">"].location + 1;
+    // 从左向右检索包含</的字符串，并获取到</的位置，然后减去>的位置，得到的就是> </中包含的字符串长度。
+    range.length = [source rangeOfString:@"</"].location -range.location;
+    // 将处理过的字符串(其实就是结构体类型的成员变量）赋值给_source;
+    //做法1: _source = [source substringWithRange:range];
+    // 做法2:拼接"来自"字符串，显得好看一点
+    NSString *DealString = [NSString stringWithFormat:@"来自%@",[source substringWithRange:range]];
+    _source = DealString;
+
+}
+
 
 @end

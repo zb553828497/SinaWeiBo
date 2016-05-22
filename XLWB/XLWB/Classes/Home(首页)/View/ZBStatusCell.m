@@ -182,11 +182,14 @@
     
     /** 来源*/
     UILabel *sourceLabel = [[UILabel alloc] init];
+    // 同上
+    sourceLabel.font = ZBStatusCellSourceFont;
     [self.contentView addSubview:sourceLabel];
     self.sourceLabel = sourceLabel;
     
     /** 正文*/
     UILabel *contentLabel = [[UILabel alloc] init];
+    // 同上
     contentLabel.font = ZBStatusCellContentFont;
     // 自动换行
     contentLabel.numberOfLines = 0;
