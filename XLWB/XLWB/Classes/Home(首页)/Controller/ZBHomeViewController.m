@@ -137,6 +137,7 @@ self.tableView.backgroundColor = ZBColor(211, 211, 211);
     // 3.程序运行自动调用loadNewStatus方法加载最新数据。
     // 只会调用1次，以后不会再调用.因为本质上这些方法是在viewDidLoad中调用的。又因为整个过程只会执行一次viewDidLoad方法，所以loadNewStatus:方法从始至终只会调用一次
     [self loadNewStatus:Ref];
+    // 注意:有两段代码有重复的loadNewStatus:方法，这里你就认为这两个方法不一样就行，只是因为代码太多了，所以将下拉刷新时调用的方法和程序初始运行时调用的方法整合在一块了(主要是因为两个方法上面的注释太精华了,要保证两个方法上面的解释是正确的，所以我提到了这个注意点)
 }
 
 

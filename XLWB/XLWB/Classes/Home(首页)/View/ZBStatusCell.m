@@ -167,11 +167,16 @@
     
     /** 昵称*/
     UILabel *nameLabel = [[UILabel alloc] init];
+    // 不设置昵称字体的大小，那么最终字体显示不全。会有省略号，考虑一下为什么呢。
+    // 大概原因:你在ZBStatusFrame类的setStatus:方法中设置了昵称的frame(昵称的frame是根据设置字体的大小设置的),所以你初始化昵称时，必须设置昵称的字体是多大
+    nameLabel.font = ZBStatusCellNameFont;
     [self.contentView addSubview:nameLabel];
     self.nameLabel = nameLabel;
     
     /** 发微博的时间*/
     UILabel *timeLabel = [[UILabel alloc] init];
+    // 不设置时间字体的大小，那么最终字体显示不全。会有省略号，考虑一下为什么呢。同上
+    timeLabel.font = ZBStatusCellTimeFont;
     [self.contentView addSubview:timeLabel];
     self.timeLabel = timeLabel;
     
@@ -245,6 +250,7 @@
     
     /** 发微博的时间*/
     self.timeLabel.frame = statusFrame.timeLabelFrame;// 设置frame
+    // 就会调用重写的created_at的getter方法(command+选中created_at,就会跳转至getter方法)
     self.timeLabel.text = status.created_at;// 显示发微博的时间
     
     /** 微博的来源途径*/
