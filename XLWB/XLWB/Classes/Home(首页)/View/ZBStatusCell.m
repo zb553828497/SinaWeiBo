@@ -13,6 +13,8 @@
 #import <UIImageView+WebCache.h>
 #import "ZBPhoto.h"
 #import "ZBStatusToolbar.h"
+#import "NSString+extension.h"
+
 
 @interface ZBStatusCell()
 //原创微博
@@ -250,15 +252,31 @@
     self.nameLabel.frame = statusFrame.nameLabelFrame;// 设置frame
     // 模型中的属性(里面存储着数据哦)，赋值给系统的属性，就能把微博的作者显示在当前cell上
     self.nameLabel.text = Oneuser.name;// 显示昵称
-    
+
     /** 发微博的时间*/
-    self.timeLabel.frame = statusFrame.timeLabelFrame;// 设置frame
-    // 就会调用重写的created_at的getter方法(command+选中created_at,就会跳转至getter方法)
-    self.timeLabel.text = status.created_at;// 显示发微博的时间
+    
+    // status.created_at返回的是 发微博的时间距离当前的时间的差值。例如"8分钟前"、 "1小时前"
+    // 每次滚动cell就会调用created_at的getter方法，所以每次都会得到不同的时间差值,所以每次的差值都会更新在cell上
+    NSString *time = status.created_at;
+    // 昵称的x值就是发微博时间的x值
+    CGFloat timeX = statusFrame.nameLabelFrame.origin.x;
+    CGFloat timeY = CGRectGetMaxY(statusFrame.nameLabelFrame) + ZBStatusCellBorderW;
+    // 重新根据字体的大小来计算时间的尺寸
+    CGSize timeSize = [time sizeWithfont:ZBStatusCellTimeFont];
+    // 重新计算时间的frame
+    self.timeLabel.frame = (CGRect){{timeX,timeY},timeSize};
+    // 将发微博的时间距离当前的时间的差值赋值给系统的text属性，从而能显示在cell上
+    self.timeLabel.text = time;
+    
     
     /** 微博的来源途径*/
-    self.sourceLabel.frame = statusFrame.sourceLabelFrame;// 设置frame
-    self.sourceLabel.text = status.source;// 显示微博的来源途径
+    // 根据发微博的时间的frame重新计算x值
+    CGFloat sourceX = CGRectGetMaxX(self.timeLabel.frame) + ZBStatusCellBorderW;
+    CGFloat sourceY = timeY;
+    CGSize sourceSize = [status.source sizeWithfont:ZBStatusCellSourceFont];
+    self.sourceLabel.frame = (CGRect){{sourceX,sourceY},sourceSize};
+    self.sourceLabel.text = status.source;
+
     
     /** 正文*/
     self.contentLabel.frame = statusFrame.contentLableFrame;// 设置frame

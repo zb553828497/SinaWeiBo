@@ -9,28 +9,12 @@
 #import "ZBStatusFrame.h"
 #import "ZBStatus.h"
 #import "ZBUser.h"
+#import "NSString+extension.h"
 
-// cell的边框宽度
-#define ZBStatusCellBorderW 10
+
 
 @implementation ZBStatusFrame
 
-// 自定义的方法
--(CGSize)sizeWithText:(NSString *)text font:(UIFont *)font maxW:(CGFloat)maxW{// 方法1
-    NSMutableDictionary *attrs = [NSMutableDictionary dictionary];
-    attrs[NSFontAttributeName] = font;
-     // 最大宽度为maxW，最大高度不限制
-    CGSize maxSize = CGSizeMake(maxW, MAXFLOAT);
-// boundingRectWithSize：约束最大尺寸。因为参数是上面的maxSize，所以约束的是最大宽度为maxW,不能超过这个宽度
-    return [text boundingRectWithSize:maxSize options:NSStringDrawingUsesLineFragmentOrigin attributes:attrs context:nil].size;
-
-}
-// 自定义的方法 外界调用方法2,间接的调用了方法1
--(CGSize)sizeWithText:(NSString *)text font:(UIFont *)font{ // 方法2
-     // maxW为MAXFLOAT,表示没有最大宽度，宽度由我们自己决定
-    return [self sizeWithText:text font:font maxW:MAXFLOAT];
-
-}
 
 // 仅仅是计算frame，将来用于给系统的frame赋值
 -(void)setStatus:(ZBStatus *)status{
@@ -53,7 +37,8 @@
     CGFloat nameX = CGRectGetMaxX(self.iconViewFrames) + ZBStatusCellBorderW;
     CGFloat nameY = iconY;
     // 取出ZBUser模型中的name属性,(这个name属性里面是有数据的)，然后给name属性设置字体。
-    CGSize nameSize = [self sizeWithText:Oneuser.name font:ZBStatusCellNameFont];
+    //CGSize nameSize = [self sizeWithText:Oneuser.name font:ZBStatusCellNameFont];
+    CGSize nameSize = [Oneuser.name  sizeWithfont:ZBStatusCellNameFont];
     // 装逼写法1:   (CGRect){ {CGPoint} , CGSize }
     self.nameLabelFrame = (CGRect){{nameX,nameY},nameSize};
     // 普通写法2:self.nameLabelF = CGRectMake(nameX, nameY, nameSize.width, nameSize.height);
@@ -71,13 +56,14 @@
     /** 发微博的时间*/
     CGFloat timeX = nameX;
     CGFloat timeY = CGRectGetMaxY(self.nameLabelFrame) + ZBStatusCellBorderW;
-    CGSize timeSize = [self sizeWithText:status.created_at font:ZBStatusCellTimeFont];
+    // 为什么要用status.created_at调用?因为status.created_at是字符串类型，而sizeWithfont:是NSString分类中的方法，所以可以调用
+    CGSize timeSize = [status.created_at sizeWithfont:ZBStatusCellTimeFont];
     self.timeLabelFrame = (CGRect){{timeX,timeY},timeSize};
     
     /** 微博的来源途径*/
     CGFloat sourceX = CGRectGetMaxX(self.timeLabelFrame) + ZBStatusCellBorderW;
     CGFloat sourceY = timeY;
-    CGSize sourceSize = [self sizeWithText:status.source font:ZBStatusCellSourceFont];
+    CGSize sourceSize = [status.source sizeWithfont:ZBStatusCellSourceFont];
     self.sourceLabelFrame = (CGRect){{sourceX,sourceY},sourceSize};
     
     /** 正文*/
@@ -87,7 +73,7 @@
     // 正文的最大宽度 = cell的宽度- 2 * 图片距离屏幕左侧的x值
     CGFloat maxW = cellW - 2 * contentX;
     // maxW的作用:限制正文的最大宽度
-    CGSize contentSize = [self sizeWithText:status.text font:ZBStatusCellContentFont maxW:maxW];
+    CGSize contentSize = [status.text sizeWithfont:ZBStatusCellContentFont maxW:maxW];
     self.contentLableFrame = (CGRect){{contentX,contentY},contentSize};
     
     /** 配图*/
@@ -132,7 +118,7 @@
         // 拿到被转发微博的内容，用于下面计算被转发微博的尺寸
         NSString *retweetContent = [NSString stringWithFormat:@"@%@ : %@",retweet_status_user.name,retweet_status.text];
         // 根据被转发微博的正文内容来计算转发微博正文的尺寸
-        CGSize retweetContentSize = [self sizeWithText:retweetContent font:ZBStatusCellRetweetContentFont maxW:maxW];
+        CGSize retweetContentSize = [retweetContent sizeWithfont:ZBStatusCellRetweetContentFont maxW:maxW];
     
         self.retweetContentAndNameFrame = (CGRect){{retweetContentX,retweetContentY},retweetContentSize};
         
