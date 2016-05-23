@@ -9,5 +9,7 @@
 #import "ZBStatusPhotosView.h"
 
 @implementation ZBStatusPhotosView
-
++(CGSize)CalculateSizeWithPhotosCount:(int)Count{
+    return CGSizeMake(200,200)  ;
+}
 @end

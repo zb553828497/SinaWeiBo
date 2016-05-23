@@ -10,7 +10,7 @@
 #import "ZBStatus.h"
 #import "ZBUser.h"
 #import "NSString+extension.h"
-
+#import "ZBStatusPhotosView.h"
 
 
 @implementation ZBStatusFrame
@@ -81,8 +81,10 @@
     if (status.pic_urls.count) {// 有配图
         CGFloat PhotoX = contentX;
         CGFloat PhotoY = CGRectGetMaxY(self.contentLableFrame) + ZBStatusCellBorderW;
-        CGFloat photoWH = 100;
-        self.photosViewFrame = CGRectMake(PhotoX, PhotoY, photoWH, photoWH);
+        // 根据配图的个数,计算配图的尺寸(宽高)
+        CGSize photosSize = [ZBStatusPhotosView CalculateSizeWithPhotosCount:status.pic_urls.count];
+        self.originalViewFrame = (CGRect){{PhotoX,PhotoY},photosSize};
+        
         // 原创微博的高度 = 配图最大的Y值 + 10
         originalH  = CGRectGetMaxY(self.photosViewFrame) + ZBStatusCellBorderW;
     }else{// 没配图
@@ -127,8 +129,9 @@
         if (retweet_status.pic_urls.count ) {// 转发微博有配图
             CGFloat retweetPhotoX = retweetContentX;
             CGFloat retweetPhotoY = CGRectGetMaxY(self.retweetContentAndNameFrame) + ZBStatusCellBorderW;
-            CGFloat retweetPhotoWH = 100;
-            self.retweetPhotosViewFrame = CGRectMake(retweetPhotoX, retweetPhotoY, retweetPhotoWH, retweetPhotoWH);
+            // 根据被转发微博配图的个数,计算配图的尺寸(尺寸)
+            CGSize retweetPhotosSize = [ZBStatusPhotosView CalculateSizeWithPhotosCount:retweet_status.pic_urls.count];
+            self.retweetPhotosViewFrame = (CGRect){{retweetPhotoX,retweetPhotoY},retweetPhotosSize};
             retweetH = CGRectGetMaxY(self.retweetPhotosViewFrame) + ZBStatusCellBorderW;
         }else{// 转发微博没有配图
             retweetH = CGRectGetMaxY(self.retweetContentAndNameFrame) + ZBStatusCellBorderW;

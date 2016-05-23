@@ -10,4 +10,5 @@
 
 @interface ZBStatusPhotosView : UIImageView
 
++(CGSize)CalculateSizeWithPhotosCount:(int)Count;
 @end
