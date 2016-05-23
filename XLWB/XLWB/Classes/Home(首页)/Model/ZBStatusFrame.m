@@ -82,9 +82,9 @@
         CGFloat PhotoX = contentX;
         CGFloat PhotoY = CGRectGetMaxY(self.contentLableFrame) + ZBStatusCellBorderW;
         CGFloat photoWH = 100;
-        self.photoViewFrame = CGRectMake(PhotoX, PhotoY, photoWH, photoWH);
+        self.photosViewFrame = CGRectMake(PhotoX, PhotoY, photoWH, photoWH);
         // 原创微博的高度 = 配图最大的Y值 + 10
-        originalH  = CGRectGetMaxY(self.photoViewFrame) + ZBStatusCellBorderW;
+        originalH  = CGRectGetMaxY(self.photosViewFrame) + ZBStatusCellBorderW;
     }else{// 没配图
         // 原创微博的高度  = 正文的最大Y值 + 10
         originalH = CGRectGetMaxY(self.contentLableFrame) + ZBStatusCellBorderW;
@@ -128,8 +128,8 @@
             CGFloat retweetPhotoX = retweetContentX;
             CGFloat retweetPhotoY = CGRectGetMaxY(self.retweetContentAndNameFrame) + ZBStatusCellBorderW;
             CGFloat retweetPhotoWH = 100;
-            self.retweetPhotoViewFrame = CGRectMake(retweetPhotoX, retweetPhotoY, retweetPhotoWH, retweetPhotoWH);
-            retweetH = CGRectGetMaxY(self.retweetPhotoViewFrame) + ZBStatusCellBorderW;
+            self.retweetPhotosViewFrame = CGRectMake(retweetPhotoX, retweetPhotoY, retweetPhotoWH, retweetPhotoWH);
+            retweetH = CGRectGetMaxY(self.retweetPhotosViewFrame) + ZBStatusCellBorderW;
         }else{// 转发微博没有配图
             retweetH = CGRectGetMaxY(self.retweetContentAndNameFrame) + ZBStatusCellBorderW;
         

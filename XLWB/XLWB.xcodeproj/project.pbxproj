@@ -27,6 +27,7 @@
 		7740304D1CDDC73F009CAFA6 /* ZBSearchBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 7740304C1CDDC73F009CAFA6 /* ZBSearchBar.m */; };
 		774634D41CF08DCE004AF9FA /* ZBStatusToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = 774634D31CF08DCE004AF9FA /* ZBStatusToolbar.m */; };
 		776177731CD8C18600F5FE03 /* ZBTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 776177721CD8C18600F5FE03 /* ZBTabBarController.m */; };
+		77699A271CF2A46C00D780B0 /* ZBStatusPhotosView.m in Sources */ = {isa = PBXBuildFile; fileRef = 77699A261CF2A46C00D780B0 /* ZBStatusPhotosView.m */; };
 		7770F8171CE4B0C8000CE679 /* ZBOAuthViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7770F8161CE4B0C8000CE679 /* ZBOAuthViewController.m */; };
 		7774D12A1CF2187800183CE3 /* NSString+extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 7774D1291CF2187800183CE3 /* NSString+extension.m */; };
 		77B4E4481CEAD30C005DC1B5 /* ZBUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 77B4E4471CEAD30C005DC1B5 /* ZBUser.m */; };
@@ -88,6 +89,8 @@
 		774634D31CF08DCE004AF9FA /* ZBStatusToolbar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZBStatusToolbar.m; sourceTree = "<group>"; };
 		776177711CD8C18600F5FE03 /* ZBTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBTabBarController.h; sourceTree = "<group>"; };
 		776177721CD8C18600F5FE03 /* ZBTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZBTabBarController.m; sourceTree = "<group>"; };
+		77699A251CF2A46C00D780B0 /* ZBStatusPhotosView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBStatusPhotosView.h; sourceTree = "<group>"; };
+		77699A261CF2A46C00D780B0 /* ZBStatusPhotosView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZBStatusPhotosView.m; sourceTree = "<group>"; };
 		7770F8151CE4B0C8000CE679 /* ZBOAuthViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBOAuthViewController.h; sourceTree = "<group>"; };
 		7770F8161CE4B0C8000CE679 /* ZBOAuthViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZBOAuthViewController.m; sourceTree = "<group>"; };
 		7774D1281CF2187800183CE3 /* NSString+extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+extension.h"; sourceTree = "<group>"; };
@@ -209,6 +212,8 @@
 				77C57D941CEDC95A00092174 /* ZBStatusCell.m */,
 				774634D21CF08DCE004AF9FA /* ZBStatusToolbar.h */,
 				774634D31CF08DCE004AF9FA /* ZBStatusToolbar.m */,
+				77699A251CF2A46C00D780B0 /* ZBStatusPhotosView.h */,
+				77699A261CF2A46C00D780B0 /* ZBStatusPhotosView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -634,6 +639,7 @@
 				77B4E44E1CEC2378005DC1B5 /* ZBLoadMoreFooter.m in Sources */,
 				7770F8171CE4B0C8000CE679 /* ZBOAuthViewController.m in Sources */,
 				77D503A11CE0CE0600463B29 /* ZBTitleMenuViewController.m in Sources */,
+				77699A271CF2A46C00D780B0 /* ZBStatusPhotosView.m in Sources */,
 				77F219A51CDDF2F3008778B0 /* ZBDropDownMenu.m in Sources */,
 				7710612F1CE2005C0024A5EE /* ZBTabBar.m in Sources */,
 				772606881CD98B8D00B88239 /* UIView+Frame.m in Sources */,

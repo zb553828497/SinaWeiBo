@@ -14,6 +14,7 @@
 #import "ZBPhoto.h"
 #import "ZBStatusToolbar.h"
 #import "NSString+extension.h"
+#import "ZBStatusPhotosView.h"
 
 
 @interface ZBStatusCell()
@@ -27,7 +28,7 @@
 /** 会员图标*/
 @property(nonatomic,weak)UIImageView *vipView;
 /** 配图*/
-@property(nonatomic,weak)UIImageView *photoView;
+@property(nonatomic,weak)ZBStatusPhotosView *photosView;
 /** 昵称*/
 @property(nonatomic,weak)UILabel *nameLabel;
 /** 发微博的时间*/
@@ -43,7 +44,7 @@
 /** 转发微博的正文+昵称*/
 @property(nonatomic,weak)UILabel *retweetedContentAndName;
 /** 转发微博的配图*/
-@property(nonatomic,weak)UIImageView *retweetedPhotoView;
+@property(nonatomic,weak)ZBStatusPhotosView *retweetedPhotosView;
 
 
 /** 工具条*/
@@ -135,10 +136,10 @@
     self.retweetedContentAndName = CN;
     
     /** 转发微博配图*/
-    UIImageView *PV = [[UIImageView alloc]init];
+    ZBStatusPhotosView *PV = [[ZBStatusPhotosView alloc]init];
     
     [All addSubview:PV];
-    self.retweetedPhotoView = PV;
+    self.retweetedPhotosView = PV;
 }
 
 /**
@@ -163,9 +164,9 @@
     self.vipView = vipView;
     
     /** 配图*/
-    UIImageView *photoView = [[UIImageView alloc] init];
+    ZBStatusPhotosView *photoView = [[ZBStatusPhotosView alloc] init];
     [self.contentView addSubview:photoView];
-    self.photoView = photoView;
+    self.photosView = photoView;
     
     /** 昵称*/
     UILabel *nameLabel = [[UILabel alloc] init];
@@ -236,15 +237,15 @@
     }
     /** 配图*/
     if (status.pic_urls.count) {
-        self.photoView.frame = statusFrame.photoViewFrame;// 设置frame
+        self.photosView.frame = statusFrame.photosViewFrame;// 设置frame
         #warning 不太懂
         ZBPhoto *photo = [status.pic_urls firstObject];
-        [self.photoView sd_setImageWithURL:[NSURL URLWithString:photo.thumbnail_pic] placeholderImage:[UIImage imageNamed:@"timeline_image_placeholder"]];// 显示配图
+        [self.photosView sd_setImageWithURL:[NSURL URLWithString:photo.thumbnail_pic] placeholderImage:[UIImage imageNamed:@"timeline_image_placeholder"]];// 显示配图
         // 循环利用一定要有 xxxx.hidden = NO； xxxx.hidden = YES;否则数据会错乱
-        self.photoView.hidden = NO;
+        self.photosView.hidden = NO;
     }else {
         
-        self.photoView.hidden = YES;
+        self.photosView.hidden = YES;
     
     }
 
@@ -307,12 +308,12 @@
         
         /** 被转发的微博配图*/
         if (retweet_status.pic_urls.count) {
-            self.retweetedPhotoView.frame = statusFrame.retweetPhotoViewFrame;
+            self.retweetedPhotosView.frame = statusFrame.retweetPhotosViewFrame;
             ZBPhoto *retweetPhoto = [retweet_status.pic_urls firstObject];
-            [self.retweetedPhotoView sd_setImageWithURL:[NSURL URLWithString:retweetPhoto.thumbnail_pic] placeholderImage:[UIImage imageNamed:@"timeline_image_placeholder"]];
-            self.retweetedPhotoView.hidden = NO;
+            [self.retweetedPhotosView sd_setImageWithURL:[NSURL URLWithString:retweetPhoto.thumbnail_pic] placeholderImage:[UIImage imageNamed:@"timeline_image_placeholder"]];
+            self.retweetedPhotosView.hidden = NO;
         }else{
-            self.retweetedPhotoView.hidden = YES;
+            self.retweetedPhotosView.hidden = YES;
         }
     }else{
     
