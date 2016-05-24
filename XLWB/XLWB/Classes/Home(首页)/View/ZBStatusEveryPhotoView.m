@@ -32,7 +32,42 @@
 -(instancetype)initWithFrame:(CGRect)frame{
     self = [super initWithFrame:frame];
     if (self) {
+        /*
+         UIViewContentModeScaleToFill :显示全部图片,图片不等比例拉伸
+         (图片不等比例拉伸至填充整个UIImageView)
+         
+         UIViewContentModeScaleAspectFit :显示全部图片,图片等比例拉伸
+         图片等比例拉伸至完全显示在UIImageView里面为止
+         (ScaleAspectFit不会破坏原来宽高比，保持等比例放大或缩小，直到宽或高有一个等于uiimage就停止放大或缩小，此时，图片能显示全貌)
+         
+         UIViewContentModeScaleAspectFill :显示图片中间区域，图片等比例拉伸
+         图片等比例拉伸至 图片的宽度等于UIImageView的宽度 或者 图片的高度等于UIImageView的高度时,就停止拉伸。
+         (ScaleAspectFill属性不会破坏原来的宽高比，只会保持宽高比放大伸缩。
+         如果图片过大，将会等比例缩小，缩小至宽度或高度等于uiimage，就停止缩小，且只会显示图片中间的区域，不会显示全部的图片。
+         如果图片过小，会等比例放大，原理同上，图片只能显示图片中间的区域，不能显示全貌)
+         
+         UIViewContentModeRedraw : 调用了setNeedsDisplay方法时，就会将图片重新渲染
+         
+         UIViewContentModeCenter : 居中显示
+         UIViewContentModeTop,
+         UIViewContentModeBottom,
+         UIViewContentModeLeft,
+         UIViewContentModeRight,
+         UIViewContentModeTopLeft,
+         UIViewContentModeTopRight,
+         UIViewContentModeBottomLeft,
+         UIViewContentModeBottomRight,
+         
+         经验规律：
+         1.凡是带有Scale单词的，图片都会拉伸(分为等比例拉伸和非等比例拉伸),没有Scale，图片不会拉伸，原始多大就多大
+         2.凡是带有Aspect单词的，图片都会保持原来的宽高比，图片不会变形,宽或高有一个等于UIImageView控件的宽或高,就停止拉伸
+        */
         
+        // 内容模式
+        self.contentMode = UIViewContentModeScaleAspectFill;
+        
+        //超出图片控件的部分剪切到
+        self.clipsToBounds = YES;
     }
     return self;
 }
