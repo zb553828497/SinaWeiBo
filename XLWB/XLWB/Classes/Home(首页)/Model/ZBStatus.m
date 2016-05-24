@@ -60,7 +60,7 @@
    
     // 计算两个日期(微博创建日期和当前日期)之间的差值
     NSDateComponents *CompareResult = [calendar components:unit fromDate:createDate toDate:now options:0];
-    ZBLog(@"%@ %@ %@",createDate,now,CompareResult);
+   // ZBLog(@"%@ %@ %@",createDate,now,CompareResult);
     
     if ([createDate isThisYear]) {// 一条微博的创建时间是今年
         if([createDate isYesterday]){// 一条微博的创建时间是昨天
@@ -151,10 +151,10 @@ format.dateFormat = @"EEE MMM dd HH:mm:ss Z yyyy";
     // 从左向右检索包含</的字符串，并获取到</的位置，然后减去>的位置，得到的就是> </中包含的字符串长度。
     range.length = [source rangeOfString:@"</"].location -range.location;
     // 将处理过的字符串(其实就是结构体类型的成员变量）赋值给_source;
-    //做法1: _source = [source substringWithRange:range];
+     _source = [source substringWithRange:range];
     // 做法2:拼接"来自"字符串，显得好看一点
-    NSString *DealString = [NSString stringWithFormat:@"来自%@",[source substringWithRange:range]];
-    _source = DealString;
+//    NSString *DealString = [NSString stringWithFormat:@"来自%@",[source substringWithRange:range]];
+//    _source = DealString;
 
 }
 

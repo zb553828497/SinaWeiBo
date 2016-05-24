@@ -18,6 +18,7 @@
 		7726069E1CD9CE1500B88239 /* ZBTest2Controller.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7726069C1CD9CE1500B88239 /* ZBTest2Controller.xib */; };
 		772606A51CD9FB4300B88239 /* UIBarButtonItem+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 772606A41CD9FB4300B88239 /* UIBarButtonItem+Extension.m */; };
 		7727D6A41CF3D6CC00493884 /* fakeStatus.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7727D6A31CF3D6CC00493884 /* fakeStatus.plist */; };
+		7727D6A71CF3F8F700493884 /* ZBStatusEveryPhotoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7727D6A61CF3F8F700493884 /* ZBStatusEveryPhotoView.m */; };
 		77298C6D1CD83A4A00D09005 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 77298C6C1CD83A4A00D09005 /* main.m */; };
 		77298C701CD83A4A00D09005 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 77298C6F1CD83A4A00D09005 /* AppDelegate.m */; };
 		77298C7B1CD83A4A00D09005 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 77298C791CD83A4A00D09005 /* LaunchScreen.storyboard */; };
@@ -70,6 +71,8 @@
 		772606A31CD9FB4300B88239 /* UIBarButtonItem+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIBarButtonItem+Extension.h"; sourceTree = "<group>"; };
 		772606A41CD9FB4300B88239 /* UIBarButtonItem+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIBarButtonItem+Extension.m"; sourceTree = "<group>"; };
 		7727D6A31CF3D6CC00493884 /* fakeStatus.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = fakeStatus.plist; sourceTree = "<group>"; };
+		7727D6A51CF3F8F700493884 /* ZBStatusEveryPhotoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBStatusEveryPhotoView.h; sourceTree = "<group>"; };
+		7727D6A61CF3F8F700493884 /* ZBStatusEveryPhotoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZBStatusEveryPhotoView.m; sourceTree = "<group>"; };
 		77298C681CD83A4A00D09005 /* XLWB.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = XLWB.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		77298C6C1CD83A4A00D09005 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		77298C6E1CD83A4A00D09005 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -216,6 +219,8 @@
 				774634D31CF08DCE004AF9FA /* ZBStatusToolbar.m */,
 				77699A251CF2A46C00D780B0 /* ZBStatusPhotosView.h */,
 				77699A261CF2A46C00D780B0 /* ZBStatusPhotosView.m */,
+				7727D6A51CF3F8F700493884 /* ZBStatusEveryPhotoView.h */,
+				7727D6A61CF3F8F700493884 /* ZBStatusEveryPhotoView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -629,6 +634,7 @@
 				77F33A5B1CE8CA3200EB75F4 /* ZBTitleButton.m in Sources */,
 				77C57D921CEDC91B00092174 /* ZBStatusFrame.m in Sources */,
 				77C473031CF19AF4008F93CF /* NSDate+Extension.m in Sources */,
+				7727D6A71CF3F8F700493884 /* ZBStatusEveryPhotoView.m in Sources */,
 				77298C6D1CD83A4A00D09005 /* main.m in Sources */,
 				774634D41CF08DCE004AF9FA /* ZBStatusToolbar.m in Sources */,
 				77B4E44B1CEAD31C005DC1B5 /* ZBStatus.m in Sources */,
