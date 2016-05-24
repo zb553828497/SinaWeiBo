@@ -83,7 +83,7 @@
         CGFloat PhotoY = CGRectGetMaxY(self.contentLableFrame) + ZBStatusCellBorderW;
         // 根据配图的个数,计算配图的尺寸(宽高)
         CGSize photosSize = [ZBStatusPhotosView CalculateSizeWithPhotosCount:status.pic_urls.count];
-        self.originalViewFrame = (CGRect){{PhotoX,PhotoY},photosSize};
+        self.photosViewFrame = (CGRect){{PhotoX,PhotoY},photosSize};
         
         // 原创微博的高度 = 配图最大的Y值 + 10
         originalH  = CGRectGetMaxY(self.photosViewFrame) + ZBStatusCellBorderW;

@@ -17,6 +17,7 @@
 		7726069D1CD9CE1500B88239 /* ZBTest2Controller.m in Sources */ = {isa = PBXBuildFile; fileRef = 7726069B1CD9CE1500B88239 /* ZBTest2Controller.m */; };
 		7726069E1CD9CE1500B88239 /* ZBTest2Controller.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7726069C1CD9CE1500B88239 /* ZBTest2Controller.xib */; };
 		772606A51CD9FB4300B88239 /* UIBarButtonItem+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 772606A41CD9FB4300B88239 /* UIBarButtonItem+Extension.m */; };
+		7727D6A41CF3D6CC00493884 /* fakeStatus.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7727D6A31CF3D6CC00493884 /* fakeStatus.plist */; };
 		77298C6D1CD83A4A00D09005 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 77298C6C1CD83A4A00D09005 /* main.m */; };
 		77298C701CD83A4A00D09005 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 77298C6F1CD83A4A00D09005 /* AppDelegate.m */; };
 		77298C7B1CD83A4A00D09005 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 77298C791CD83A4A00D09005 /* LaunchScreen.storyboard */; };
@@ -68,6 +69,7 @@
 		7726069C1CD9CE1500B88239 /* ZBTest2Controller.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ZBTest2Controller.xib; sourceTree = "<group>"; };
 		772606A31CD9FB4300B88239 /* UIBarButtonItem+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIBarButtonItem+Extension.h"; sourceTree = "<group>"; };
 		772606A41CD9FB4300B88239 /* UIBarButtonItem+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIBarButtonItem+Extension.m"; sourceTree = "<group>"; };
+		7727D6A31CF3D6CC00493884 /* fakeStatus.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = fakeStatus.plist; sourceTree = "<group>"; };
 		77298C681CD83A4A00D09005 /* XLWB.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = XLWB.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		77298C6C1CD83A4A00D09005 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		77298C6E1CD83A4A00D09005 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -421,6 +423,7 @@
 		77298C971CD83A5800D09005 /* Temp(临时) */ = {
 			isa = PBXGroup;
 			children = (
+				7727D6A31CF3D6CC00493884 /* fakeStatus.plist */,
 				772606861CD98B8D00B88239 /* UIView+Frame.h */,
 				772606871CD98B8D00B88239 /* UIView+Frame.m */,
 				772606891CD991C400B88239 /* ZBTestController.h */,
@@ -552,6 +555,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7726069E1CD9CE1500B88239 /* ZBTest2Controller.xib in Resources */,
+				7727D6A41CF3D6CC00493884 /* fakeStatus.plist in Resources */,
 				77298C7B1CD83A4A00D09005 /* LaunchScreen.storyboard in Resources */,
 				7726068D1CD991C400B88239 /* ZBTestController.xib in Resources */,
 				77B4E4501CEC23E5005DC1B5 /* ZBLoadMoreFooter.xib in Resources */,

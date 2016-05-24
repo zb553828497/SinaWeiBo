@@ -238,9 +238,13 @@
     /** 配图*/
     if (status.pic_urls.count) {
         self.photosView.frame = statusFrame.photosViewFrame;// 设置frame
-        #warning 不太懂
-        ZBPhoto *photo = [status.pic_urls firstObject];
-        [self.photosView sd_setImageWithURL:[NSURL URLWithString:photo.thumbnail_pic] placeholderImage:[UIImage imageNamed:@"timeline_image_placeholder"]];// 显示配图
+
+        // 因为 photosView是ZBStatusPhotosView类型的，所以能拿到AllPhotos数组属性,调用AllPhotos的set方法。
+        // status是ZBStatus类型的，所以能拿到pic_urls属性。
+        // 这个pic_urls数组里面的对象类型是ZBPhoto类型(ZBPhoto模型)--->详看ZBStatus.m文件
+        self.photosView.AllPhotos = status.pic_urls;
+     
+        
         // 循环利用一定要有 xxxx.hidden = NO； xxxx.hidden = YES;否则数据会错乱
         self.photosView.hidden = NO;
     }else {
@@ -309,8 +313,12 @@
         /** 被转发的微博配图*/
         if (retweet_status.pic_urls.count) {
             self.retweetedPhotosView.frame = statusFrame.retweetPhotosViewFrame;
-            ZBPhoto *retweetPhoto = [retweet_status.pic_urls firstObject];
-            [self.retweetedPhotosView sd_setImageWithURL:[NSURL URLWithString:retweetPhoto.thumbnail_pic] placeholderImage:[UIImage imageNamed:@"timeline_image_placeholder"]];
+#warning 不懂
+            // 因为 retweetedPhotosView是ZBStatusPhotosView类型的，所以能拿到AllPhotos数组属性,调用AllPhotos的set方法。
+            // retweet_status是ZBStatus类型的，所以能拿到pic_urls属性。
+            // 这个pic_urls数组里面的对象类型是ZBPhoto类型(ZBPhoto模型)--->详看ZBStatus.m文件
+            self.retweetedPhotosView.AllPhotos = retweet_status.pic_urls;
+
             self.retweetedPhotosView.hidden = NO;
         }else{
             self.retweetedPhotosView.hidden = YES;
