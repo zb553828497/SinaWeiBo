@@ -9,6 +9,8 @@
 #import "ZBComposeController.h"
 #import "ZBAccountTool.h"
 #import "ZBTextView.h"
+#import <AFNetworking/AFNetworking.h>
+#import <SVProgressHUD/SVProgressHUD.h>
 
 @interface ZBComposeController()
 @property(nonatomic,weak)ZBTextView *textView;
@@ -142,17 +144,50 @@
     self.textView = textView;
     [self.view addSubview:textView];
     
-    // 监听文字改变的通知,实现导航栏右边的发送按钮可以点击/不可点击
+    // 让控制器监听文字改变的通知(addobserver的参数就是监听者),实现导航栏右边的发送按钮可以点击/不可点击
+// object中最的参数表示只监听textview的点击。结果:只要textview中有文字的输入，那么就执行textChangedToControlSend方法，在这个方法中，实现了发送按钮能点击/不可点击。会了这个你就知道通知也就是那么回事
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(textChangedToControlSend) name:UITextViewTextDidChangeNotification object:textView];
     
 }
 #pragma mark - 监听方法
--(void)cacel{
+-(void)cancel{
     [self dismissViewControllerAnimated:YES completion:nil];
 }
-
+// 点击发送按钮,进行发微博
 -(void)send{
-
+    // URL: https://api.weibo.com/2/statuses/update.json
+    /* 参数:
+                    必选    类型及范围	说明
+     access_token	true	string	采用OAuth授权方式为必填参数，OAuth授权后获得。
+     status         true	string	要发布的微博文本内容，必须做URLencode，内容不超过140个汉字。
+     visible        false	int     微博的可见性，0：所有人能看，1：仅自己可见，2：密友可见，3：指定分组可见，默认为0。
+     list_id        false	string	微博的保护投递指定分组ID，只有当visible参数为3时生效且必选。
+     lat            false	float	纬度，有效范围：-90.0到+90.0，+表示北纬，默认为0.0。
+     long           false	float	经度，有效范围：-180.0到+180.0，+表示东经，默认为0.0。
+     annotations	false	string	元数据，主要是为了方便第三方应用记录一些适合于自己使用的信息，每条微博可以包含一个或者多个元数据，必须以json字串的形式提交，字串长度不超过512个字符，具体内容可以自定。
+     rip            false	string	开发者上报的操作用户真实IP，形如：211.156.0.1。
+     
+     */
+    // 1.请求管理者
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    // 2.请求参数
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    params[@"access_token"] = [ZBAccountTool account].access_token;
+    params[@"status"] = self.textView.text;
+    // 3.发送请求
+    [manager POST:@"https://api.weibo.com/2/statuses/update.json" parameters:params success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        [SVProgressHUD showWithStatus:@"发布成功"];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [SVProgressHUD dismiss];
+        });
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        [SVProgressHUD showWithStatus:@"发布失败"];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [SVProgressHUD dismiss];
+        });
+    }];
+    
+    
 }
 /**
  *  监听文字改变
