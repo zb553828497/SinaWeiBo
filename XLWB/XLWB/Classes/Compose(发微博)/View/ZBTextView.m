@@ -64,5 +64,9 @@
     // 重绘
     [self setNeedsDisplay];
 }
+-(void)dealloc{
+    // 移除观察者
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
 
 @end

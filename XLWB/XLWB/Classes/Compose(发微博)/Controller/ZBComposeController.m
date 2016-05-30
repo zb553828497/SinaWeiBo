@@ -9,11 +9,16 @@
 #import "ZBComposeController.h"
 #import "ZBAccountTool.h"
 #import "ZBTextView.h"
+#import "ZBComposeToolBar.h"
 #import <AFNetworking/AFNetworking.h>
 #import <SVProgressHUD/SVProgressHUD.h>
 
-@interface ZBComposeController()
+
+@interface ZBComposeController()<UITextViewDelegate>
+/** 输入控件*/
 @property(nonatomic,weak)ZBTextView *textView;
+/** 键盘顶部的工具条*/
+@property(nonatomic,weak)ZBComposeToolBar *toolbar;
 @end
 
 
@@ -26,10 +31,33 @@
     [self setUpNav];
     // 添加输入控件
     [self setUpTextView];
-
+    // 添加工具条
+    [self setUpToolBar];
     
     
 }
+/**
+ *  添加工具条
+ */
+-(void)setUpToolBar{
+    ZBComposeToolBar *toolBar = [[ZBComposeToolBar alloc] init];
+    toolBar.zb_width = self.view.zb_width;
+    toolBar.zb_height = 44;
+    toolBar.zb_Y = self.view.zb_height - toolBar.zb_height;
+    
+    //不应该将工具条加在键盘上，否则键盘消失,工具条也消失。解决办法:将工具条添加到控制器中。然后再让控制器监听键盘的弹出，当键盘弹出来，利用动画让工具条移动到键盘的上面
+       [self.view addSubview:toolBar];
+
+    self.toolbar = toolBar;
+    /*
+     inputAccessoryView:设置显示在键盘顶部的内容
+     self.textView.inputAccessoryView = toolbar;// 效果:将工具条添加到键盘顶部
+     
+     inputView:设置弹出的view,会覆盖掉默认弹出的键盘。
+     self.textView.inputView = [UIButton buttonWithType:UIButtonTypeContactAdd];// 弹出加号按钮
+     */
+   }
+
 // 在控制器的view即将显示的时候，让导航栏右边的按钮不能点击,并且显示灰色。
 // 如果是在viewDidLoad方法中设置导航栏右边的按钮不能点击，按钮的颜色始终为橙色。
 // 本质原因:在ZBNavigationController.m文件中设置了不可点击时的按钮颜色，只有在viewWillAppear方法中设置按钮不可点击，才会去调用ZBNavigationController.m中的代码，从而让按钮变为灰色。
@@ -137,17 +165,80 @@
      */
     
     ZBTextView *textView = [[ZBTextView alloc] init];
-   
+   // 垂直方向上有弹簧效果.这样才能滚动textView，才会执行scrollViewWillBeginDragging代理方法实现退出键盘，如果不设置，键盘无法退出。
+    textView.alwaysBounceVertical = YES;
     textView.frame = self.view.bounds;
     textView.font = [UIFont systemFontOfSize:15];
     textView.placeholder = @"分享新鲜事...";
     self.textView = textView;
+    textView.delegate = self;
     [self.view addSubview:textView];
     
     // 让控制器监听文字改变的通知(addobserver的参数就是监听者),实现导航栏右边的发送按钮可以点击/不可点击
 // object中最的参数表示只监听textview的点击。结果:只要textview中有文字的输入，那么就执行textChangedToControlSend方法，在这个方法中，实现了发送按钮能点击/不可点击。会了这个你就知道通知也就是那么回事
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(textChangedToControlSend) name:UITextViewTextDidChangeNotification object:textView];
+ 
+    // 键盘通知
+    // 键盘的frame发生改变时发出的通知（位置和尺寸）
+    //    UIKeyboardWillChangeFrameNotification
+    //    UIKeyboardDidChangeFrameNotification
+    // 键盘显示时发出的通知
+    //    UIKeyboardWillShowNotification
+    //    UIKeyboardDidShowNotification
+    // 键盘隐藏时发出的通知
+    //    UIKeyboardWillHideNotification
+    //    UIKeyboardDidHideNotification
+
+    // 让控制器监听键盘的通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyBoardWillChangeFrame:) name:UIKeyboardWillChangeFrameNotification object:nil];
+}
+
+/**
+ *  键盘的frame发生改变时调用（显示、隐藏等）
+ *
+ *  @param Notification:  NSNotification类的对象，这个对象中包含着键盘的信息
+ */
+-(void)keyBoardWillChangeFrame:(NSNotification *)Notification{
+    //ZBLog(@"%@",Notification); //打印键盘的相关信息
+    /* 打印关键语句:
+     notification.userInfo = @{
+     // 键盘弹出\隐藏后的frame
+     UIKeyboardFrameEndUserInfoKey = NSRect: {{0, 352}, {320, 216}},
+     // 键盘弹出\隐藏所耗费的时间(系统底层设定的，默认为0.25秒)
+     UIKeyboardAnimationDurationUserInfoKey = 0.25,
+     // 键盘弹出\隐藏动画的执行节奏（先快后慢，匀速）
+     UIKeyboardAnimationCurveUserInfoKey = 7
+     }
+     */
     
+    
+    // userInfo是NSDictionary类型，所以用NSDictionary类型的userInfo接收
+    NSDictionary *userInfo = Notification.userInfo;
+    // 动画的持续时间
+    // 取出字典userInfo中 key为UIKeyboardAnimationDurationUserInfoKey对应的value，value就是duration
+    double duration = [userInfo[UIKeyboardAnimationDurationUserInfoKey] doubleValue];
+    // 键盘的frame
+    // 取出字典userInfo中 key为UIKeyboardFrameEndUserInfoKey对应的value，value就是keyboardFrame
+    CGRect keyboardFrame = [userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
+    
+    // 执行动画
+    // 利用动画实现键盘弹出,工具条也跟着弹出;键盘退出工具条也跟着退出。在动画的block里，让工具条的y值等于键盘的y值减去工具条的高度，正是因为这个赋值语句，才实现了工具条和键盘紧紧相连，并且一动都用。一不动都不动。
+
+    [UIView animateWithDuration:duration animations:^{
+            // 键盘的y值>当前控制器的高度，也就是相当于键盘隐藏了
+           if (keyboardFrame.origin.y > self.view.zb_height) {
+            //键盘隐藏后的y值就是屏幕的高度，所以工具条紧紧贴着屏幕底部（也就是tabbar的位置）
+            self.toolbar.zb_Y = self.view.zb_height - self.toolbar.zb_height;
+        }else{// 键盘的y值<当前控制器的高度，也就是相当于键盘出现在手机屏幕上了
+            self.toolbar.zb_Y = keyboardFrame.origin.y - self.toolbar.zb_height;
+        }
+        ZBLog(@"%@",NSStringFromCGRect(self.toolbar.frame));
+    }];
+
+}
+-(void)dealloc{
+    // 移除观察者self
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 #pragma mark - 监听方法
 -(void)cancel{
@@ -174,7 +265,7 @@
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     params[@"access_token"] = [ZBAccountTool account].access_token;
     params[@"status"] = self.textView.text;
-    // 3.发送请求
+    // 3.发送请求  get请求一般是从服务器拿数据，post请求一般是把数据上传到服务器/更新服务器中的数据
     [manager POST:@"https://api.weibo.com/2/statuses/update.json" parameters:params success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         [SVProgressHUD showWithStatus:@"发布成功"];
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
@@ -187,7 +278,8 @@
         });
     }];
     
-    
+    // 4. 点击取消/发送按钮就会，移除当前控制器
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 /**
  *  监听文字改变
@@ -197,5 +289,15 @@
     self.navigationItem.rightBarButtonItem.enabled = self.textView.hasText;
 }
 
+
+
+
+//  只要滚动scrollView就会调用
+//  监听zbtextview的滚动的目的是:当滚动zbtextview时，我想要退出键盘。可以利用监听来实现这个效果。如何监听？利用代理delegate实现监听
+//  调用前提:遵守UITextViewDelegate协议+让控制器成为textView的代理+实现scrollViewWillBeginDragging方法.缺一不可.
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{
+    // 在代理方法中调用endEditing方法来退出键盘
+    [self.view endEditing:YES];
+}
 
 @end
