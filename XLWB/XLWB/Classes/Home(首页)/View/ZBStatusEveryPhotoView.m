@@ -89,7 +89,9 @@
 // 计算gif显示在每一张图片的位置
 - (void)layoutSubviews{
     [super layoutSubviews];
+    // gif图片的x值 = 当前某一张配图的宽度 - gif图片的宽度
     self.gifView.zb_X = self.zb_width - self.gifView.zb_width;
+    // gif图片的y值 = 当前某一张配图的高度 - gif图片的高度
     self.gifView.zb_Y = self.zb_height - self.gifView.zb_height;
 }
 @end

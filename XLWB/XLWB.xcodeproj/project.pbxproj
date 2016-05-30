@@ -32,6 +32,9 @@
 		77699A271CF2A46C00D780B0 /* ZBStatusPhotosView.m in Sources */ = {isa = PBXBuildFile; fileRef = 77699A261CF2A46C00D780B0 /* ZBStatusPhotosView.m */; };
 		7770F8171CE4B0C8000CE679 /* ZBOAuthViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7770F8161CE4B0C8000CE679 /* ZBOAuthViewController.m */; };
 		7774D12A1CF2187800183CE3 /* NSString+extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 7774D1291CF2187800183CE3 /* NSString+extension.m */; };
+		77937E2D1CF48B210035A543 /* ZBIconView.m in Sources */ = {isa = PBXBuildFile; fileRef = 77937E2C1CF48B210035A543 /* ZBIconView.m */; };
+		77937E5B1CFB51840035A543 /* ZBComposeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 77937E5A1CFB51840035A543 /* ZBComposeController.m */; };
+		77937E5F1CFBDBE80035A543 /* ZBTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 77937E5E1CFBDBE80035A543 /* ZBTextView.m */; };
 		77B4E4481CEAD30C005DC1B5 /* ZBUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 77B4E4471CEAD30C005DC1B5 /* ZBUser.m */; };
 		77B4E44B1CEAD31C005DC1B5 /* ZBStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = 77B4E44A1CEAD31C005DC1B5 /* ZBStatus.m */; };
 		77B4E44E1CEC2378005DC1B5 /* ZBLoadMoreFooter.m in Sources */ = {isa = PBXBuildFile; fileRef = 77B4E44D1CEC2378005DC1B5 /* ZBLoadMoreFooter.m */; };
@@ -100,6 +103,12 @@
 		7770F8161CE4B0C8000CE679 /* ZBOAuthViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZBOAuthViewController.m; sourceTree = "<group>"; };
 		7774D1281CF2187800183CE3 /* NSString+extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+extension.h"; sourceTree = "<group>"; };
 		7774D1291CF2187800183CE3 /* NSString+extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+extension.m"; sourceTree = "<group>"; };
+		77937E2B1CF48B210035A543 /* ZBIconView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBIconView.h; sourceTree = "<group>"; };
+		77937E2C1CF48B210035A543 /* ZBIconView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZBIconView.m; sourceTree = "<group>"; };
+		77937E591CFB51840035A543 /* ZBComposeController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBComposeController.h; sourceTree = "<group>"; };
+		77937E5A1CFB51840035A543 /* ZBComposeController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZBComposeController.m; sourceTree = "<group>"; };
+		77937E5D1CFBDBE80035A543 /* ZBTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBTextView.h; sourceTree = "<group>"; };
+		77937E5E1CFBDBE80035A543 /* ZBTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZBTextView.m; sourceTree = "<group>"; };
 		77B4E4461CEAD30C005DC1B5 /* ZBUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBUser.h; sourceTree = "<group>"; };
 		77B4E4471CEAD30C005DC1B5 /* ZBUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZBUser.m; sourceTree = "<group>"; };
 		77B4E4491CEAD31C005DC1B5 /* ZBStatus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBStatus.h; sourceTree = "<group>"; };
@@ -221,6 +230,8 @@
 				77699A261CF2A46C00D780B0 /* ZBStatusPhotosView.m */,
 				7727D6A51CF3F8F700493884 /* ZBStatusEveryPhotoView.h */,
 				7727D6A61CF3F8F700493884 /* ZBStatusEveryPhotoView.m */,
+				77937E2B1CF48B210035A543 /* ZBIconView.h */,
+				77937E2C1CF48B210035A543 /* ZBIconView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -315,6 +326,7 @@
 		77298C821CD83A5800D09005 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				77937E571CFB514B0035A543 /* Compose(发微博) */,
 				7770F8131CE4B09B000CE679 /* OAuth(授权) */,
 				77145D001CE35981009886FE /* NewFeature(新特性) */,
 				77298C831CD83A5800D09005 /* (MessageCenter)消息 */,
@@ -462,6 +474,33 @@
 				7770F8161CE4B0C8000CE679 /* ZBOAuthViewController.m */,
 			);
 			path = Controller;
+			sourceTree = "<group>";
+		};
+		77937E571CFB514B0035A543 /* Compose(发微博) */ = {
+			isa = PBXGroup;
+			children = (
+				77937E5C1CFBDBCC0035A543 /* View */,
+				77937E581CFB514B0035A543 /* Controller */,
+			);
+			path = "Compose(发微博)";
+			sourceTree = "<group>";
+		};
+		77937E581CFB514B0035A543 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				77937E591CFB51840035A543 /* ZBComposeController.h */,
+				77937E5A1CFB51840035A543 /* ZBComposeController.m */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		77937E5C1CFBDBCC0035A543 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				77937E5D1CFBDBE80035A543 /* ZBTextView.h */,
+				77937E5E1CFBDBE80035A543 /* ZBTextView.m */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		77C13EA41CE5832B00DA7563 /* Model */ = {
@@ -627,6 +666,7 @@
 				77298CA21CD8584700D09005 /* ZBMessageCenterController.m in Sources */,
 				77F33A561CE784C800EB75F4 /* UIWindow+SwitchRootVC.m in Sources */,
 				77298C701CD83A4A00D09005 /* AppDelegate.m in Sources */,
+				77937E2D1CF48B210035A543 /* ZBIconView.m in Sources */,
 				77298CA81CD8589000D09005 /* ZBProfileViewController.m in Sources */,
 				77F33A581CE7A3AB00EB75F4 /* Foundation+Log.m in Sources */,
 				7740304D1CDDC73F009CAFA6 /* ZBSearchBar.m in Sources */,
@@ -636,6 +676,7 @@
 				77C473031CF19AF4008F93CF /* NSDate+Extension.m in Sources */,
 				7727D6A71CF3F8F700493884 /* ZBStatusEveryPhotoView.m in Sources */,
 				77298C6D1CD83A4A00D09005 /* main.m in Sources */,
+				77937E5B1CFB51840035A543 /* ZBComposeController.m in Sources */,
 				774634D41CF08DCE004AF9FA /* ZBStatusToolbar.m in Sources */,
 				77B4E44B1CEAD31C005DC1B5 /* ZBStatus.m in Sources */,
 				7726069D1CD9CE1500B88239 /* ZBTest2Controller.m in Sources */,
@@ -650,6 +691,7 @@
 				7770F8171CE4B0C8000CE679 /* ZBOAuthViewController.m in Sources */,
 				77D503A11CE0CE0600463B29 /* ZBTitleMenuViewController.m in Sources */,
 				77699A271CF2A46C00D780B0 /* ZBStatusPhotosView.m in Sources */,
+				77937E5F1CFBDBE80035A543 /* ZBTextView.m in Sources */,
 				77F219A51CDDF2F3008778B0 /* ZBDropDownMenu.m in Sources */,
 				7710612F1CE2005C0024A5EE /* ZBTabBar.m in Sources */,
 				772606881CD98B8D00B88239 /* UIView+Frame.m in Sources */,

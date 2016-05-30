@@ -13,6 +13,8 @@
 #import "ZBProfileViewController.h"
 #import "ZBNavigationController.h"
 #import "ZBTabBar.h"
+#import "ZBComposeController.h"
+
 @interface ZBTabBarController ()<ZBTabBarDelegate>
 
 @end
@@ -109,10 +111,11 @@
 #pragma mark - ZBTabBarDelegate代理方法
 -(void)tabBarDidClickPlusButton:(ZBTabBar *)tabBar{
     
-    UIViewController *vc = [[UIViewController alloc] init];
-    vc.view.backgroundColor = [UIColor redColor];
+    ZBComposeController *vc = [[ZBComposeController alloc] init];
+    ZBNavigationController *nav = [[ZBNavigationController alloc]initWithRootViewController:vc];
+    //vc.view.backgroundColor = [UIColor redColor];
     // presentViewController是控制器的方法，只有控制器才能调用这个方法.因为self对象是控制器,所以可以modal  vc控制器
     // 如果self不是控制器对象，则不能modal。
-    [self presentViewController:vc animated:YES completion:nil];
+    [self presentViewController:nav animated:YES completion:nil];
 }
 @end

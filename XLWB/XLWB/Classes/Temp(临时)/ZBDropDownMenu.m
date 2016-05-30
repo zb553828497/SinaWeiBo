@@ -39,7 +39,7 @@
     
     self = [super initWithFrame:frame];
     if (self) {
-       // 设置HWDropdownMenu类的背景颜色为透明色，充满整个屏幕
+       // 设置ZBDropdownMenu类的背景颜色为透明色，充满整个屏幕
       // 本质是添加蒙版(用于拦截灰色图片外面的点击事件）.但是因为下面点击屏幕就调用dismiss方法,这一添加蒙版的代码就没有作用了。如果没有调用dismiss方法，请看下面的精华解释
       // 精华:将蒙版设置成透明色，当点击屏幕时，实际上是点击了透明色的蒙版。用户虽然能看到导航栏、tabBar上的东西(蒙版是透明色,所以能看到蒙版后面的东西啊）,但是就是点击不了，用户傻傻的以为点击了他们，却没反应，他们以为这是bug
         
@@ -77,7 +77,7 @@
 -(void)setContentController:(UIViewController *)contentController{
     
     _contentController = contentController;
-    // 把contentController对象的view赋值给HWDropdownMenu类的对象
+    // 把contentController对象的view赋值给ZBDropdownMenu类的对象
     self.content = contentController.view;
     
 }
@@ -145,7 +145,7 @@
         [self.delegate DropDownMenuDidDismiss:self];
     }
 }
-// 点击屏幕，移除当前的HWDropdownMenu。这样就能点击之前被HWDropdownMenu覆盖的界面了
+// 点击屏幕，移除当前的ZBDropdownMenu。这样就能点击之前被ZBDropdownMenu覆盖的界面了
 -(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
     [self dismiss];
 

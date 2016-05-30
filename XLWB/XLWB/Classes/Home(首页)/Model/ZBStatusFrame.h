@@ -26,16 +26,16 @@
 
 @class ZBStatus;
 @interface ZBStatusFrame : NSObject
-//  一个HWStatusFrame模型里面包含的信息
+//  一个ZBStatusFrame模型里面包含的信息
 //  1.存放着一个cell内部所有子控件的frame数据
 //  2.存放一个cell的高度
-//  3.存放着一个数据模型HWStatus(所以导入了HWStatus类，并声明了给这个类声明了一个status属性)
-// 总结:HWStatusFrame模型中又包含一个HWStatus模型。HWStatusFrame模型存放着数据模型 + 所有子控件的frame + cell的高度。 HWStatus模型存放着文字数据+图片数据。总之整体都是在HWStatusFrame模型类中。
+//  3.存放着一个数据模型ZBStatus(所以导入了ZBStatus类，并声明了给这个类声明了一个status属性)
+// 总结:ZBStatusFrame模型中又包含一个ZBStatus模型。ZBStatusFrame模型存放着数据模型 + 所有子控件的frame + cell的高度。 ZBStatus模型存放着文字数据+图片数据。总之整体都是在ZBStatusFrame模型类中。
 // 总结: 1,2,3全部满足,缺一不可,则cell的内容就会显示在屏幕上。
 
 
 
-/** 数据模型HWStatus*/
+/** 数据模型ZBStatus*/
 @property(nonatomic,strong)ZBStatus *status;
 
 /** 原创微博整体 */

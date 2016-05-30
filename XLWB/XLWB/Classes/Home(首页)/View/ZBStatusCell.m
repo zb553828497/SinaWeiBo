@@ -15,6 +15,7 @@
 #import "ZBStatusToolbar.h"
 #import "NSString+extension.h"
 #import "ZBStatusPhotosView.h"
+#import "ZBIconView.h"
 
 
 @interface ZBStatusCell()
@@ -24,7 +25,7 @@
 @property(nonatomic,weak)UIView *originalView;
 
 /** 头像*/
-@property(nonatomic,weak)UIImageView *iconView;
+@property(nonatomic,weak)ZBIconView *iconView;
 /** 会员图标*/
 @property(nonatomic,weak)UIImageView *vipView;
 /** 配图*/
@@ -154,7 +155,7 @@
     self.originalView = originalView;
     
     /** 头像*/
-    UIImageView *iconView = [[UIImageView alloc] init];
+    ZBIconView *iconView = [[ZBIconView alloc] init];
     [self.contentView addSubview:iconView];
     self.iconView = iconView;
     
@@ -219,8 +220,10 @@
     
     /** 头像*/
     self.iconView.frame = statusFrame.iconViewFrames;// 设置frame
-    [self.iconView sd_setImageWithURL:[NSURL URLWithString:Oneuser.profile_image_url] placeholderImage:[UIImage imageNamed:@"avatar_default_small"]];// 下载图片并显示头像
-    
+//    [self.iconView sd_setImageWithURL:[NSURL URLWithString:Oneuser.profile_image_url] placeholderImage:[UIImage imageNamed:@"avatar_default_small"]];// 下载图片并显示头像
+//
+    // 调用ZBIconView方法中的Everyuser属性的setter方法，并把ZBUser类型的Oneuser传递进去
+    self.iconView.Everyuser = Oneuser;
     
     /** 会员图标*/
     if (Oneuser.isVip) {

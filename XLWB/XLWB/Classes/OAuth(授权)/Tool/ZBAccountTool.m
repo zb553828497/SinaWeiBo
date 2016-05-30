@@ -28,7 +28,7 @@
 +(ZBAccount *)account{
     
     // 加载模型(解档)。
-    //如果解档成功，这个account对象里面存储着用户的信息。例如:以后我们可以通过account.uid(对象.属性)的形式获得用户的uid
+    //如果解档成功，这个account对象里面存储着用户的信息。例如:以后我们可以通过account.uid(对象.属性)的形式获得用户的uid.  因为返回值类型为ZBAccount，所以我们ZBAccount.h中的属性都可以通过这对象.属性获得。
     ZBAccount *account = [NSKeyedUnarchiver unarchiveObjectWithFile:ZBAccountPath];
     
     // 过期的秒数
