@@ -26,6 +26,9 @@
 /** 相册(存放拍照或者相册中选择的图片)*/
 // ZBComposePhotosView就是用来封装图片的，外界只需要调用接口就可以用来存储图片
 @property(nonatomic,weak)ZBComposePhotosView *photosView;
+#warning 一定要用strong
+/** 表情键盘*/
+@property(nonatomic,strong)ZBEmotionKeyboard *emotionKeyboard;
 
 /** 是否正在切换键盘*/
 @property(nonatomic,assign)BOOL switchingKeyboard;
@@ -34,6 +37,17 @@
 
 
 @implementation ZBComposeController
+
+-(ZBEmotionKeyboard *)emotionKeyboard{
+    if (_emotionKeyboard == nil) {
+        self.emotionKeyboard = [[ZBEmotionKeyboard alloc] init];
+        self.emotionKeyboard.zb_width = self.view.zb_width;
+        // 表情键盘的高度216 = ZBEmotionTabBar的高度+ZBEmotionListView的高度
+        self.emotionKeyboard.zb_height = 216;// 216为键盘的默认高度
+    }
+    return _emotionKeyboard;
+}
+
 
 -(void)viewDidLoad{
     [super viewDidLoad];
@@ -439,14 +453,15 @@
 -(void)switchKeyboard{
      // self.textView.inputView == nil : 使用的是系统自带的键盘
     if(self.textView.inputView == nil){// 当点击了系统自带的键盘，就会切换为自定义的表情键盘
-        ZBEmotionKeyboard *emotionKeyboard = [[ZBEmotionKeyboard alloc] init];
-        emotionKeyboard.zb_width = self.view.zb_width;
-        // 表情键盘的高度216 = ZBEmotionTabBar的高度+ZBEmotionListView的高度
-        emotionKeyboard.zb_height = 216;// 216为键盘的默认高度
-        // 弹出自定义的表情键盘
-        self.textView.inputView = emotionKeyboard;
+        // 弹出自定义的表情键盘   调用emotionKeyboard的getter方法
+        self.textView.inputView = self.emotionKeyboard;
+        
+       // 显示键盘按钮--->虽然显示的是键盘按钮，但是键盘的内容是表情哦。就例如主播直播时(关注/取消关注),取消关注按钮显示的话，表示你早就已经关注该主播了。 如果关注按钮显示的话，说明你还没有关注该主播
+        self.toolbar.showKeyboardButton = YES;
     }else{// 点击了自定义的表情键盘，就切换为系统自带的键盘
         self.textView.inputView = nil;
+       // 显示表情按钮-->键盘的内容是键盘，不是表情
+        self.toolbar.showKeyboardButton = NO;
     }
     
     // 记录此时正在开始切换键盘(我们自己定义的:把YES赋值给switchingKeyboard，就表示正在切换键盘)
@@ -463,7 +478,7 @@
         [self.textView becomeFirstResponder];// 代码2
         
         // 弹出键盘后,就用switchingKeyboard=NO表示已经切换键盘的过程已经完毕
-        self.switchingKeyboard = NO;
+       self.switchingKeyboard = NO;
         
         /* 设置switchingKeyboard为NO必不可少，原因如下:
          
@@ -471,7 +486,7 @@
          a情况:滚动textView. 执行通知中自定义的keyBoardWillChangeFrame方法，在方法中看到了switchingKeyboard为NO,那么就不会执行return操作，就向下执行，最终工具条会跟着键盘移动。注意:滚动textView时,并不执行switchKeyboard方法
          b情况:切换键盘.点击切换键盘按钮，就执行switchKeyboard方法，在方法中第一个switchingKeyboard为YES，所以切换键盘的过程(代码1+代码2)不会移动滚动条，因为切换键盘时，执行keyBoardWillChangeFrame方法，在方法中遇到switchingKeyboard为YES，就直接返回了。然后切换键盘完成时，让第二个switchingKeyboard为NO。这样当滚动textView时，执行keyBoardWillChangeFrame方法，看到switchingKeyboard为NO，就向下执行程序，使工具条跟着键盘移动。
          
-         不设置为NO，就是没有self.switchingKeyboard = NO;--->当键盘的frame改变时(2种情况:a,b)
+         不设置为NO，就是没有self.switchingKeyboard = NO;
          先切换键盘，那么switchingKeyboard的值永远就变为了YES，那么，在滚动textView时，执行keyBoardWillChangeFrame方法时,却发现switchingKeyboard值为YES,就return，所以工具条不会跟着键盘退出
          
          */

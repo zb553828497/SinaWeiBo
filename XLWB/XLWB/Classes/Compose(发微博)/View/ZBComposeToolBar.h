@@ -24,7 +24,8 @@ typedef enum {
 
 @interface ZBComposeToolBar : UIView
 @property(nonatomic,weak)id<ZBComposeToolBarDelegate> delegate;
-
+/** 是否要显示键盘按钮*/
+@property(nonatomic,assign)BOOL showKeyboardButton;
 
 
 
