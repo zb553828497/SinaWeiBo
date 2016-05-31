@@ -22,6 +22,7 @@
    if (_photos == nil) {
        // 分配存储空间，使photos能够存储图片
        self.photos = [NSMutableArray array];
+       
    }
     return _photos;
 }
