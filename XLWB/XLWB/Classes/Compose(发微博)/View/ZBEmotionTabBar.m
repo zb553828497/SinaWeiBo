@@ -78,7 +78,9 @@
     }
     
 }
-
+/**
+ *  按钮点击
+ */
 -(void)btnClick1:(ZBEmotionTabBarButton *)btn{
     // 让RecordSelectedBtn变为YES，这次没有什么作用，下次才有用
     self.RecordSelectedBtn.enabled = YES;// 代码1
@@ -87,6 +89,13 @@
     // 让RecordSelectedBtn记录这个按钮是不可点击状态。只有当下次执行到代码1时才会变为可以点击的状态
     self.RecordSelectedBtn = btn;
     
+    // 代理
+    if ([self.delegate respondsToSelector:@selector(emotionTabBar:didSelectButton:)]) {
+        [self.delegate emotionTabBar:self didSelectButton:btn.tag];
+    }
+    
 }
+
+
 
 @end

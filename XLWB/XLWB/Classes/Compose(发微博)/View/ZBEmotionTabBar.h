@@ -15,7 +15,16 @@ typedef enum {
     ZBEmotionTabBarButtonTypeLxh  // 浪小花
 }ZBEmotionTabBarButtonType;
 
+@class ZBEmotionTabBar;
+
+@protocol ZBEmotionTabBarDelegate <NSObject>
+
+@optional
+-(void)emotionTabBar:(ZBEmotionTabBar *)tabBar didSelectButton:(ZBEmotionTabBarButtonType)buttonType;
+@end
 
 @interface ZBEmotionTabBar : UIView
+@property(nonatomic,weak)id<ZBEmotionTabBarDelegate> delegate;
+
 
 @end
