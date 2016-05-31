@@ -11,6 +11,9 @@
 #import "ZBTextView.h"
 #import "ZBComposeToolBar.h"
 #import "ZBComposePhotosView.h"
+#import "ZBEmotionKeyboard.h"
+#import "ZBEmotionListView.h"
+#import "ZBEmotionTabBar.h"
 #import <AFNetworking/AFNetworking.h>
 #import <SVProgressHUD/SVProgressHUD.h>
 
@@ -23,6 +26,9 @@
 /** 相册(存放拍照或者相册中选择的图片)*/
 // ZBComposePhotosView就是用来封装图片的，外界只需要调用接口就可以用来存储图片
 @property(nonatomic,weak)ZBComposePhotosView *photosView;
+
+/** 是否正在切换键盘*/
+@property(nonatomic,assign)BOOL switchingKeyboard;
 
 @end
 
@@ -216,12 +222,17 @@
 }
 
 /**
- *  键盘的frame发生改变时调用（显示、隐藏等）
+ *  键盘的frame发生改变时调用（显示、隐藏等）-->我们在这个方法只实现了工具条的位置移动
  *
  *  @param Notification:  NSNotification类的对象，这个对象中包含着键盘的信息.
  *  参数的类型由谁决定呢？答:不是由addObserver决定的(即不是由当前控制器决定的)，而是由控制器监听的那个对象决定，控制器监听的对象就是通知，也就是[NSNotificationCenter defaultCenter].因为[NSNotificationCenter defaultCenter]是NSNotification类型的，所以参数的类型为NSNotification
  */
 -(void)keyBoardWillChangeFrame:(NSNotification *)Notification{
+    
+    // 如果正在切换键盘,就不要执行后面的代码
+    // 如果没有这句代码,当切换键盘时,工具条(里面有5个按钮)也会跟着移动.加上这句代码,切换键盘时,工具条始终不会动。
+    if(self.switchingKeyboard) return;
+    
     //ZBLog(@"%@",Notification); //打印键盘的相关信息
     /* 打印关键语句:
      notification.userInfo = @{
@@ -416,11 +427,61 @@
             break;
             
         case ZBComposeToolBarButtonTypeEmotion: // 表情键盘
-            ZBLog(@"表情键盘");
+            [self switchKeyboard];
+            
             break;
           }
 
 }
+/**
+ *  切换键盘
+ */
+-(void)switchKeyboard{
+     // self.textView.inputView == nil : 使用的是系统自带的键盘
+    if(self.textView.inputView == nil){// 当点击了系统自带的键盘，就会切换为自定义的表情键盘
+        ZBEmotionKeyboard *emotionKeyboard = [[ZBEmotionKeyboard alloc] init];
+        emotionKeyboard.zb_width = self.view.zb_width;
+        // 表情键盘的高度216 = ZBEmotionTabBar的高度+ZBEmotionListView的高度
+        emotionKeyboard.zb_height = 216;// 216为键盘的默认高度
+        // 弹出自定义的表情键盘
+        self.textView.inputView = emotionKeyboard;
+    }else{// 点击了自定义的表情键盘，就切换为系统自带的键盘
+        self.textView.inputView = nil;
+    }
+    
+    // 记录此时正在开始切换键盘(我们自己定义的:把YES赋值给switchingKeyboard，就表示正在切换键盘)
+    self.switchingKeyboard = YES;
+    
+    // 代码1+代码2执行的过程就是切换键盘的过程，代码1执行完，就执行代码2的过程中利用了动画,为了能准确看到切换的效果。
+    // 只要退出键盘/弹出键盘就会调用 通知中自定义的keyBoardWillChangeFrame方法.我们在keyBoardWillChangeFrame方法中进行了判断，如果switchingKeyboard的值为YES，就直接返回
+    
+    // 退出键盘
+    [self.textView endEditing:YES];// 代码1
+    // 当退出键盘后,延迟0.5秒再弹出键盘
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        // 弹出键盘
+        [self.textView becomeFirstResponder];// 代码2
+        
+        // 弹出键盘后,就用switchingKeyboard=NO表示已经切换键盘的过程已经完毕
+        self.switchingKeyboard = NO;
+        
+        /* 设置switchingKeyboard为NO必不可少，原因如下:
+         
+         设置为NO--->当键盘的frame改变时(2种情况:a,b)
+         a情况:滚动textView. 执行通知中自定义的keyBoardWillChangeFrame方法，在方法中看到了switchingKeyboard为NO,那么就不会执行return操作，就向下执行，最终工具条会跟着键盘移动。注意:滚动textView时,并不执行switchKeyboard方法
+         b情况:切换键盘.点击切换键盘按钮，就执行switchKeyboard方法，在方法中第一个switchingKeyboard为YES，所以切换键盘的过程(代码1+代码2)不会移动滚动条，因为切换键盘时，执行keyBoardWillChangeFrame方法，在方法中遇到switchingKeyboard为YES，就直接返回了。然后切换键盘完成时，让第二个switchingKeyboard为NO。这样当滚动textView时，执行keyBoardWillChangeFrame方法，看到switchingKeyboard为NO，就向下执行程序，使工具条跟着键盘移动。
+         
+         不设置为NO，就是没有self.switchingKeyboard = NO;--->当键盘的frame改变时(2种情况:a,b)
+         先切换键盘，那么switchingKeyboard的值永远就变为了YES，那么，在滚动textView时，执行keyBoardWillChangeFrame方法时,却发现switchingKeyboard值为YES,就return，所以工具条不会跟着键盘退出
+         
+         */
+
+    
+    });
+    
+    
+}
+
 /** 打开照相机*/
 -(void)openCamera{
     [self openImagePickerController:UIImagePickerControllerSourceTypeCamera];

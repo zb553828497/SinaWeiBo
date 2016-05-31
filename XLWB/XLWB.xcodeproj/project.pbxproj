@@ -40,6 +40,9 @@
 		77B4E44B1CEAD31C005DC1B5 /* ZBStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = 77B4E44A1CEAD31C005DC1B5 /* ZBStatus.m */; };
 		77B4E44E1CEC2378005DC1B5 /* ZBLoadMoreFooter.m in Sources */ = {isa = PBXBuildFile; fileRef = 77B4E44D1CEC2378005DC1B5 /* ZBLoadMoreFooter.m */; };
 		77B4E4501CEC23E5005DC1B5 /* ZBLoadMoreFooter.xib in Resources */ = {isa = PBXBuildFile; fileRef = 77B4E44F1CEC23E5005DC1B5 /* ZBLoadMoreFooter.xib */; };
+		77BD09151CFD52FB006C0C3A /* ZBEmotionKeyboard.m in Sources */ = {isa = PBXBuildFile; fileRef = 77BD09141CFD52FB006C0C3A /* ZBEmotionKeyboard.m */; };
+		77BD09181CFD5328006C0C3A /* ZBEmotionTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 77BD09171CFD5328006C0C3A /* ZBEmotionTabBar.m */; };
+		77BD091B1CFD535F006C0C3A /* ZBEmotionListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 77BD091A1CFD535F006C0C3A /* ZBEmotionListView.m */; };
 		77C13EA71CE5834B00DA7563 /* ZBAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = 77C13EA61CE5834B00DA7563 /* ZBAccount.m */; };
 		77C473031CF19AF4008F93CF /* NSDate+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 77C473021CF19AF4008F93CF /* NSDate+Extension.m */; };
 		77C57D921CEDC91B00092174 /* ZBStatusFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = 77C57D911CEDC91B00092174 /* ZBStatusFrame.m */; };
@@ -120,6 +123,12 @@
 		77B4E44C1CEC2378005DC1B5 /* ZBLoadMoreFooter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBLoadMoreFooter.h; sourceTree = "<group>"; };
 		77B4E44D1CEC2378005DC1B5 /* ZBLoadMoreFooter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZBLoadMoreFooter.m; sourceTree = "<group>"; };
 		77B4E44F1CEC23E5005DC1B5 /* ZBLoadMoreFooter.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ZBLoadMoreFooter.xib; sourceTree = "<group>"; };
+		77BD09131CFD52FB006C0C3A /* ZBEmotionKeyboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBEmotionKeyboard.h; sourceTree = "<group>"; };
+		77BD09141CFD52FB006C0C3A /* ZBEmotionKeyboard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZBEmotionKeyboard.m; sourceTree = "<group>"; };
+		77BD09161CFD5328006C0C3A /* ZBEmotionTabBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBEmotionTabBar.h; sourceTree = "<group>"; };
+		77BD09171CFD5328006C0C3A /* ZBEmotionTabBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZBEmotionTabBar.m; sourceTree = "<group>"; };
+		77BD09191CFD535F006C0C3A /* ZBEmotionListView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBEmotionListView.h; sourceTree = "<group>"; };
+		77BD091A1CFD535F006C0C3A /* ZBEmotionListView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZBEmotionListView.m; sourceTree = "<group>"; };
 		77C13EA51CE5834B00DA7563 /* ZBAccount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBAccount.h; sourceTree = "<group>"; };
 		77C13EA61CE5834B00DA7563 /* ZBAccount.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZBAccount.m; sourceTree = "<group>"; };
 		77C473011CF19AF4008F93CF /* NSDate+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Extension.h"; sourceTree = "<group>"; };
@@ -509,6 +518,12 @@
 				77D278241CFC27350004A64C /* ZBComposeToolBar.m */,
 				7750C2231CFC98FA00992C6D /* ZBComposePhotosView.h */,
 				7750C2241CFC98FA00992C6D /* ZBComposePhotosView.m */,
+				77BD09131CFD52FB006C0C3A /* ZBEmotionKeyboard.h */,
+				77BD09141CFD52FB006C0C3A /* ZBEmotionKeyboard.m */,
+				77BD09161CFD5328006C0C3A /* ZBEmotionTabBar.h */,
+				77BD09171CFD5328006C0C3A /* ZBEmotionTabBar.m */,
+				77BD09191CFD535F006C0C3A /* ZBEmotionListView.h */,
+				77BD091A1CFD535F006C0C3A /* ZBEmotionListView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -674,6 +689,7 @@
 			files = (
 				77145D041CE359BA009886FE /* ZBNewFeatureController.m in Sources */,
 				77298CA21CD8584700D09005 /* ZBMessageCenterController.m in Sources */,
+				77BD091B1CFD535F006C0C3A /* ZBEmotionListView.m in Sources */,
 				77F33A561CE784C800EB75F4 /* UIWindow+SwitchRootVC.m in Sources */,
 				77298C701CD83A4A00D09005 /* AppDelegate.m in Sources */,
 				77937E2D1CF48B210035A543 /* ZBIconView.m in Sources */,
@@ -694,10 +710,12 @@
 				7774D12A1CF2187800183CE3 /* NSString+extension.m in Sources */,
 				7726068C1CD991C400B88239 /* ZBTestController.m in Sources */,
 				772606901CD99F4900B88239 /* ZBNavigationController.m in Sources */,
+				77BD09151CFD52FB006C0C3A /* ZBEmotionKeyboard.m in Sources */,
 				77298C9F1CD8580500D09005 /* ZBHomeViewController.m in Sources */,
 				77298CA51CD8586F00D09005 /* ZBDiscoverViewController.m in Sources */,
 				772606A51CD9FB4300B88239 /* UIBarButtonItem+Extension.m in Sources */,
 				77E38B7F1CEF36C800378C2A /* ZBPhoto.m in Sources */,
+				77BD09181CFD5328006C0C3A /* ZBEmotionTabBar.m in Sources */,
 				77B4E44E1CEC2378005DC1B5 /* ZBLoadMoreFooter.m in Sources */,
 				7770F8171CE4B0C8000CE679 /* ZBOAuthViewController.m in Sources */,
 				7750C2251CFC98FA00992C6D /* ZBComposePhotosView.m in Sources */,
