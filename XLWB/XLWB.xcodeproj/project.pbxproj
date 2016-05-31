@@ -28,6 +28,7 @@
 		77298CA81CD8589000D09005 /* ZBProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 77298CA71CD8589000D09005 /* ZBProfileViewController.m */; };
 		7740304D1CDDC73F009CAFA6 /* ZBSearchBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 7740304C1CDDC73F009CAFA6 /* ZBSearchBar.m */; };
 		774634D41CF08DCE004AF9FA /* ZBStatusToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = 774634D31CF08DCE004AF9FA /* ZBStatusToolbar.m */; };
+		7750C2251CFC98FA00992C6D /* ZBComposePhotosView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7750C2241CFC98FA00992C6D /* ZBComposePhotosView.m */; };
 		776177731CD8C18600F5FE03 /* ZBTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 776177721CD8C18600F5FE03 /* ZBTabBarController.m */; };
 		77699A271CF2A46C00D780B0 /* ZBStatusPhotosView.m in Sources */ = {isa = PBXBuildFile; fileRef = 77699A261CF2A46C00D780B0 /* ZBStatusPhotosView.m */; };
 		7770F8171CE4B0C8000CE679 /* ZBOAuthViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7770F8161CE4B0C8000CE679 /* ZBOAuthViewController.m */; };
@@ -96,6 +97,8 @@
 		7740304C1CDDC73F009CAFA6 /* ZBSearchBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZBSearchBar.m; sourceTree = "<group>"; };
 		774634D21CF08DCE004AF9FA /* ZBStatusToolbar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBStatusToolbar.h; sourceTree = "<group>"; };
 		774634D31CF08DCE004AF9FA /* ZBStatusToolbar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZBStatusToolbar.m; sourceTree = "<group>"; };
+		7750C2231CFC98FA00992C6D /* ZBComposePhotosView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBComposePhotosView.h; sourceTree = "<group>"; };
+		7750C2241CFC98FA00992C6D /* ZBComposePhotosView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZBComposePhotosView.m; sourceTree = "<group>"; };
 		776177711CD8C18600F5FE03 /* ZBTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBTabBarController.h; sourceTree = "<group>"; };
 		776177721CD8C18600F5FE03 /* ZBTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZBTabBarController.m; sourceTree = "<group>"; };
 		77699A251CF2A46C00D780B0 /* ZBStatusPhotosView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBStatusPhotosView.h; sourceTree = "<group>"; };
@@ -504,6 +507,8 @@
 				77937E5E1CFBDBE80035A543 /* ZBTextView.m */,
 				77D278231CFC27350004A64C /* ZBComposeToolBar.h */,
 				77D278241CFC27350004A64C /* ZBComposeToolBar.m */,
+				7750C2231CFC98FA00992C6D /* ZBComposePhotosView.h */,
+				7750C2241CFC98FA00992C6D /* ZBComposePhotosView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -695,6 +700,7 @@
 				77E38B7F1CEF36C800378C2A /* ZBPhoto.m in Sources */,
 				77B4E44E1CEC2378005DC1B5 /* ZBLoadMoreFooter.m in Sources */,
 				7770F8171CE4B0C8000CE679 /* ZBOAuthViewController.m in Sources */,
+				7750C2251CFC98FA00992C6D /* ZBComposePhotosView.m in Sources */,
 				77D503A11CE0CE0600463B29 /* ZBTitleMenuViewController.m in Sources */,
 				77699A271CF2A46C00D780B0 /* ZBStatusPhotosView.m in Sources */,
 				77937E5F1CFBDBE80035A543 /* ZBTextView.m in Sources */,
@@ -758,7 +764,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -796,7 +802,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -810,13 +816,16 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-2";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Brand Assets";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = XLWB/PrefixHeader.pch;
 				INFOPLIST_FILE = XLWB/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = zhangbin.XLWB;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = dskj2jkldk2;
+				PRODUCT_NAME = XLWB;
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -826,13 +835,16 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-2";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Brand Assets";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = XLWB/PrefixHeader.pch;
 				INFOPLIST_FILE = XLWB/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = zhangbin.XLWB;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = dskj2jkldk2;
+				PRODUCT_NAME = XLWB;
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};
