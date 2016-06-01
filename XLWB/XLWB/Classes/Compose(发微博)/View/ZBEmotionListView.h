@@ -9,5 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface ZBEmotionListView : UIView
-
+/** 表情(里面存放的ZBEmotion模型) */
+@property(nonatomic,strong)NSArray *emotions;
 @end

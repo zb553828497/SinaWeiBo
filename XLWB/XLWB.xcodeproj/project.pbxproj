@@ -17,6 +17,8 @@
 		7726069D1CD9CE1500B88239 /* ZBTest2Controller.m in Sources */ = {isa = PBXBuildFile; fileRef = 7726069B1CD9CE1500B88239 /* ZBTest2Controller.m */; };
 		7726069E1CD9CE1500B88239 /* ZBTest2Controller.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7726069C1CD9CE1500B88239 /* ZBTest2Controller.xib */; };
 		772606A51CD9FB4300B88239 /* UIBarButtonItem+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 772606A41CD9FB4300B88239 /* UIBarButtonItem+Extension.m */; };
+		77273A3B1CFE787D00FB5E14 /* EmotionIcons in Resources */ = {isa = PBXBuildFile; fileRef = 77273A3A1CFE787D00FB5E14 /* EmotionIcons */; };
+		77276A281CFE8C630086BF40 /* ZBEmotion.m in Sources */ = {isa = PBXBuildFile; fileRef = 77276A271CFE8C630086BF40 /* ZBEmotion.m */; };
 		7727D6A41CF3D6CC00493884 /* fakeStatus.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7727D6A31CF3D6CC00493884 /* fakeStatus.plist */; };
 		7727D6A71CF3F8F700493884 /* ZBStatusEveryPhotoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7727D6A61CF3F8F700493884 /* ZBStatusEveryPhotoView.m */; };
 		77298C6D1CD83A4A00D09005 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 77298C6C1CD83A4A00D09005 /* main.m */; };
@@ -79,6 +81,9 @@
 		7726069C1CD9CE1500B88239 /* ZBTest2Controller.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ZBTest2Controller.xib; sourceTree = "<group>"; };
 		772606A31CD9FB4300B88239 /* UIBarButtonItem+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIBarButtonItem+Extension.h"; sourceTree = "<group>"; };
 		772606A41CD9FB4300B88239 /* UIBarButtonItem+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIBarButtonItem+Extension.m"; sourceTree = "<group>"; };
+		77273A3A1CFE787D00FB5E14 /* EmotionIcons */ = {isa = PBXFileReference; lastKnownFileType = folder; path = EmotionIcons; sourceTree = "<group>"; };
+		77276A261CFE8C630086BF40 /* ZBEmotion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBEmotion.h; sourceTree = "<group>"; };
+		77276A271CFE8C630086BF40 /* ZBEmotion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZBEmotion.m; sourceTree = "<group>"; };
 		7727D6A31CF3D6CC00493884 /* fakeStatus.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = fakeStatus.plist; sourceTree = "<group>"; };
 		7727D6A51CF3F8F700493884 /* ZBStatusEveryPhotoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBStatusEveryPhotoView.h; sourceTree = "<group>"; };
 		7727D6A61CF3F8F700493884 /* ZBStatusEveryPhotoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZBStatusEveryPhotoView.m; sourceTree = "<group>"; };
@@ -300,6 +305,15 @@
 			path = Catgory;
 			sourceTree = "<group>";
 		};
+		77276A251CFE8C2D0086BF40 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				77276A261CFE8C630086BF40 /* ZBEmotion.h */,
+				77276A271CFE8C630086BF40 /* ZBEmotion.m */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		77298C5F1CD83A4A00D09005 = {
 			isa = PBXGroup;
 			children = (
@@ -328,6 +342,7 @@
 				77298C791CD83A4A00D09005 /* LaunchScreen.storyboard */,
 				77298C7C1CD83A4A00D09005 /* Info.plist */,
 				770EB9AB1CEC9FCB00C66CFA /* Assets.xcassets */,
+				77273A3A1CFE787D00FB5E14 /* EmotionIcons */,
 				77298C6B1CD83A4A00D09005 /* Supporting Files */,
 			);
 			path = XLWB;
@@ -497,6 +512,7 @@
 		77937E571CFB514B0035A543 /* Compose(发微博) */ = {
 			isa = PBXGroup;
 			children = (
+				77276A251CFE8C2D0086BF40 /* Model */,
 				77937E5C1CFBDBCC0035A543 /* View */,
 				77937E581CFB514B0035A543 /* Controller */,
 			);
@@ -632,6 +648,7 @@
 				7727D6A41CF3D6CC00493884 /* fakeStatus.plist in Resources */,
 				77298C7B1CD83A4A00D09005 /* LaunchScreen.storyboard in Resources */,
 				7726068D1CD991C400B88239 /* ZBTestController.xib in Resources */,
+				77273A3B1CFE787D00FB5E14 /* EmotionIcons in Resources */,
 				77B4E4501CEC23E5005DC1B5 /* ZBLoadMoreFooter.xib in Resources */,
 				770EB9AC1CEC9FCB00C66CFA /* Assets.xcassets in Resources */,
 			);
@@ -713,6 +730,7 @@
 				7726069D1CD9CE1500B88239 /* ZBTest2Controller.m in Sources */,
 				77D278251CFC27350004A64C /* ZBComposeToolBar.m in Sources */,
 				7774D12A1CF2187800183CE3 /* NSString+extension.m in Sources */,
+				77276A281CFE8C630086BF40 /* ZBEmotion.m in Sources */,
 				7726068C1CD991C400B88239 /* ZBTestController.m in Sources */,
 				772606901CD99F4900B88239 /* ZBNavigationController.m in Sources */,
 				77BD09151CFD52FB006C0C3A /* ZBEmotionKeyboard.m in Sources */,

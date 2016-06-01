@@ -40,6 +40,7 @@
 
 -(ZBEmotionKeyboard *)emotionKeyboard{
     if (_emotionKeyboard == nil) {
+        // 调用ZBEmotionKeyboard类的initWithFrame:方法,在方法内部添加表情内容控件和tabbar控件
         self.emotionKeyboard = [[ZBEmotionKeyboard alloc] init];
         self.emotionKeyboard.zb_width = self.view.zb_width;
         // 表情键盘的高度216 = ZBEmotionTabBar的高度+ZBEmotionListView的高度
