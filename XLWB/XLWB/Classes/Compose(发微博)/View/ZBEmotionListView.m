@@ -54,8 +54,24 @@
 -(void)setEmotions:(NSArray *)emotions{
     
     _emotions = emotions;
+
+//    NSUInteger count = (emotions.count  + ZBEmotionEveryPageCount - 1) / ZBEmotionEveryPageCount;
+
     // 根据表情的个数计算出来的用几页UIView来存放这些表情
-    NSUInteger count = (emotions.count  + ZBEmotionEveryPageCount - 1) / ZBEmotionEveryPageCount;
+    
+    // 浮点类型的页数 = 浮点类型的表情总数 除以 浮点类型的每一页的表情总数
+    CGFloat RealCount = (CGFloat)emotions.count / (CGFloat)ZBEmotionEveryPageCount;
+    // 整形类型的页数 = 整形类型的表情证书 除以 整形类型的每一页的表情总数
+    NSUInteger count = emotions.count / ZBEmotionEveryPageCount;
+    
+    //NSLog(@"%zd,%lf",emotions.count,RealCount);
+    
+    // 如果浮点类型的页数 >  整形类型的页数，表示有多余的表情，并且多余的表情不够20个(例如2个表情)，这时也要分配一页给这2个表情
+    if (RealCount > count) {
+        count = count + 1;
+    }
+
+    
     // 1.设置页数
     self.pageControl.numberOfPages = count;
     // 2.创建用来显示每一页表情的控件
@@ -96,17 +112,13 @@
     }
     // 4.设置scrollView的ContentSize
     // x轴的滚动范围是 计算出来的存放表情的UIView的个数 * 屏幕的宽度
-#warning 平白无故能多滚出一页，所以我这里将count减去了1，为什么能多滚出一页？现在还无法解释
-    self.scrollView.contentSize = CGSizeMake((count - 1) * self.scrollView.zb_width, 0);
+    self.scrollView.contentSize = CGSizeMake(count * self.scrollView.zb_width, 0);
 }
 
 #pragma mark - UIScrollViewDelegate
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView{
     double  PageNumber = scrollView.contentOffset.x / scrollView.zb_width;
     self.pageControl.currentPage = (int)(PageNumber + 0.5);
-}
--(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
-    NSLog(@"%@",self.scrollView.subviews);
 }
 
 @end
