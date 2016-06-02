@@ -33,6 +33,9 @@
 		7740304D1CDDC73F009CAFA6 /* ZBSearchBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 7740304C1CDDC73F009CAFA6 /* ZBSearchBar.m */; };
 		774634D41CF08DCE004AF9FA /* ZBStatusToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = 774634D31CF08DCE004AF9FA /* ZBStatusToolbar.m */; };
 		7750C2251CFC98FA00992C6D /* ZBComposePhotosView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7750C2241CFC98FA00992C6D /* ZBComposePhotosView.m */; };
+		775201571D0054A3004683DA /* ZBEmotionPopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 775201561D0054A3004683DA /* ZBEmotionPopView.m */; };
+		775201591D0054B2004683DA /* ZBEmotionPopView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 775201581D0054B2004683DA /* ZBEmotionPopView.xib */; };
+		7752015C1D0055CC004683DA /* ZBEmotionButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 7752015B1D0055CC004683DA /* ZBEmotionButton.m */; };
 		7760EE101CFDB8CF0017E535 /* ZBEmotionTabBarButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 7760EE0F1CFDB8CF0017E535 /* ZBEmotionTabBarButton.m */; };
 		776177731CD8C18600F5FE03 /* ZBTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 776177721CD8C18600F5FE03 /* ZBTabBarController.m */; };
 		77699A271CF2A46C00D780B0 /* ZBStatusPhotosView.m in Sources */ = {isa = PBXBuildFile; fileRef = 77699A261CF2A46C00D780B0 /* ZBStatusPhotosView.m */; };
@@ -114,6 +117,11 @@
 		774634D31CF08DCE004AF9FA /* ZBStatusToolbar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZBStatusToolbar.m; sourceTree = "<group>"; };
 		7750C2231CFC98FA00992C6D /* ZBComposePhotosView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBComposePhotosView.h; sourceTree = "<group>"; };
 		7750C2241CFC98FA00992C6D /* ZBComposePhotosView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZBComposePhotosView.m; sourceTree = "<group>"; };
+		775201551D0054A3004683DA /* ZBEmotionPopView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBEmotionPopView.h; sourceTree = "<group>"; };
+		775201561D0054A3004683DA /* ZBEmotionPopView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZBEmotionPopView.m; sourceTree = "<group>"; };
+		775201581D0054B2004683DA /* ZBEmotionPopView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ZBEmotionPopView.xib; sourceTree = "<group>"; };
+		7752015A1D0055CC004683DA /* ZBEmotionButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBEmotionButton.h; sourceTree = "<group>"; };
+		7752015B1D0055CC004683DA /* ZBEmotionButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZBEmotionButton.m; sourceTree = "<group>"; };
 		7760EE0E1CFDB8CF0017E535 /* ZBEmotionTabBarButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBEmotionTabBarButton.h; sourceTree = "<group>"; };
 		7760EE0F1CFDB8CF0017E535 /* ZBEmotionTabBarButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZBEmotionTabBarButton.m; sourceTree = "<group>"; };
 		776177711CD8C18600F5FE03 /* ZBTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBTabBarController.h; sourceTree = "<group>"; };
@@ -555,6 +563,11 @@
 				77BD091A1CFD535F006C0C3A /* ZBEmotionListView.m */,
 				773688241CFFF193004E5A02 /* ZBEmotionPageView.h */,
 				773688251CFFF193004E5A02 /* ZBEmotionPageView.m */,
+				775201551D0054A3004683DA /* ZBEmotionPopView.h */,
+				775201561D0054A3004683DA /* ZBEmotionPopView.m */,
+				775201581D0054B2004683DA /* ZBEmotionPopView.xib */,
+				7752015A1D0055CC004683DA /* ZBEmotionButton.h */,
+				7752015B1D0055CC004683DA /* ZBEmotionButton.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -660,6 +673,7 @@
 				7726068D1CD991C400B88239 /* ZBTestController.xib in Resources */,
 				770BF17B1D00218C001A9373 /* EmotionIcons in Resources */,
 				77B4E4501CEC23E5005DC1B5 /* ZBLoadMoreFooter.xib in Resources */,
+				775201591D0054B2004683DA /* ZBEmotionPopView.xib in Resources */,
 				770EB9AC1CEC9FCB00C66CFA /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -743,6 +757,7 @@
 				7774D12A1CF2187800183CE3 /* NSString+extension.m in Sources */,
 				77276A281CFE8C630086BF40 /* ZBEmotion.m in Sources */,
 				7726068C1CD991C400B88239 /* ZBTestController.m in Sources */,
+				775201571D0054A3004683DA /* ZBEmotionPopView.m in Sources */,
 				772606901CD99F4900B88239 /* ZBNavigationController.m in Sources */,
 				77BD09151CFD52FB006C0C3A /* ZBEmotionKeyboard.m in Sources */,
 				77298C9F1CD8580500D09005 /* ZBHomeViewController.m in Sources */,
@@ -765,6 +780,7 @@
 				77C57D951CEDC95A00092174 /* ZBStatusCell.m in Sources */,
 				77B4E4481CEAD30C005DC1B5 /* ZBUser.m in Sources */,
 				776177731CD8C18600F5FE03 /* ZBTabBarController.m in Sources */,
+				7752015C1D0055CC004683DA /* ZBEmotionButton.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

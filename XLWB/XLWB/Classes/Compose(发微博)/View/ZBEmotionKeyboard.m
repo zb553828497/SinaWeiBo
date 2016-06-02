@@ -46,7 +46,7 @@
     if (_DefaultListView == nil) {
         // init会调用ZBEmotionListView中的initWithFrame方法
         self.DefaultListView = [[ZBEmotionListView alloc] init];
-        NSString *path = [[NSBundle mainBundle] pathForResource:@"EmotionIcons/default/info.plist" ofType:nil];
+        NSString *path = [[NSBundle mainBundle] pathForResource:@"EmotionIcons/emoji/info.plist" ofType:nil];
         // 字典数组转为ZBEmotion类型的模型数组，并将转成功之后模型数组中的"默认"表情存储到ZBEmotionListView类的emotions数组中
         // 调用emotions属性的setter方法，在setter方法内部，设置pageControl的页数,以及创建用于显示表情的控件
         self.DefaultListView.emotions = [ZBEmotion mj_objectArrayWithKeyValuesArray:[NSArray arrayWithContentsOfFile:path]];// emotions存储着99个表情对象
@@ -57,7 +57,7 @@
 -(ZBEmotionListView *)EmojiListView{
     if (_EmojiListView == nil) {
         // init会调用ZBEmotionListView中的initWithFrame方法
-        self.EmojiListView = [[z alloc] init];
+        self.EmojiListView = [[ZBEmotionListView alloc] init];
         NSString *path = [[NSBundle mainBundle] pathForResource:@"EmotionIcons/emoji/info.plist" ofType:nil];
         // 字典数组转为ZBEmotion类型的模型数组，并将转成功之后模型数组中的"emoji"表情存储到ZBEmotionListView类的emotions数组中
          // 调用emotions属性的setter方法，在setter方法内部，设置pageControl的页数,以及创建用于显示表情的控件
@@ -70,7 +70,7 @@
     if (_LxhListView == nil) {
         // init会调用ZBEmotionListView中的initWithFrame方法
         self.LxhListView = [[ZBEmotionListView alloc] init];
-        NSString *path = [[NSBundle mainBundle] pathForResource:@"EmotionIcons/lxh/info.plist" ofType:nil];
+        NSString *path = [[NSBundle mainBundle] pathForResource:@"EmotionIcons/emoji/info.plist" ofType:nil];
         // 字典数组转为ZBEmotion类型的模型数组，并将转成功之后模型数组中的"Lxh"表情存储到ZBEmotionListView类的emotions数组中
          // 调用emotions属性的setter方法，在setter方法内部，设置pageControl的页数,以及创建用于显示表情的控件
         self.LxhListView.emotions = [ZBEmotion mj_objectArrayWithKeyValuesArray:[NSArray arrayWithContentsOfFile:path]];// emotions存储着40个表情对象
