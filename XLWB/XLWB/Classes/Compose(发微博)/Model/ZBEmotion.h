@@ -12,7 +12,7 @@
 /** 表情的文字描述*/
 @property(nonatomic,copy)NSString *chs;
 
-/** 表情的png图片图*/
+/** 表情的png图片*/
 @property(nonatomic,copy)NSString *png;
 
 /** Emoji表情的16进制编码*/
