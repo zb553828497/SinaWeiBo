@@ -30,6 +30,7 @@
 
 }
 
+
 // 将当前页的20个表情或不足20个表情放到UIButton中
 -(void)setEmotions:(NSArray *)emotions{// emotions存储着20个表情或不足20个表情
     _emotions = emotions;
@@ -101,6 +102,19 @@
     // 细节:放大镜按钮的最大Y值等于被点击按钮中心点的Y值,也就是说放大镜按钮的底部和被点击按钮的中心点在同一水平线上
     self.popView.zb_Y = CGRectGetMidY(btnFrame) - self.popView.zb_height;
 
+    // 让放大镜过0.25秒后就消失
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.25 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self.popView removeFromSuperview];
+    });
+    
+    // 发出通知
+    NSMutableDictionary *userInfo = [NSMutableDictionary dictionary];
+    // 因为一个表情绑定了一个按钮，所以btn.emotion这个表情对应着一个特定的按钮
+    userInfo[@"ZBSelectEmotionKey"] = btn.emotion;
+    // postNotificationName:通知的名称
+    // object:表示谁发出通知，当参数为nil时,表示匿名发出通知
+    // userInfo:字典类型，用于传递额外的数据给监听者
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"ZBEmotionDidSelectNofication" object:nil userInfo:userInfo];
     
 }
 

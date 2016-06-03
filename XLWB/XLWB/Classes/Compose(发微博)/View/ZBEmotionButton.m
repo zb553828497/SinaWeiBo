@@ -12,6 +12,36 @@
 
 @implementation ZBEmotionButton
 
+/**
+ *  当控件不是从xib、storyboard中创建时，就会调用这个方法
+ */
+-(instancetype)initWithFrame:(CGRect)frame{
+    self = [super initWithFrame:frame];
+    if (self) {
+        [self setup];
+    }
+    return self;
+}
+
+/**
+ *  当控件是从xib、storyboard中创建时，就会调用这个方法
+ */
+-(instancetype)initWithCoder:(NSCoder *)aDecoder{
+    self = [super initWithCoder:aDecoder];
+    if (self) {
+        [self setup];
+    }
+    return  self;
+}
+
+-(void)setup{
+    self.titleLabel.font = [UIFont systemFontOfSize:32];
+    // 按钮高亮的时候。不会调整图片为灰色
+    self.adjustsImageWhenHighlighted = NO;
+    
+    
+}
+
 -(void)setEmotion:(ZBEmotion *)emotion{
     _emotion = emotion;
     

@@ -8,19 +8,20 @@
 
 #import "ZBComposeController.h"
 #import "ZBAccountTool.h"
-#import "ZBTextView.h"
+#import "ZBEmotionTextView.h"
 #import "ZBComposeToolBar.h"
 #import "ZBComposePhotosView.h"
 #import "ZBEmotionKeyboard.h"
 #import "ZBEmotionListView.h"
 #import "ZBEmotionTabBar.h"
+#import "ZBEmotion.h"
 #import <AFNetworking/AFNetworking.h>
 #import <SVProgressHUD/SVProgressHUD.h>
 
 
 @interface ZBComposeController()<UITextViewDelegate,ZBComposeToolBarDelegate,UIImagePickerControllerDelegate>
 /** 输入控件*/
-@property(nonatomic,weak)ZBTextView *textView;
+@property(nonatomic,weak)ZBEmotionTextView *textView;
 /** 键盘顶部的工具条*/
 @property(nonatomic,weak)ZBComposeToolBar *toolbar;
 /** 相册(存放拍照或者相册中选择的图片)*/
@@ -207,7 +208,7 @@
     4.当控件为UIScrollView或者继承UIScrollView，这个控件在显示的时候如果会被UINavigationBar、UITableBar、UIToolbar挡住时，那么这个控件会自动调整它的内边矩属性，移动多少距离，就要是看被导航栏挡住还是被UITabBar挡住，最终的结果是使这个控件不会被他们挡住。如果被导航栏挡住，那么控件向下偏移64像素，如果被UITabBar挡住，那么控件向上偏移49像素.    
      */
     
-    ZBTextView *textView = [[ZBTextView alloc] init];
+    ZBEmotionTextView *textView = [[ZBEmotionTextView alloc] init];
    // 垂直方向上有弹簧效果.这样才能滚动textView，才会执行scrollViewWillBeginDragging代理方法实现退出键盘，如果不设置，键盘无法退出。
     textView.alwaysBounceVertical = YES;
     textView.frame = self.view.bounds;
@@ -234,6 +235,16 @@
 
     // 让控制器监听键盘的通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyBoardWillChangeFrame:) name:UIKeyboardWillChangeFrameNotification object:nil];
+    
+    // 控制器根据通知的名称来监听表情选中的通知。只要系统中有人发出了名为ZBEmotionDidSelectNotification通知，监听者就会监听到，监听到之后，就会执行selector:中的方法
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(emotionDidSelect:) name:@"ZBEmotionDidSelectNofication" object:nil];
+}
+
+-(void)emotionDidSelect:(NSNotification *)notification{
+    // 取出userInfo中的key，这个key一定和通知的发出者中的key一致
+    // 因为通知的发出者把btn.emotion这个value赋值给了userInfo中的key，所以我们取出userInfo中的key，得到的value肯定是ZBEmotion模型
+    ZBEmotion *emotion = notification.userInfo[@"ZBSelectEmotionKey"];
+    [self.textView insertEmotion:emotion];
 }
 
 /**

@@ -36,6 +36,8 @@
 		775201571D0054A3004683DA /* ZBEmotionPopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 775201561D0054A3004683DA /* ZBEmotionPopView.m */; };
 		775201591D0054B2004683DA /* ZBEmotionPopView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 775201581D0054B2004683DA /* ZBEmotionPopView.xib */; };
 		7752015C1D0055CC004683DA /* ZBEmotionButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 7752015B1D0055CC004683DA /* ZBEmotionButton.m */; };
+		7752015F1D012475004683DA /* ZBEmotionTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7752015E1D012475004683DA /* ZBEmotionTextView.m */; };
+		775201621D012916004683DA /* UITextView+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 775201611D012916004683DA /* UITextView+Extension.m */; };
 		7760EE101CFDB8CF0017E535 /* ZBEmotionTabBarButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 7760EE0F1CFDB8CF0017E535 /* ZBEmotionTabBarButton.m */; };
 		776177731CD8C18600F5FE03 /* ZBTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 776177721CD8C18600F5FE03 /* ZBTabBarController.m */; };
 		77699A271CF2A46C00D780B0 /* ZBStatusPhotosView.m in Sources */ = {isa = PBXBuildFile; fileRef = 77699A261CF2A46C00D780B0 /* ZBStatusPhotosView.m */; };
@@ -122,6 +124,10 @@
 		775201581D0054B2004683DA /* ZBEmotionPopView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ZBEmotionPopView.xib; sourceTree = "<group>"; };
 		7752015A1D0055CC004683DA /* ZBEmotionButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBEmotionButton.h; sourceTree = "<group>"; };
 		7752015B1D0055CC004683DA /* ZBEmotionButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZBEmotionButton.m; sourceTree = "<group>"; };
+		7752015D1D012475004683DA /* ZBEmotionTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBEmotionTextView.h; sourceTree = "<group>"; };
+		7752015E1D012475004683DA /* ZBEmotionTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZBEmotionTextView.m; sourceTree = "<group>"; };
+		775201601D012916004683DA /* UITextView+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITextView+Extension.h"; sourceTree = "<group>"; };
+		775201611D012916004683DA /* UITextView+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITextView+Extension.m"; sourceTree = "<group>"; };
 		7760EE0E1CFDB8CF0017E535 /* ZBEmotionTabBarButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBEmotionTabBarButton.h; sourceTree = "<group>"; };
 		7760EE0F1CFDB8CF0017E535 /* ZBEmotionTabBarButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZBEmotionTabBarButton.m; sourceTree = "<group>"; };
 		776177711CD8C18600F5FE03 /* ZBTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBTabBarController.h; sourceTree = "<group>"; };
@@ -317,6 +323,8 @@
 				7774D1291CF2187800183CE3 /* NSString+extension.m */,
 				773688271CFFF606004E5A02 /* NSString+Emoji.h */,
 				773688281CFFF606004E5A02 /* NSString+Emoji.m */,
+				775201601D012916004683DA /* UITextView+Extension.h */,
+				775201611D012916004683DA /* UITextView+Extension.m */,
 			);
 			path = Catgory;
 			sourceTree = "<group>";
@@ -568,6 +576,8 @@
 				775201581D0054B2004683DA /* ZBEmotionPopView.xib */,
 				7752015A1D0055CC004683DA /* ZBEmotionButton.h */,
 				7752015B1D0055CC004683DA /* ZBEmotionButton.m */,
+				7752015D1D012475004683DA /* ZBEmotionTextView.h */,
+				7752015E1D012475004683DA /* ZBEmotionTextView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -770,6 +780,7 @@
 				7770F8171CE4B0C8000CE679 /* ZBOAuthViewController.m in Sources */,
 				7750C2251CFC98FA00992C6D /* ZBComposePhotosView.m in Sources */,
 				77D503A11CE0CE0600463B29 /* ZBTitleMenuViewController.m in Sources */,
+				775201621D012916004683DA /* UITextView+Extension.m in Sources */,
 				7760EE101CFDB8CF0017E535 /* ZBEmotionTabBarButton.m in Sources */,
 				77699A271CF2A46C00D780B0 /* ZBStatusPhotosView.m in Sources */,
 				77937E5F1CFBDBE80035A543 /* ZBTextView.m in Sources */,
@@ -777,6 +788,7 @@
 				7710612F1CE2005C0024A5EE /* ZBTabBar.m in Sources */,
 				772606881CD98B8D00B88239 /* UIView+Frame.m in Sources */,
 				77C13EA71CE5834B00DA7563 /* ZBAccount.m in Sources */,
+				7752015F1D012475004683DA /* ZBEmotionTextView.m in Sources */,
 				77C57D951CEDC95A00092174 /* ZBStatusCell.m in Sources */,
 				77B4E4481CEAD30C005DC1B5 /* ZBUser.m in Sources */,
 				776177731CD8C18600F5FE03 /* ZBTabBarController.m in Sources */,
