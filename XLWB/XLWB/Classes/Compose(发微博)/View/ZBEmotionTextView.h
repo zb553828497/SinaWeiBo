@@ -11,4 +11,5 @@
 
 @interface ZBEmotionTextView : ZBTextView
 -(void)insertEmotion:(ZBEmotion *)emotion;
+-(NSString *)fullText;
 @end

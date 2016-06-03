@@ -238,8 +238,16 @@
     
     // 控制器根据通知的名称来监听表情选中的通知。只要系统中有人发出了名为ZBEmotionDidSelectNotification通知，监听者就会监听到，监听到之后，就会执行selector:中的方法
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(emotionDidSelect:) name:@"ZBEmotionDidSelectNofication" object:nil];
+    // 控制器根据通知的名称来监听点击删除按钮的通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(emotionDidDelete) name:@"ZBEmotionDidDeleteBtnNotification" object:nil];
 }
-
+/**
+ *  删除按钮被点击了，删除textView中的输入文字表情
+ */
+-(void)emotionDidDelete{
+    //
+    [self.textView deleteBackward];
+}
 -(void)emotionDidSelect:(NSNotification *)notification{
     // 取出userInfo中的key，这个key一定和通知的发出者中的key一致
     // 因为通知的发出者把btn.emotion这个value赋值给了userInfo中的key，所以我们取出userInfo中的key，得到的value肯定是ZBEmotion模型
@@ -255,8 +263,8 @@
  */
 -(void)keyBoardWillChangeFrame:(NSNotification *)Notification{
     
-    // 如果正在切换键盘,就不要执行后面的代码
-    // 如果没有这句代码,当切换键盘时,工具条(里面有5个按钮)也会跟着移动.加上这句代码,切换键盘时,工具条始终不会动。
+    
+    // 拦截作用(加上这句代码之后工具条动幅度不是猛的一下就弹上来，效果好一点)
     if(self.switchingKeyboard) return;
     
     //ZBLog(@"%@",Notification); //打印键盘的相关信息
@@ -396,7 +404,8 @@
     // 2.请求参数
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     params[@"access_token"] = [ZBAccountTool account].access_token;
-    params[@"status"] = self.textView.text;
+    //新浪的数据库里面没有图片，如果你发送了一个图片表情，新浪服务器就会识别不到，你必须调用fullText的getter方法，在getter方法中转成字符串
+    params[@"status"] = self.textView.fullText;
     // 3.发送请求  get请求一般是从服务器拿数据，post请求一般是把数据上传到服务器/更新服务器中的数据
     [manager POST:@"https://api.weibo.com/2/statuses/update.json" parameters:params success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         [SVProgressHUD showSuccessWithStatus:@"发布成功"];
@@ -484,13 +493,26 @@
     
     // 退出键盘
     [self.textView endEditing:YES];// 代码1
-    // 当退出键盘后,延迟0.5秒再弹出键盘
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    self.switchingKeyboard = NO;
+
+    // 退出键盘，那么键盘的frame就会改变，因为控制器监听了键盘的frame的改变，所以会执行系统的keyBoardWillChangeFrame:方法，在这个方法中因为遇到了if（self.switchingKeyboard) return;所以代码就不会往下执行，那么工具条不会跟着键盘的退出而退出。
+    /* 
+     将 self.switchingKeyboard = NO;写在代码2前面的好处:
+     答:弹出新键盘时，工具条会跟着键盘的弹出而弹出。如果写在代码2的后面，工具条不会跟着键盘的弹出而弹出。
+     请说明一下原因？
+     将 self.switchingKeyboard = NO写在代码2的前面，弹出新键盘时，由于键盘frame会发生改变，所以执行keyBoardWillChangeFrame，遇到了if（self.switchingKeyboard) return;不满足，所以程序向下执行，接着执行工具条跟着键盘的弹出而弹出的代码。
+     将  self.switchingKeyboard = NO写在代码2的后面，由于键盘frame会发生改变，所以执行keyBoardWillChangeFrame，遇到了if（self.switchingKeyboard) return;满足条件，因为self.switchingKeyboard = YES，所以程序直接返回，所以并不会执行后面的代码，所以工具条不会跟着键盘的弹出而弹出
+     
+     拓展:
+     将keyBoardWillChangeFrame方法中的if（self.switchingKeyboard) return;去掉也可以，效果更好，但是self.switchingKeyboard = NO;一定要写在代码1和代码2的中间
+
+    */
+     // 当退出键盘后,延迟0.5秒再弹出键盘
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         // 弹出键盘
         [self.textView becomeFirstResponder];// 代码2
-        
-        // 弹出键盘后,就用switchingKeyboard=NO表示已经切换键盘的过程已经完毕
-       self.switchingKeyboard = NO;
+    // 弹出键盘后,就用switchingKeyboard=NO表示已经切换键盘的过程已经完毕
+//       self.switchingKeyboard = NO;
         
         /* 设置switchingKeyboard为NO必不可少，原因如下:
          

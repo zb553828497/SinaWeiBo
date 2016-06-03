@@ -23,9 +23,7 @@
     return self;
 }
 
-/**
- *  当控件是从xib、storyboard中创建时，就会调用这个方法
- */
+
 -(instancetype)initWithCoder:(NSCoder *)aDecoder{
     self = [super initWithCoder:aDecoder];
     if (self) {
