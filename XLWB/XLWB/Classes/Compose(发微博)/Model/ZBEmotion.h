@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface ZBEmotion : NSObject
+@interface ZBEmotion : NSObject<NSCoding>
 /** 表情的文字描述*/
 @property(nonatomic,copy)NSString *chs;
 

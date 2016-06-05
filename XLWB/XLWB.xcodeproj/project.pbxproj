@@ -30,6 +30,7 @@
 		77298CA81CD8589000D09005 /* ZBProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 77298CA71CD8589000D09005 /* ZBProfileViewController.m */; };
 		773688261CFFF193004E5A02 /* ZBEmotionPageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 773688251CFFF193004E5A02 /* ZBEmotionPageView.m */; };
 		773688291CFFF606004E5A02 /* NSString+Emoji.m in Sources */ = {isa = PBXBuildFile; fileRef = 773688281CFFF606004E5A02 /* NSString+Emoji.m */; };
+		773A57F01D03D33F00003B52 /* ZBEmotionTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 773A57EF1D03D33F00003B52 /* ZBEmotionTool.m */; };
 		7740304D1CDDC73F009CAFA6 /* ZBSearchBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 7740304C1CDDC73F009CAFA6 /* ZBSearchBar.m */; };
 		774634D41CF08DCE004AF9FA /* ZBStatusToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = 774634D31CF08DCE004AF9FA /* ZBStatusToolbar.m */; };
 		7750C2251CFC98FA00992C6D /* ZBComposePhotosView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7750C2241CFC98FA00992C6D /* ZBComposePhotosView.m */; };
@@ -115,6 +116,8 @@
 		773688251CFFF193004E5A02 /* ZBEmotionPageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZBEmotionPageView.m; sourceTree = "<group>"; };
 		773688271CFFF606004E5A02 /* NSString+Emoji.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Emoji.h"; sourceTree = "<group>"; };
 		773688281CFFF606004E5A02 /* NSString+Emoji.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Emoji.m"; sourceTree = "<group>"; };
+		773A57EE1D03D33F00003B52 /* ZBEmotionTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBEmotionTool.h; sourceTree = "<group>"; };
+		773A57EF1D03D33F00003B52 /* ZBEmotionTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZBEmotionTool.m; sourceTree = "<group>"; };
 		7740304B1CDDC73F009CAFA6 /* ZBSearchBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBSearchBar.h; sourceTree = "<group>"; };
 		7740304C1CDDC73F009CAFA6 /* ZBSearchBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZBSearchBar.m; sourceTree = "<group>"; };
 		774634D21CF08DCE004AF9FA /* ZBStatusToolbar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBStatusToolbar.h; sourceTree = "<group>"; };
@@ -522,6 +525,15 @@
 			path = "Temp(临时)";
 			sourceTree = "<group>";
 		};
+		773A57ED1D03D33400003B52 /* Tool */ = {
+			isa = PBXGroup;
+			children = (
+				773A57EE1D03D33F00003B52 /* ZBEmotionTool.h */,
+				773A57EF1D03D33F00003B52 /* ZBEmotionTool.m */,
+			);
+			path = Tool;
+			sourceTree = "<group>";
+		};
 		7770F8131CE4B09B000CE679 /* OAuth(授权) */ = {
 			isa = PBXGroup;
 			children = (
@@ -544,6 +556,7 @@
 		77937E571CFB514B0035A543 /* Compose(发微博) */ = {
 			isa = PBXGroup;
 			children = (
+				773A57ED1D03D33400003B52 /* Tool */,
 				77276A251CFE8C2D0086BF40 /* Model */,
 				77937E5C1CFBDBCC0035A543 /* View */,
 				77937E581CFB514B0035A543 /* Controller */,
@@ -775,6 +788,7 @@
 				77D278251CFC27350004A64C /* ZBComposeToolBar.m in Sources */,
 				7774D12A1CF2187800183CE3 /* NSString+extension.m in Sources */,
 				77702BDF1D019D8400210462 /* ZBEmotionAttachment.m in Sources */,
+				773A57F01D03D33F00003B52 /* ZBEmotionTool.m in Sources */,
 				77276A281CFE8C630086BF40 /* ZBEmotion.m in Sources */,
 				7726068C1CD991C400B88239 /* ZBTestController.m in Sources */,
 				775201571D0054A3004683DA /* ZBEmotionPopView.m in Sources */,

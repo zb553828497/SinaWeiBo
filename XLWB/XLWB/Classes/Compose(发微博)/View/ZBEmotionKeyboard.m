@@ -11,6 +11,8 @@
 #import "ZBEmotionListView.h"
 #import "ZBEmotion.h"
 #import <MJExtension/MJExtension.h>
+#import "ZBEmotionTool.h"
+
 @interface ZBEmotionKeyboard()<ZBEmotionTabBarDelegate>
 
 
@@ -38,7 +40,12 @@
         // init会调用ZBEmotionListView中的initWithFrame方法
         self.RecentListView = [[ZBEmotionListView alloc] init];
         // 虽然没有设置_RecentListView界面的颜色，但是在ZBEmotionListView中的initWithFrame方法中已经设置了默认的红色
+        
+        // 加载沙盒中的表情(只会调用一次，如果没有这句代码，程序初始运行时，"表情"选项卡空白一片，没有任何表情。因为你切换到表情按钮，就会执行RecentListView的getter方法，你在getter方法里面，没有加载沙盒中的表情，能显示之前的表情才怪呢)
+        self.RecentListView.emotions = [ZBEmotionTool recentEmotions];
     }
+  
+
     return _RecentListView;
 }
 
@@ -89,9 +96,22 @@
         tabBar.delegate = self;
         [self addSubview:tabBar];
         self.tabBar = tabBar;
+        
+        // 让键盘监听(监听就是拦截)表情选中的通知.目的:将点击的表情添加到“最近”选项卡中
+        [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(emotionDidSelect) name:@"ZBEmotionDidSelectNofication" object:nil];
     }
     return self;
 }
+// 将点击的表情添加到“最近”选项卡中
+-(void)emotionDidSelect{
+    // 加载沙盒中的表情
+    self.RecentListView.emotions = [ZBEmotionTool recentEmotions];
+}
+// 移除监听者
+-(void)dealloc{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 // 布局
 -(void)layoutSubviews{
     [super layoutSubviews];
@@ -165,7 +185,7 @@
             break;
         }
     }
-    
+
      }
 
 @end

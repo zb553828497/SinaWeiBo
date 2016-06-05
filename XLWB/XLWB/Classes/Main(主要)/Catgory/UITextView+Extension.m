@@ -22,8 +22,8 @@
     // 用loc存储当前光标的位置
     NSUInteger loc = self.selectedRange.location;
     // 将text中的表情(就是带有图片的字符串)插入到attributedText内容的loc的位置
-    [attributedText insertAttributedString:text atIndex:loc];
-    
+//    [attributedText insertAttributedString:text atIndex:loc];
+    [attributedText appendAttributedString:self.attributedText];
     // 调用外面传进来的代码
     if (settingBlock) {
         /* settingBlock(attributedText);这句代码就是ZBEmotionTextView类中保存的

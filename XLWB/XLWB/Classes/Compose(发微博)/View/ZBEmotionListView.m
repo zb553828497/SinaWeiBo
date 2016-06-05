@@ -56,7 +56,9 @@
 -(void)setEmotions:(NSArray *)emotions{
     
     _emotions = emotions;
-
+#warning 必不可少，思考一下为什么。
+    [self.scrollView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+NSLog(@"%@",self.scrollView.subviews);
 //    NSUInteger count = (emotions.count  + ZBEmotionEveryPageCount - 1) / ZBEmotionEveryPageCount;
 
     // 根据表情的个数计算出来的用几页UIView来存放这些表情
@@ -104,7 +106,10 @@
         pageView.backgroundColor = ZBRandomColor;
         // 将每一页添加到scrollView中
         [self.scrollView addSubview:pageView];
-    }
+        }
+    // 重新计算尺寸，如果没有这句代码，新添加到"表情"选项卡中的表情的位置会错位
+    [self setNeedsLayout];
+
 }
 
 -(void)layoutSubviews{

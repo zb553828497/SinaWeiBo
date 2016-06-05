@@ -12,7 +12,7 @@
 #import "ZBEmotionButton.h"
 #import "NSString+Emoji.h"
 #import "ZBEmotionPopView.h"
-
+#import "ZBEmotionTool.h"
 @interface ZBEmotionPageView()
 /** 点击表情后弹出的放大镜 */
 @property(nonatomic,strong)ZBEmotionPopView *popView;
@@ -91,10 +91,10 @@
             // 手指不再触摸当前页，但是手指仍然在表情按钮上
             if (btn) {
                 NSLog(@"------------ 松手了,但手势停留在了表情按钮上");
-                // 发出通知。目的：当手指在删除按钮上时，就会删除显示在textView上的表情
-                NSMutableDictionary *userInfo = [NSMutableDictionary dictionary];
-                userInfo[@"ZBSelectEmotionKey"] = btn.emotion;
-                [[NSNotificationCenter defaultCenter] postNotificationName:@"ZBEmotionDidSelectNofication" object:nil userInfo:userInfo];
+                
+                // 发出通知。目的：插入表情到textView中，并将插入的表情显示到"最近“表情中存储
+                [self selectEmotion:btn.emotion];
+                
                 return;
             }
              NSLog(@"------------ 松手了，并且手势没有停留在表情按钮上");
@@ -200,15 +200,19 @@
         [self.popView removeFromSuperview];
     });
     
-    // 发出通知
+    // 发出通知。目的：插入表情到textView中，并将插入的表情显示到"最近“表情中存储
+    [self selectEmotion:btn.emotion];
+}
+-(void)selectEmotion:(ZBEmotion *)emotion{
+    // 将点击的这个表情存进沙盒
+    [ZBEmotionTool addRecentEmotion:emotion];
+    // 发出通知。目的：插入表情到textView中，并将插入的表情显示到"最近“表情中存储
     NSMutableDictionary *userInfo = [NSMutableDictionary dictionary];
-    // 因为一个表情绑定了一个按钮，所以btn.emotion这个表情对应着一个特定的按钮
-    userInfo[@"ZBSelectEmotionKey"] = btn.emotion;
+    // 因为一个表情绑定了一个按钮，所以emotion这个表情对应着一个特定的按钮
+    userInfo[@"ZBSelectEmotionKey"] = emotion;
     // postNotificationName:通知的名称
     // object:表示谁发出通知，当参数为nil时,表示匿名发出通知
     // userInfo:字典类型，用于传递额外的数据给监听者
     [[NSNotificationCenter defaultCenter] postNotificationName:@"ZBEmotionDidSelectNofication" object:nil userInfo:userInfo];
-    
 }
-
 @end
