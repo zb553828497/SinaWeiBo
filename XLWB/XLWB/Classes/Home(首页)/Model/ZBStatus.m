@@ -145,6 +145,8 @@ format.dateFormat = @"EEE MMM dd HH:mm:ss Z yyyy";
 
 // 目的:截取微博来源的关键字，显示在cell上
 -(void)setSource:(NSString *)source{
+    // 进行if判断的原因是：新浪服务器返回的微博来源可能为空，若不判断，程序会提示字符串越界，如果范围的数据为空，那么source.length==0,就执行else中的内容，手动赋值一个字符串给_source
+    if(source.length){
     NSRange range;// 声明结构体类型的变量
     // 从左向右检索包含>的字符串，并获取到>的位置，然后+1
     range.location = [source rangeOfString:@">"].location + 1;
@@ -153,9 +155,11 @@ format.dateFormat = @"EEE MMM dd HH:mm:ss Z yyyy";
     // 将处理过的字符串(其实就是结构体类型的成员变量）赋值给_source;
   //  _source = [source substringWithRange:range];
     // 做法2:拼接"来自"字符串，显得好看一点
-//    NSString *DealString = [NSString stringWithFormat:@"来自%@",[source substringWithRange:range]];
-//    _source = DealString;
-
+    NSString *DealString = [NSString stringWithFormat:@"来自%@",[source substringWithRange:range]];
+    _source = DealString;
+    }else{
+    _source = @"来自新浪微博";
+    }
 }
 
 

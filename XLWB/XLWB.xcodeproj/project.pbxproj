@@ -49,6 +49,14 @@
 		77937E2D1CF48B210035A543 /* ZBIconView.m in Sources */ = {isa = PBXBuildFile; fileRef = 77937E2C1CF48B210035A543 /* ZBIconView.m */; };
 		77937E5B1CFB51840035A543 /* ZBComposeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 77937E5A1CFB51840035A543 /* ZBComposeController.m */; };
 		77937E5F1CFBDBE80035A543 /* ZBTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 77937E5E1CFBDBE80035A543 /* ZBTextView.m */; };
+		77A13BA01D1BDCC500FC8AF6 /* ZBStatusTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 77A13B9F1D1BDCC500FC8AF6 /* ZBStatusTool.m */; };
+		77A13BAF1D1BE8C700FC8AF6 /* FMDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = 77A13BA41D1BE8C700FC8AF6 /* FMDatabase.m */; };
+		77A13BB01D1BE8C700FC8AF6 /* FMDatabaseAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 77A13BA61D1BE8C700FC8AF6 /* FMDatabaseAdditions.m */; };
+		77A13BB11D1BE8C700FC8AF6 /* FMDatabasePool.m in Sources */ = {isa = PBXBuildFile; fileRef = 77A13BA81D1BE8C700FC8AF6 /* FMDatabasePool.m */; };
+		77A13BB21D1BE8C700FC8AF6 /* FMDatabaseQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 77A13BAA1D1BE8C700FC8AF6 /* FMDatabaseQueue.m */; };
+		77A13BB31D1BE8C700FC8AF6 /* FMResultSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 77A13BAD1D1BE8C700FC8AF6 /* FMResultSet.m */; };
+		77A13BB41D1BE8C700FC8AF6 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 77A13BAE1D1BE8C700FC8AF6 /* Info.plist */; };
+		77A13BB61D1BE91800FC8AF6 /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 77A13BB51D1BE91800FC8AF6 /* libsqlite3.0.tbd */; };
 		77B4E4481CEAD30C005DC1B5 /* ZBUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 77B4E4471CEAD30C005DC1B5 /* ZBUser.m */; };
 		77B4E44B1CEAD31C005DC1B5 /* ZBStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = 77B4E44A1CEAD31C005DC1B5 /* ZBStatus.m */; };
 		77B4E44E1CEC2378005DC1B5 /* ZBLoadMoreFooter.m in Sources */ = {isa = PBXBuildFile; fileRef = 77B4E44D1CEC2378005DC1B5 /* ZBLoadMoreFooter.m */; };
@@ -152,6 +160,21 @@
 		77937E5A1CFB51840035A543 /* ZBComposeController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZBComposeController.m; sourceTree = "<group>"; };
 		77937E5D1CFBDBE80035A543 /* ZBTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBTextView.h; sourceTree = "<group>"; };
 		77937E5E1CFBDBE80035A543 /* ZBTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZBTextView.m; sourceTree = "<group>"; };
+		77A13B9E1D1BDCC500FC8AF6 /* ZBStatusTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBStatusTool.h; sourceTree = "<group>"; };
+		77A13B9F1D1BDCC500FC8AF6 /* ZBStatusTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZBStatusTool.m; sourceTree = "<group>"; };
+		77A13BA31D1BE8C700FC8AF6 /* FMDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabase.h; sourceTree = "<group>"; };
+		77A13BA41D1BE8C700FC8AF6 /* FMDatabase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabase.m; sourceTree = "<group>"; };
+		77A13BA51D1BE8C700FC8AF6 /* FMDatabaseAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabaseAdditions.h; sourceTree = "<group>"; };
+		77A13BA61D1BE8C700FC8AF6 /* FMDatabaseAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabaseAdditions.m; sourceTree = "<group>"; };
+		77A13BA71D1BE8C700FC8AF6 /* FMDatabasePool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabasePool.h; sourceTree = "<group>"; };
+		77A13BA81D1BE8C700FC8AF6 /* FMDatabasePool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabasePool.m; sourceTree = "<group>"; };
+		77A13BA91D1BE8C700FC8AF6 /* FMDatabaseQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabaseQueue.h; sourceTree = "<group>"; };
+		77A13BAA1D1BE8C700FC8AF6 /* FMDatabaseQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabaseQueue.m; sourceTree = "<group>"; };
+		77A13BAB1D1BE8C700FC8AF6 /* FMDB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDB.h; sourceTree = "<group>"; };
+		77A13BAC1D1BE8C700FC8AF6 /* FMResultSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMResultSet.h; sourceTree = "<group>"; };
+		77A13BAD1D1BE8C700FC8AF6 /* FMResultSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMResultSet.m; sourceTree = "<group>"; };
+		77A13BAE1D1BE8C700FC8AF6 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		77A13BB51D1BE91800FC8AF6 /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
 		77B4E4461CEAD30C005DC1B5 /* ZBUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBUser.h; sourceTree = "<group>"; };
 		77B4E4471CEAD30C005DC1B5 /* ZBUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZBUser.m; sourceTree = "<group>"; };
 		77B4E4491CEAD31C005DC1B5 /* ZBStatus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBStatus.h; sourceTree = "<group>"; };
@@ -196,6 +219,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				77A13BB61D1BE91800FC8AF6 /* libsqlite3.0.tbd in Frameworks */,
 				BD0D0872BEA94928327B5036 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -448,6 +472,7 @@
 		77298C8B1CD83A5800D09005 /* Home(首页) */ = {
 			isa = PBXGroup;
 			children = (
+				77A13B9D1D1BDCAA00FC8AF6 /* Tool */,
 				772606791CD98B2C00B88239 /* Model */,
 				7726067A1CD98B2C00B88239 /* View */,
 				77298C8C1CD83A5800D09005 /* Controller */,
@@ -467,6 +492,7 @@
 		77298C8F1CD83A5800D09005 /* Main(主要) */ = {
 			isa = PBXGroup;
 			children = (
+				77A13BA11D1BE89200FC8AF6 /* Lib */,
 				772606A21CD9FB0500B88239 /* Catgory */,
 				7726067B1CD98B3300B88239 /* Model */,
 				7726067C1CD98B3300B88239 /* View */,
@@ -603,6 +629,43 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		77A13B9D1D1BDCAA00FC8AF6 /* Tool */ = {
+			isa = PBXGroup;
+			children = (
+				77A13B9E1D1BDCC500FC8AF6 /* ZBStatusTool.h */,
+				77A13B9F1D1BDCC500FC8AF6 /* ZBStatusTool.m */,
+			);
+			path = Tool;
+			sourceTree = "<group>";
+		};
+		77A13BA11D1BE89200FC8AF6 /* Lib */ = {
+			isa = PBXGroup;
+			children = (
+				77A13BA21D1BE8C700FC8AF6 /* fmdb */,
+			);
+			path = Lib;
+			sourceTree = "<group>";
+		};
+		77A13BA21D1BE8C700FC8AF6 /* fmdb */ = {
+			isa = PBXGroup;
+			children = (
+				77A13BA31D1BE8C700FC8AF6 /* FMDatabase.h */,
+				77A13BA41D1BE8C700FC8AF6 /* FMDatabase.m */,
+				77A13BA51D1BE8C700FC8AF6 /* FMDatabaseAdditions.h */,
+				77A13BA61D1BE8C700FC8AF6 /* FMDatabaseAdditions.m */,
+				77A13BA71D1BE8C700FC8AF6 /* FMDatabasePool.h */,
+				77A13BA81D1BE8C700FC8AF6 /* FMDatabasePool.m */,
+				77A13BA91D1BE8C700FC8AF6 /* FMDatabaseQueue.h */,
+				77A13BAA1D1BE8C700FC8AF6 /* FMDatabaseQueue.m */,
+				77A13BAB1D1BE8C700FC8AF6 /* FMDB.h */,
+				77A13BAC1D1BE8C700FC8AF6 /* FMResultSet.h */,
+				77A13BAD1D1BE8C700FC8AF6 /* FMResultSet.m */,
+				77A13BAE1D1BE8C700FC8AF6 /* Info.plist */,
+			);
+			name = fmdb;
+			path = "../../Home(首页)/Model/fmdb";
+			sourceTree = "<group>";
+		};
 		77C13EA41CE5832B00DA7563 /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -624,6 +687,7 @@
 		CBBF6F96D65FBECD30A8F560 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				77A13BB51D1BE91800FC8AF6 /* libsqlite3.0.tbd */,
 				6C62DDD9483736069B0445C6 /* libPods.a */,
 			);
 			name = Frameworks;
@@ -706,6 +770,7 @@
 				770BF17B1D00218C001A9373 /* EmotionIcons in Resources */,
 				77B4E4501CEC23E5005DC1B5 /* ZBLoadMoreFooter.xib in Resources */,
 				775201591D0054B2004683DA /* ZBEmotionPopView.xib in Resources */,
+				77A13BB41D1BE8C700FC8AF6 /* Info.plist in Resources */,
 				770EB9AC1CEC9FCB00C66CFA /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -773,6 +838,7 @@
 				77937E2D1CF48B210035A543 /* ZBIconView.m in Sources */,
 				77298CA81CD8589000D09005 /* ZBProfileViewController.m in Sources */,
 				77F33A581CE7A3AB00EB75F4 /* Foundation+Log.m in Sources */,
+				77A13BA01D1BDCC500FC8AF6 /* ZBStatusTool.m in Sources */,
 				7740304D1CDDC73F009CAFA6 /* ZBSearchBar.m in Sources */,
 				77F33A531CE5F8EA00EB75F4 /* ZBAccountTool.m in Sources */,
 				77F33A5B1CE8CA3200EB75F4 /* ZBTitleButton.m in Sources */,
@@ -782,6 +848,7 @@
 				7727D6A71CF3F8F700493884 /* ZBStatusEveryPhotoView.m in Sources */,
 				77298C6D1CD83A4A00D09005 /* main.m in Sources */,
 				77937E5B1CFB51840035A543 /* ZBComposeController.m in Sources */,
+				77A13BB31D1BE8C700FC8AF6 /* FMResultSet.m in Sources */,
 				774634D41CF08DCE004AF9FA /* ZBStatusToolbar.m in Sources */,
 				77B4E44B1CEAD31C005DC1B5 /* ZBStatus.m in Sources */,
 				7726069D1CD9CE1500B88239 /* ZBTest2Controller.m in Sources */,
@@ -793,6 +860,7 @@
 				7726068C1CD991C400B88239 /* ZBTestController.m in Sources */,
 				775201571D0054A3004683DA /* ZBEmotionPopView.m in Sources */,
 				772606901CD99F4900B88239 /* ZBNavigationController.m in Sources */,
+				77A13BB01D1BE8C700FC8AF6 /* FMDatabaseAdditions.m in Sources */,
 				77BD09151CFD52FB006C0C3A /* ZBEmotionKeyboard.m in Sources */,
 				77298C9F1CD8580500D09005 /* ZBHomeViewController.m in Sources */,
 				77298CA51CD8586F00D09005 /* ZBDiscoverViewController.m in Sources */,
@@ -803,18 +871,21 @@
 				77B4E44E1CEC2378005DC1B5 /* ZBLoadMoreFooter.m in Sources */,
 				7770F8171CE4B0C8000CE679 /* ZBOAuthViewController.m in Sources */,
 				7750C2251CFC98FA00992C6D /* ZBComposePhotosView.m in Sources */,
+				77A13BAF1D1BE8C700FC8AF6 /* FMDatabase.m in Sources */,
 				77D503A11CE0CE0600463B29 /* ZBTitleMenuViewController.m in Sources */,
 				775201621D012916004683DA /* UITextView+Extension.m in Sources */,
 				7760EE101CFDB8CF0017E535 /* ZBEmotionTabBarButton.m in Sources */,
 				77699A271CF2A46C00D780B0 /* ZBStatusPhotosView.m in Sources */,
 				77937E5F1CFBDBE80035A543 /* ZBTextView.m in Sources */,
 				77F219A51CDDF2F3008778B0 /* ZBDropDownMenu.m in Sources */,
+				77A13BB21D1BE8C700FC8AF6 /* FMDatabaseQueue.m in Sources */,
 				7710612F1CE2005C0024A5EE /* ZBTabBar.m in Sources */,
 				772606881CD98B8D00B88239 /* UIView+Frame.m in Sources */,
 				77C13EA71CE5834B00DA7563 /* ZBAccount.m in Sources */,
 				7752015F1D012475004683DA /* ZBEmotionTextView.m in Sources */,
 				77C57D951CEDC95A00092174 /* ZBStatusCell.m in Sources */,
 				77B4E4481CEAD30C005DC1B5 /* ZBUser.m in Sources */,
+				77A13BB11D1BE8C700FC8AF6 /* FMDatabasePool.m in Sources */,
 				776177731CD8C18600F5FE03 /* ZBTabBarController.m in Sources */,
 				7752015C1D0055CC004683DA /* ZBEmotionButton.m in Sources */,
 			);

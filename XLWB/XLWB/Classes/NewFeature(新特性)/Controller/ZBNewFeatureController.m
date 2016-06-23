@@ -19,7 +19,7 @@
 @implementation ZBNewFeatureController
 
 - (void)viewDidLoad {
-    
+    [super viewDidLoad];
     // 1.创建一个scrollView 存储并显示所有的新特性图片
     UIScrollView *scrollView = [[UIScrollView alloc] init];
     // 设置scrollView的尺寸和当前控制器的尺寸一样大。即充满这个屏幕

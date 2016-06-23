@@ -100,7 +100,7 @@ NSLog(@"%@",self.scrollView.subviews);
         }else{// 这一页足够20个，length就为remainsCount
             range.length = remainsCount;
         }
-        // 封装HWEmotionPageView类来设置这一页的表情
+        // 封装ZBEmotionPageView类来设置这一页的表情
         // 等号右侧的emotions是 99/80/40这三个表情数量中的一个，然后调用subarrayWithRange方法，将range中的location和length传递进去，从location的位置上截取length个表情(20或不足20)，并存进ZBEmotionPageView的emotions数组中，而且还调用emotions的setter方法来显示这20个表情或不足20个表情到当前页上。注意:是当前页哦，因为这句代码是在for循环中执行的。
         pageView.emotions = [emotions subarrayWithRange:range];
         pageView.backgroundColor = ZBRandomColor;

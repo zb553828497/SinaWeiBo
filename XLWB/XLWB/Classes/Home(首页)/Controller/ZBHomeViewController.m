@@ -21,6 +21,7 @@
 #import "ZBLoadMoreFooter.h"
 #import "ZBStatusCell.h"
 #import "ZBStatusFrame.h"
+#import "ZBStatusTool.h"
 
 #import <AFNetworking/AFNetworking.h>// 向服务器请求数据
 
@@ -150,6 +151,18 @@ self.tableView.backgroundColor = ZBColor(211, 211, 211);
     /*
      URL:   https://api.weibo.com/2/statuses/friends_timeline.json
      
+     
+     请求字段:
+     access_token               true        string  采用OAuth授权方式为必填参数,OAuth授权后获得。
+     since_id                   false       int64   若指定此参数,则返回ID比since_id大的微博(即比since_id时 间晚的微博),默认为0。
+     max_id                     false       int64   若指定此参数,则返回ID小于或等于max_id的微博,默认为0。
+     count                      false       int     单页返回的记录条数,最大不超过100,默认为20。
+     page                       false       int     返回结果的页码,默认为1。
+     base_app                   false       int     是否只获取当前应用的数据。0为否(所有数据),1为是(仅当 前应用),默认为0。
+     feature                    false       int     过滤类型ID,0:全部、1:原创、2:图片、3:视频、4:音 乐,默认为0。
+     trim_user                  false       int     返回值中user字段开关,0:返回完整user字段、1:user字段仅 返回user_id,默认为0。
+     
+     
      返回字段:
      
      created_at                 string               微博创建时间
@@ -190,38 +203,48 @@ self.tableView.backgroundColor = ZBColor(211, 211, 211);
     params[@"access_token"] = account.access_token;
     
     // 取出最前面(时间最新，ID最大)的微博
+  
     ZBStatusFrame *firstStatus = [self.statusesFrames firstObject];// 注意
     
     //判断firstStatus是否有数据,必须得判断,因为如果没有数据,firstStatus.idstr就为空,给since_id赋空值,程序被崩掉
     // 如果判断不满足，则向下执行，把responseObject中的数据显示在cell上。如果满足,则把最新的微博插入到最前面
+    // 此次运行程序,但没有向服务器发送请求时,firstStatus就为nil,那么当发送请求时，请求参数params中就没有since_id，只有access_token参数，所以服务器设计人员规定这种情况用户只能获取到20个数据，如果想要获取到比最新的微博，必须指定since_id参数，当然如果想要获取更多数据(很久以前的数据)，只需要将since_id参数替换为max_id参数即可。
+    // 因为我们进行判断statuses.count是否为空，所以如果之前有数据存进了数据库中，此次运行程序statuses.count不为空，所以不需要向服务器发送请求就可以加载之前存储的数据，满足了if，就不执行else来请求数据了，
+    // 但是当手动下拉时，说明之前的数据已经显示出来了，所以firstStatus就不为空，因此请求参数肯定有since_id
+    // 就会跳转到ZBStatusTool工具类，满足判断条件params[@"since_id"],但是不满足sql语句的idstr >params[@"since_id"],因为idstr最大的编号才等于params[@"since_id"]，所以没有大于params[@"since_id"]的情况，所以执行sql语句查询到的结果为NULL，所以返回NULL为外界，外界就不会满足if中的内容，就会执行else中的内容向新浪服务器请求数据，请求成功之后，立刻将请求过来的数据插入到数据库中，注意：之前数据库中的数据也不会被覆盖，因为只是插入到数据库中。
+    // 手动上拉，原理一样
     if (firstStatus != nil) {
         // 若指定此参数(since_id)，则只返回ID比since_id大的微博（即比since_id时间晚的微博），默认为0.
         // 因为上面的代码中,firstStatus是ID最大的微博，又把firstStatus.idstr赋值给了since_id，又因为指定了since_id，则只返回ID比since_id大的微博，所以就保证了不会把之前显示的微博内容再次返回给用户(之前显示的微博内容对应的ID肯定比firstStatus小，因为最前面的微博,ID就是最大的)。这个就是since_id的作用，我们不需要问为什么,底层开发人员就是这么设计的
+        
+        // 服务器就是根据你输入的请求参数来返回给你不同的数据。因为没有写max_id参数，所以我们不会拿到ID小于或等于max_id的微博
         params[@"since_id"] = firstStatus.status.idstr;
     }
-    
-    // 3.发送请求
-    [mgr GET:@"https://api.weibo.com/2/statuses/friends_timeline.json" parameters:params success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        // 取得 “微博字典”数组
-        // statuses 是服务器返回的responseObject(响应体)中的key，这个key可不能随便写，否则找不到value哦
-        // responseObject[@"statuses"]的整体含义:根据key得到的value
-        NSArray *dictArray = responseObject[@"statuses"];
-        //ZBLog(@"%@",responseObject);
+     // 定义并初始化一个block,用于处理返回的字典数据
+    // 之所以增加NSNumber类型的参数是因为新浪服务器特殊，写入plist文件必须得有total_number，但是我们把写入plist的代码写在了block中，所以我们必须在block中拿到新浪服务器返回的total_number，所以必须得将total_number作为参数传递到block中
+    void(^dealingResult)(NSArray *,NSNumber *) = ^(NSArray *statuses,NSNumber *number){
+        
+        // ZBLog(@"%@",responseObject);
         // 将字典数组转为模型数组
         // 这句代码之后，新浪微博服务器返回的数据存到了ZBStatus模型类的对应的各个属性中
-        NSArray *newStatuses = [ZBStatus mj_objectArrayWithKeyValuesArray:dictArray];
+        NSArray *newStatuses = [ZBStatus mj_objectArrayWithKeyValuesArray:statuses];
+        NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+        dict[@"statuses"] = [ZBStatus mj_keyValuesArrayWithObjectArray:newStatuses];
+        dict[@"total_number"] = number;
+        // 每次下拉刷新都会将新文博写入到a.plist中
+        [dict writeToFile:@"/Users/zhangbin/Desktop/精华Demo/dd.plist" atomically:YES];
         
         // newFrames数组拿到等号右侧返回过来的newStatuses数组。
         // 抽出来stausFramesWithStatuses，具体怎么执行，在stausFramesWithStatuses方法中
         
-       // 等号右边返回过来的已经计算好控件的frames 赋值给等号左边的newFrames,然后添加到statusesFrames数组的里面
-   
-    /*
-    newFrames里面既有数据，又有frame(位置+尺寸)。
-    1.newStatuses的数据是把新浪服务器的数据利用MJ字典转模型得到的,赋值给newFrames,所以newFrames里面也有数据
-    2.newStatuses作为statusFrameWithStatuses方法的参数，在方法里面计算数据的frame(尺寸+位置)，然后赋值给newFrames,所以newFrames里面有数据的frame(尺寸和位置）
-    */
-         NSArray *newFrames = [self statusFrameWithStatuses:newStatuses];
+        // 等号右边返回过来的已经计算好控件的frames 赋值给等号左边的newFrames,然后添加到statusesFrames数组的里面
+        
+        /*
+         newFrames里面既有数据，又有frame(位置+尺寸)。
+         1.newStatuses的数据是把新浪服务器的数据利用MJ字典转模型得到的,赋值给newFrames,所以newFrames里面也有数据
+         2.newStatuses作为statusFrameWithStatuses方法的参数，在方法里面计算数据的frame(尺寸+位置)，然后赋值给newFrames,所以newFrames里面有数据的frame(尺寸和位置）
+         */
+        NSArray *newFrames = [self statusFrameWithStatuses:newStatuses];
         
         // 将最新的微博数据，添加到总数组的最前面
         // NSMakeRange的第一个参数:将最新返回的newStatuses插入到大数组的第0个元素的位置，就是最前面的位置
@@ -240,9 +263,27 @@ self.tableView.backgroundColor = ZBColor(211, 211, 211);
         
         // 显示最新微博的数量
         [self showNewStatusCount:newStatuses.count];
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+
+    };
+    // 2.下拉刷新时,根据since_id这个请求参数(没有max_id哦)，找到存储在沙盒中的数据库,从数据库中加载微博数据
+    NSArray *statuses  = [ZBStatusTool LoadingStatusWithParams:params];
+    if (statuses.count != nil) {// 数据库有缓存数据
+        dealingResult(statuses,@20);// 20是随便写的，为的是写入plist不能少了这个
+    }else{// 数据库没有缓存数据,就从新浪服务器拿到微博数据，然后加载微博数据
+    // 3.发送请求
+    [mgr GET:@"https://api.weibo.com/2/statuses/friends_timeline.json" parameters:params success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        // 取得 “微博字典”数组
+        // statuses 是服务器返回的responseObject(响应体)中的key，这个key可不能随便写，否则找不到value哦
+        // responseObject[@"statuses"]的整体含义:responseObject是个字典，根据字典中的 statuses这个key得到value。 另外statuses不仅是responseObject字典的key，而且statuses自身也是个数组，所以value就是数组中的各个元素
+        // 虽然打印返回的数据没有找到statuses，没有的原因是被新浪服务器屏蔽掉了，真实是存在这个statuses的。
+        [ZBStatusTool SaveStatuses:responseObject[@"statuses"]];
+        dealingResult(responseObject[@"statuses"],responseObject[@"total_number"]);
+        
+          } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         [control endRefreshing];
     }];
+     
+    }
     
 }
 
@@ -278,14 +319,23 @@ self.tableView.backgroundColor = ZBColor(211, 211, 211);
         // 若指定此参数，则返回ID小于或等于max_id的微博，默认为0。
         // id这种数据一般都是比较大的，一般转成整数的话，最好是long long类型
         long long maxId = lastStatusFrame.status.idstr.longLongValue - 1;
+        // 服务器就是根据你输入的请求参数来返回给你不同的数据。因为没有写since_id参数，所以我们不会拿到ID比since_id大的微博
         params[@"max_id"] = @(maxId);
     }
-    // 3.发送请求
-    [mgr GET:@"https://api.weibo.com/2/statuses/friends_timeline.json" parameters:params success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-            // 将字典数组转为模型数组
-        NSArray *newStatuses = [ZBStatus mj_objectArrayWithKeyValuesArray:responseObject[@"statuses"]];
+    
+    void(^dealingResult)(NSArray *,NSNumber *) = ^(NSArray *statuses,NSNumber *number){
+        
+        // 将字典数组转为模型数组.
+        // 取出responseObject字典中的statuses这个key对应的value。并且这个statuses是一个数组，虽然打印返回的数据没有statuses，没有的原因是被新浪服务器屏蔽掉了，真实是存在这个statuses的。
+        // 这个statuses不能乱写,如果改成别的,我们加载不了新数据,写入成功的plist文件没有20个模型数据。
+        NSArray *newStatuses = [ZBStatus mj_objectArrayWithKeyValuesArray:statuses];
         
         NSArray *newFrames = [self statusFrameWithStatuses:newStatuses];
+        NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+        dict[@"statuses"] = [ZBStatus mj_keyValuesArrayWithObjectArray:newStatuses];
+        dict[@"total_number"] = number;
+        // 每次上拉刷新都会覆盖掉之前的20条微博，取而代之的是将这次请求过来的20条微博放到b.plist文件中
+        [dict writeToFile:@"/Users/zhangbin/Desktop/精华Demo/cc.plist" atomically:YES];
         
         // 将更多的微博数据，添加到总数组的最后面
         [self.statusesFrames addObjectsFromArray:newFrames];
@@ -295,10 +345,28 @@ self.tableView.backgroundColor = ZBColor(211, 211, 211);
         
         // 结束刷新(隐藏tabBar)
         self.tableView.tableFooterView.hidden = YES;
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        
+    };
+    // 3.上拉刷新时,根据max_id这个请求参数(没有since_id哦)，找到存储在沙盒中的数据库,从数据库中加载微博数据
+    NSArray *statuses = [ZBStatusTool LoadingStatusWithParams:params];
+    if(statuses.count != nil){
+        // 调用block
+        dealingResult(statuses,@20);
+    }else{// 从新浪服务器拿到微博数据，然后加载微博数据
+    // 4.发送请求
+    [mgr GET:@"https://api.weibo.com/2/statuses/friends_timeline.json" parameters:params success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        // ZBLog(@"%@",responseObject);
+        // 缓存新浪返回的字典数组
+        [ZBStatusTool SaveStatuses:responseObject[@"statuses"]];
+        // 调用block
+        dealingResult(responseObject[@"statuses"],responseObject[@"total_number"]);
+        
+           } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         // 结束刷新
         self.tableView.tableFooterView.hidden = YES;
     }];
+    
+    }
 
 }
 

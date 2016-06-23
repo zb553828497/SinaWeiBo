@@ -117,7 +117,7 @@
     for (int i = 0; i< count; i++) {
         ZBEmotionButton *btn = [[ZBEmotionButton alloc] init];
         // 设置表情数据,将emotions数组中的每一个表情赋值给模型emotion
-        // 封装思想将表情图片显示在自定义的HWEmotionButton按钮中，只给外界提供一个emotion接口。
+        // 封装思想将表情图片显示在自定义的ZBEmotionButton按钮中，只给外界提供一个emotion接口。
         // 一个表情模型绑定一个按钮。例如emotions[2]，第三个表情绑定了点击的第三个按钮
         btn.emotion = emotions[i];
         // 将按钮中存储的表情添加到当前类中
@@ -172,7 +172,7 @@
     
     // 给popView传递数据(传递一个表情)
     // 1.调用popView的懒加载方法，在懒加载方法中显示xib中的放大镜控件
-    // 2.调用HWEmotionPopView类的setEmotion方法，并将等号右边的代码作为参数传递进去
+    // 2.调用ZBEmotionPopView类的setEmotion方法，并将等号右边的代码作为参数传递进去
     // 3.因为btn.emotion = emotions[i];，所以下面代码等号右边的btn.emotion就是emotions[i],而emotions[i]中存储着20个表情或不足20个表情，因为btnClick:是点击每一个按钮才会调用的，所以emotions[i]中的i每次只能为一个数字，也就是说只能为一个表情，所以步骤2中，参数就是一个表情，所以跳转至ZBEmotionPopView时，传进去一个表情
     self.popView.emotion = btn.emotion; // 根据setEmotions:方法可知bt.emotion等价emotions[i]
      // 取得最上面的window
